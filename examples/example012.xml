@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <shape>horizontal-banner</shape>
+    <background>
+        <division type="quarterly">
+            <part position="1,3">
+                <background>
+                    <variation type="chequy" firstTincture="argent" secondTincture="sable"/>
+                </background>
+            </part>
+            <part position="2,4">
+                <background>
+                    <field tincture="gules"/>
+                </background>
+            </part>
+        </division>
+    </background>
+</coatOfArms>

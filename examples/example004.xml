@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <title>Coat of Arms of the Rhône-Alpes region of France</title>
+    <shape>heater-shield</shape>
+    <background>
+        <division type="pale">
+            <part position="1">
+                <background>
+                    <field tincture="or"/>
+                </background>
+                <charges>
+                    <mobile figure="fish" attitude="rampant"/>
+                </charges>
+            </part>
+            <part position="2">
+                <background>
+                    <field tincture="gules"/>
+                </background>
+                <charges>
+                    <mobile figure="lion" attitude="rampant"/>
+                </charges>
+            </part>
+        </division>
+    </background>
+    <charges>
+        <ordinary type="chief" tincture="azure">
+            <charges>
+                <repeat number="5">
+                    <mobile tincture="or" figure="fleur-de-lis"/>
+                </repeat>
+            </charges>
+        </ordinary>
+        <inescutcheon position="nombril" shape="heater-shield">
+            <background>
+                <field tincture="gules"/>
+            </background>
+            <charges>
+                <ordinary type="cross" tincture="argent"/>
+                <ordinary type="bend" tincture="argent"/>
+            </charges>
+        </inescutcheon>
+    </charges>
+</coatOfArms>

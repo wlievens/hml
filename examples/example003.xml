@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <blazon>Quarterly Argent and Gules fretty or, overall a bendlet sable</blazon>
+    <shape>heater-shield</shape>
+    <background>
+        <division type="quarterly">
+            <part position="1,3">
+                <background>
+                    <field tincture="argent"/>
+                </background>
+            </part>
+            <part position="2,4">
+                <background>
+                    <variation type="fretty" firstTincture="gules" secondTincture="or"/>
+                </background>
+            </part>
+        </division>
+    </background>
+    <charges>
+        <ordinary type="bendlet" tincture="sable"/>
+    </charges>
+</coatOfArms>
