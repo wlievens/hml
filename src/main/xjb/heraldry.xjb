@@ -1,0 +1,25 @@
+<jxb:bindings version="1.0"
+  xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+  xmlns:annox="http://annox.dev.java.net"
+  jxb:extensionBindingPrefixes="xjc">
+
+    <jxb:bindings schemaLocation="../resources/xsd/heraldry.xsd" node="/xs:schema">
+        <jxb:schemaBindings>
+            <jxb:nameXmlTransform>
+            	<jxb:typeName prefix="Xml"/>
+            	<jxb:anonymousTypeName prefix="Xml"/>
+            </jxb:nameXmlTransform>
+        </jxb:schemaBindings>
+        <jxb:bindings node="/xs:schema/xs:complexType[@name='Charges']/xs:choice">
+            <jxb:property name="Charges"/>
+        </jxb:bindings>
+        <jxb:bindings node="xs:complexType[@name='Heraldry']">
+            <annox:annotate>
+                <annox:annotate annox:class="javax.xml.bind.annotation.XmlRootElement" name="SomeRootType"/>
+            </annox:annotate>
+        </jxb:bindings>
+    </jxb:bindings>
+
+</jxb:bindings>

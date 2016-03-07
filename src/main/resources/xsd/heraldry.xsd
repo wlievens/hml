@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           xmlns="http://github.com/wlievens/heraldry"
+           targetNamespace="http://github.com/wlievens/heraldry">
+
+    <xs:element name="coatOfArms" type="CoatOfArms"/>
+
+    <xs:simpleType name="IntegerList">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(\d+)(,(\d)+)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Attitude">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="passant"/>
+            <xs:enumeration value="rampant"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Line">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="dovetailed"/>
+            <xs:enumeration value="embattled"/>
+            <xs:enumeration value="engrailed"/>
+            <xs:enumeration value="indented"/>
+            <xs:enumeration value="invected"/>
+            <xs:enumeration value="nebuly"/>
+            <xs:enumeration value="plain"/>
+            <xs:enumeration value="wavy"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Division">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="chief"/>
+            <xs:enumeration value="pale"/>
+            <xs:enumeration value="quarterly"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Ordinary">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="bar"/>
+            <xs:enumeration value="bend"/>
+            <xs:enumeration value="bend-sinister"/>
+            <xs:enumeration value="bendlet"/>
+            <xs:enumeration value="bendlet-sinister"/>
+            <xs:enumeration value="bordure"/>
+            <xs:enumeration value="canton"/>
+            <xs:enumeration value="chevron"/>
+            <xs:enumeration value="chief"/>
+            <xs:enumeration value="cross"/>
+            <xs:enumeration value="fess"/>
+            <xs:enumeration value="fret"/>
+            <xs:enumeration value="orle"/>
+            <xs:enumeration value="pale"/>
+            <xs:enumeration value="quarter"/>
+            <xs:enumeration value="tressure"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Position">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="chief-dexter"/>
+            <xs:enumeration value="chief-middle"/>
+            <xs:enumeration value="chief-sinister"/>
+            <xs:enumeration value="fess"/>
+            <xs:enumeration value="honour"/>
+            <xs:enumeration value="nombril"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Shape">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="heater-shield"/>
+            <xs:enumeration value="horizontal-banner"/>
+            <xs:enumeration value="vertical-banner"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Tincture">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="argent"/>
+            <xs:enumeration value="azure"/>
+            <xs:enumeration value="gules"/>
+            <xs:enumeration value="or"/>
+            <xs:enumeration value="purpure"/>
+            <xs:enumeration value="sable"/>
+            <xs:enumeration value="vert"/>
+            <xs:enumeration value="ermine"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Variation">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="barry"/>
+            <xs:enumeration value="bendy"/>
+            <xs:enumeration value="bendy-sinister"/>
+            <xs:enumeration value="chequy"/>
+            <xs:enumeration value="chevronny"/>
+            <xs:enumeration value="fretty"/>
+            <xs:enumeration value="gyronny"/>
+            <xs:enumeration value="lozengy"/>
+            <xs:enumeration value="paly"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="BackgroundContainer">
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element type="FieldBackground" name="field"/>
+            <xs:element type="VariationBackground" name="variation"/>
+            <xs:element type="DivisionBackground" name="division"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="Background">
+    </xs:complexType>
+    <xs:complexType name="FieldBackground">
+        <xs:complexContent>
+            <xs:extension base="Background">
+                <xs:attribute type="Tincture" name="tincture" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Charges">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element type="RepeatCharge" name="repeat" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="Charge">
+    </xs:complexType>
+    <xs:complexType name="MobileCharge">
+        <xs:complexContent>
+            <xs:extension base="Charge">
+                <xs:attribute type="xs:string" name="figure" use="required"/>
+                <xs:attribute type="xs:string" name="attitude" use="optional"/>
+                <xs:attribute type="Tincture" name="tincture" use="optional"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="OrdinaryCharge">
+        <xs:complexContent>
+            <xs:extension base="Charge">
+                <xs:sequence>
+                    <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute type="Ordinary" name="type" use="required"/>
+                <xs:attribute type="Tincture" name="tincture" use="required"/>
+                <xs:attribute type="Line" name="line" use="optional"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="RepeatCharge">
+        <xs:complexContent>
+            <xs:extension base="Charge">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
+                </xs:choice>
+                <xs:attribute type="xs:int" name="number" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="VariationBackground">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="Variation" name="type" use="required"/>
+                <xs:attribute type="Tincture" name="firstTincture" use="required"/>
+                <xs:attribute type="Tincture" name="secondTincture" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="DivisionBackground">
+        <xs:complexContent>
+            <xs:extension base="Background">
+                <xs:sequence>
+                    <xs:element type="Part" name="part" maxOccurs="unbounded" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute type="Division" name="type" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="Part">
+        <xs:sequence>
+            <xs:element type="BackgroundContainer" name="background" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute type="IntegerList" name="position" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="InescutcheonCharge">
+        <xs:complexContent>
+            <xs:extension base="Charge">
+                <xs:sequence>
+                    <xs:element type="BackgroundContainer" name="background" minOccurs="1" maxOccurs="1"/>
+                    <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="shape" type="Shape" use="required"/>
+                <xs:attribute name="position" type="Position" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="CoatOfArms">
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="xs:string" name="blazon" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="Shape" name="shape" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="BackgroundContainer" name="background" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
