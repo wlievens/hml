@@ -34,3 +34,7 @@ The following fragment of XML code:
 Can be turned into the following image:
 
 ![Shield with Coat of Arms](https://cdn.rawgit.com/wlievens/hml/master/examples/output/example018.svg)
+
+As well as generate the following description in blazon:
+
+*Quarterly or and argent a fret gules*
