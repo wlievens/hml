@@ -1,7 +1,7 @@
 # Heraldic Markup Language
 
 This project attempts to define an XML schema for describing heraldic *coats of arms*. The first focus is on detailing
-and rendering the escutcheon (the shield), in later stages this may be expanded to descriptions of the rest of the
+and rendering the *escutcheon* (the shield), in later stages this may be expanded to descriptions of the rest of the
 heraldic *achievement*.
 
 ## Example
@@ -38,3 +38,5 @@ Can be turned into the following image:
 As well as generate the following description in blazon:
 
 *Quarterly or and argent a fret gules*
+
+And yes, I am aware this example shield violates the first rule of tincture...
