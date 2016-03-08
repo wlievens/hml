@@ -9,7 +9,7 @@
                     <field tincture="argent"/>
                 </background>
                 <charges>
-                    <ordinary type="bend" tincture="azure" line="plain"/>
+                    <ordinary type="bend" tincture="azure" line="nebuly"/>
                 </charges>
             </part>
             <part position="2">
@@ -17,7 +17,7 @@
                     <field tincture="sable"/>
                 </background>
                 <charges>
-                    <ordinary type="bend" tincture="or" line="wavy"/>
+                    <ordinary type="bend" tincture="or" line="invected"/>
                 </charges>
             </part>
             <part position="3">
@@ -25,7 +25,7 @@
                     <field tincture="argent"/>
                 </background>
                 <charges>
-                    <ordinary type="bend" tincture="vert" line="indented"/>
+                    <ordinary type="bend" tincture="vert" line="wavy"/>
                 </charges>
             </part>
             <part position="4">

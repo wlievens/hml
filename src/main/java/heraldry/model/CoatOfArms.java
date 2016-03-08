@@ -115,9 +115,9 @@ public class CoatOfArms
                 }
 
                 @Override
-                public double getLinePeriod()
+                public double getLinePeriodFactor()
                 {
-                    return 0.15 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+                    return 0.125;
                 }
             };
             List<RenderShape> paths = new ArrayList<>();

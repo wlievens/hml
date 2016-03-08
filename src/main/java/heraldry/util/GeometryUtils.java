@@ -135,6 +135,15 @@ public class GeometryUtils
                 }
                 path.lineTo(line.getX2(), line.getY2());
             }
+            else if (step instanceof QuadraticPathStep)
+            {
+                QuadraticPathStep quadratic = (QuadraticPathStep)step;
+                if (index == 0)
+                {
+                    path.moveTo(quadratic.getX1(), quadratic.getY1());
+                }
+                path.quadTo(quadratic.getX2(), quadratic.getY2(), quadratic.getX3(), quadratic.getY3());
+            }
             else if (step instanceof CubicPathStep)
             {
                 CubicPathStep cubic = (CubicPathStep)step;

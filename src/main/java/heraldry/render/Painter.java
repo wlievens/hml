@@ -20,5 +20,5 @@ public interface Painter
 
     double getFretSizeStep();
 
-    double getLinePeriod();
+    double getLinePeriodFactor();
 }
