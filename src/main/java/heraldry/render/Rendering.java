@@ -101,30 +101,44 @@ public final class Rendering
         {
             if (step instanceof LinePathStep)
             {
-                LinePathStep lineStep = (LinePathStep)step;
+                LinePathStep line = (LinePathStep)step;
                 if (builder.length() == 0)
                 {
                     builder.append(String.format("M %s,%s ",
-                            offsetX + lineStep.getX1(), offsetY + lineStep.getY1()
+                            offsetX + line.getX1(), offsetY + line.getY1()
                     ));
                 }
                 builder.append(String.format("L %s,%s ",
-                        offsetX + lineStep.getX2(), offsetY + lineStep.getY2()
+                        offsetX + line.getX2(), offsetY + line.getY2()
+                ));
+            }
+            else if (step instanceof QuadraticPathStep)
+            {
+                QuadraticPathStep quadratic = (QuadraticPathStep)step;
+                if (builder.length() == 0)
+                {
+                    builder.append(String.format("M %s,%s ",
+                            offsetX + quadratic.getX1(), offsetY + quadratic.getY1()
+                    ));
+                }
+                builder.append(String.format("Q %s,%s %s,%s ",
+                        offsetX + quadratic.getX2(), offsetY + quadratic.getY2(),
+                        offsetX + quadratic.getX3(), offsetY + quadratic.getY3()
                 ));
             }
             else if (step instanceof CubicPathStep)
             {
-                CubicPathStep cubicStep = (CubicPathStep)step;
+                CubicPathStep cubic = (CubicPathStep)step;
                 if (builder.length() == 0)
                 {
                     builder.append(String.format("M %s,%s ",
-                            offsetX + cubicStep.getX1(), offsetY + cubicStep.getY1()
+                            offsetX + cubic.getX1(), offsetY + cubic.getY1()
                     ));
                 }
                 builder.append(String.format("C %s,%s %s,%s %s,%s ",
-                        offsetX + cubicStep.getX2(), offsetY + cubicStep.getY2(),
-                        offsetX + cubicStep.getX3(), offsetY + cubicStep.getY3(),
-                        offsetX + cubicStep.getX4(), offsetY + cubicStep.getY4()
+                        offsetX + cubic.getX2(), offsetY + cubic.getY2(),
+                        offsetX + cubic.getX3(), offsetY + cubic.getY3(),
+                        offsetX + cubic.getX4(), offsetY + cubic.getY4()
                 ));
             }
             else

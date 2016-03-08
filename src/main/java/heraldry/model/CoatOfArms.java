@@ -113,6 +113,12 @@ public class CoatOfArms
                 {
                     return 0.05 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
                 }
+
+                @Override
+                public double getLinePeriod()
+                {
+                    return 0.15 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+                }
             };
             List<RenderShape> paths = new ArrayList<>();
             paths.addAll(model.render(contour, painter));

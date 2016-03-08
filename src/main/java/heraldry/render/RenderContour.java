@@ -7,6 +7,7 @@ import lombok.ToString;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -47,6 +48,10 @@ public final class RenderContour
 
     public List<RenderShape> clip(RenderShape shape)
     {
+        if (true)
+        {
+            return Collections.singletonList(shape);
+        }
         return GeometryUtils.clip(shape, this);
     }
 }

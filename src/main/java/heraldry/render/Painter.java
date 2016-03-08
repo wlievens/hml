@@ -19,4 +19,6 @@ public interface Painter
     double getFretMargin();
 
     double getFretSizeStep();
+
+    double getLinePeriod();
 }
