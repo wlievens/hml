@@ -54,6 +54,7 @@
             <xs:enumeration value="orle"/>
             <xs:enumeration value="pale"/>
             <xs:enumeration value="quarter"/>
+            <xs:enumeration value="saltire"/>
             <xs:enumeration value="tressure"/>
         </xs:restriction>
     </xs:simpleType>

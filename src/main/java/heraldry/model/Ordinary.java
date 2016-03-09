@@ -21,6 +21,7 @@ public enum Ordinary
     FESS(null),
     FRET(new FretOrdinaryRenderer()),
     ORLE(null),
+    SALTIRE(new SaltireOrdinaryRenderer()),
     PALE(null),
     QUARTER(null),
     TRESSURE(null);
