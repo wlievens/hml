@@ -264,7 +264,7 @@ public class CoatOfArmsReader
                     .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
                     .findAny()
                     .get()
-                    .invoke(null, name.toUpperCase());
+                    .invoke(null, name.toUpperCase().replace("-", "_"));
         }
         catch (IllegalAccessException e)
         {

@@ -8,6 +8,6 @@
         <field tincture="or"/>
     </background>
     <charges>
-        <ordinary type="bend" tincture="azure" line="indented"/>
+        <ordinary type="bend" tincture="azure" line="plain"/>
     </charges>
 </coatOfArms>
