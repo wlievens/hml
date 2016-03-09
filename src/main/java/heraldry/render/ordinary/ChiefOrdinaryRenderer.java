@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class ChiefOrdinaryRenderer extends AbstractOrdinaryRenderer
+public class ChiefOrdinaryRenderer implements OrdinaryRenderer
 {
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)

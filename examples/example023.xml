@@ -6,22 +6,22 @@
         <division type="quarterly">
             <part position="1">
                 <background>
-                    <variation type="barry" firstTincture="or" secondTincture="vert"/>
+                    <variation type="barry" firstTincture="azure" secondTincture="vert"/>
                 </background>
             </part>
             <part position="2">
                 <background>
-                    <variation type="paly" firstTincture="or" secondTincture="vert"/>
+                    <variation type="paly" firstTincture="argent" secondTincture="purpure"/>
                 </background>
             </part>
             <part position="3">
                 <background>
-                    <field tincture="sable"/>
+                    <variation type="chevronny" firstTincture="or" secondTincture="vert"/>
                 </background>
             </part>
             <part position="4">
                 <background>
-                    <field tincture="sable"/>
+                    <variation type="chevronny-inverted" firstTincture="sable" secondTincture="gules"/>
                 </background>
             </part>
         </division>

@@ -20,6 +20,7 @@ public class VariationBackground extends Background
     private final Variation variation;
     private final Tincture firstTincture;
     private final Tincture secondTincture;
+    private final Line line;
 
     @Override
     public String generateBlazon(BlazonContext context)
@@ -41,6 +42,6 @@ public class VariationBackground extends Background
         {
             throw new IllegalStateException(String.format("No renderer implemented for variation '%s'", variation));
         }
-        return renderer.render(contour, firstTincture, secondTincture, painter);
+        return renderer.render(contour, firstTincture, secondTincture, line, painter);
     }
 }

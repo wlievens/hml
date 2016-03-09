@@ -2,6 +2,7 @@ package heraldry.model;
 
 import heraldry.render.variation.BarryVariationRenderer;
 import heraldry.render.variation.ChequyVariationRenderer;
+import heraldry.render.variation.ChevronnyVariationRenderer;
 import heraldry.render.variation.FrettyVariationRenderer;
 import heraldry.render.variation.LozengyVariationRenderer;
 import heraldry.render.variation.PalyVariationRenderer;
@@ -16,7 +17,8 @@ public enum Variation
     BENDY(null),
     BENDY_SINISTER(null),
     CHEQUY(new ChequyVariationRenderer()),
-    CHEVRONNY(null),
+    CHEVRONNY(new ChevronnyVariationRenderer(false)),
+    CHEVRONNY_INVERTED(new ChevronnyVariationRenderer(true)),
     FRETTY(new FrettyVariationRenderer()),
     GYRONNY(null),
     LOZENGY(new LozengyVariationRenderer()),

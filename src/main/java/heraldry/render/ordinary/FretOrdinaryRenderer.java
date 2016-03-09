@@ -3,7 +3,6 @@ package heraldry.render.ordinary;
 import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
-import heraldry.render.Color;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderShape;
@@ -15,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FretOrdinaryRenderer extends AbstractOrdinaryRenderer
+public class FretOrdinaryRenderer implements OrdinaryRenderer
 {
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)

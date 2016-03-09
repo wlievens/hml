@@ -242,7 +242,8 @@ public class CoatOfArmsReader
         Variation variation = readVariation(element.getAttribute("type"));
         Tincture tincture1 = readTincture(element.getAttribute("firstTincture"));
         Tincture tincture2 = readTincture(element.getAttribute("secondTincture"));
-        return new VariationBackground(variation, tincture1, tincture2);
+        Line line = readLine(element.getAttribute("line"));
+        return new VariationBackground(variation, tincture1, tincture2,line);
     }
 
     private Variation readVariation(String name)

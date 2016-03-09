@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class BendOrdinaryRenderer extends AbstractOrdinaryRenderer
+public class BendOrdinaryRenderer implements OrdinaryRenderer
 {
     private final boolean flip;
     private final double sizeRatio;
@@ -33,9 +33,9 @@ public class BendOrdinaryRenderer extends AbstractOrdinaryRenderer
         double endY = y1 + size;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
-        plotLine(steps, startX, startY - step, endX, endY - step, line, period, flip);
+        LineRenderer.plotLine(steps, startX, startY - step, endX, endY - step, line, period, flip);
         steps.add(new LinePathStep(endX, endY - step, endX, endY + step));
-        plotLine(steps, endX, endY + step, startX, startY + step, line, period, flip);
+        LineRenderer.plotLine(steps, endX, endY + step, startX, startY + step, line, period, flip);
         steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
         return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
     }

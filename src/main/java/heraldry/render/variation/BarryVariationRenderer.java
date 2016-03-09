@@ -1,5 +1,6 @@
 package heraldry.render.variation;
 
+import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
 import heraldry.render.Painter;
@@ -15,7 +16,7 @@ import java.util.List;
 public class BarryVariationRenderer implements VariationRenderer
 {
     @Override
-    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Painter painter)
+    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();

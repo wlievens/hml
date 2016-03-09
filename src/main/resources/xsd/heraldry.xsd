@@ -94,6 +94,7 @@
             <xs:enumeration value="bendy-sinister"/>
             <xs:enumeration value="chequy"/>
             <xs:enumeration value="chevronny"/>
+            <xs:enumeration value="chevronny-inverted"/>
             <xs:enumeration value="fretty"/>
             <xs:enumeration value="gyronny"/>
             <xs:enumeration value="lozengy"/>

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ChevronOrdinaryRenderer extends AbstractOrdinaryRenderer
+public class ChevronOrdinaryRenderer implements OrdinaryRenderer
 {
     private final boolean flip;
     private final double sizeRatio;
@@ -33,23 +33,23 @@ public class ChevronOrdinaryRenderer extends AbstractOrdinaryRenderer
         {
             double midY = y1 + width / 2;
             steps.add(new LinePathStep(x1, y1, x1 + step, y1));
-            plotLine(steps, x1 + step, y1, midX, midY - step, line, period, flip);
-            plotLine(steps, midX, midY - step, x2 - step, y1, line, period, flip);
+            LineRenderer.plotLine(steps, x1 + step, y1, midX, midY - step, line, period, flip);
+            LineRenderer.plotLine(steps, midX, midY - step, x2 - step, y1, line, period, flip);
             steps.add(new LinePathStep(x2 - step, y1, x2, y1));
             steps.add(new LinePathStep(x2, y1, x2, y1 + step));
-            plotLine(steps, x2, y1 + step, midX, midY + step, line, period, flip);
-            plotLine(steps, midX, midY + step, x1, y1 + step, line, period, flip);
+            LineRenderer.plotLine(steps, x2, y1 + step, midX, midY + step, line, period, flip);
+            LineRenderer.plotLine(steps, midX, midY + step, x1, y1 + step, line, period, flip);
             steps.add(new LinePathStep(x1, y1 + step, x1, y1));
         }
         else
         {
             double midY = y2 - width / 2;
-            plotLine(steps, x1, y2 - step, midX, midY - step, line, period, flip);
-            plotLine(steps, midX, midY - step, x2, y2 - step, line, period, flip);
+            LineRenderer.plotLine(steps, x1, y2 - step, midX, midY - step, line, period, flip);
+            LineRenderer.plotLine(steps, midX, midY - step, x2, y2 - step, line, period, flip);
             steps.add(new LinePathStep(x2, y2 - step, x2, y2));
             steps.add(new LinePathStep(x2, y2, x2 - step, y2));
-            plotLine(steps, x2 - step, y2, midX, midY + step, line, period, flip);
-            plotLine(steps, midX, midY + step, x1 + step, y2, line, period, flip);
+            LineRenderer.plotLine(steps, x2 - step, y2, midX, midY + step, line, period, flip);
+            LineRenderer.plotLine(steps, midX, midY + step, x1 + step, y2, line, period, flip);
             steps.add(new LinePathStep(x1 + step, y2, x1, y2));
             steps.add(new LinePathStep(x1, y2, x1, y2 - step));
         }

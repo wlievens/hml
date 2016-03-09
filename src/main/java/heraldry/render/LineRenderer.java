@@ -1,17 +1,13 @@
-package heraldry.render.ordinary;
+package heraldry.render;
 
 import heraldry.model.Line;
-import heraldry.render.CubicPathStep;
-import heraldry.render.LinePathStep;
-import heraldry.render.PathStep;
-import heraldry.render.QuadraticPathStep;
 import heraldry.util.MathUtils;
 
 import java.util.List;
 
-public abstract class AbstractOrdinaryRenderer implements OrdinaryRenderer
+public class LineRenderer
 {
-    protected static void plotLine(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped)
+    public static void plotLine(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped)
     {
         double distance = MathUtils.distance(startX, startY, endX, endY);
         period = distance / Math.round(distance / period);
