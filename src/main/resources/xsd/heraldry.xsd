@@ -51,6 +51,7 @@
             <xs:enumeration value="cross"/>
             <xs:enumeration value="fess"/>
             <xs:enumeration value="fret"/>
+            <xs:enumeration value="gyron"/>
             <xs:enumeration value="orle"/>
             <xs:enumeration value="pale"/>
             <xs:enumeration value="pallet"/>
@@ -122,6 +123,7 @@
     <xs:complexType name="Charges">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:element type="RepeatCharge" name="repeat" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="SequenceCharge" name="sequence" minOccurs="0" maxOccurs="1"/>
             <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
             <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
             <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
@@ -159,6 +161,15 @@
                     <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
                 </xs:choice>
                 <xs:attribute type="xs:int" name="number" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SequenceCharge">
+        <xs:complexContent>
+            <xs:extension base="Charge">
+                <xs:sequence>
+                    <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

@@ -14,6 +14,7 @@ import heraldry.model.MobileCharge;
 import heraldry.model.Ordinary;
 import heraldry.model.OrdinaryCharge;
 import heraldry.model.RepeatCharge;
+import heraldry.model.SequenceCharge;
 import heraldry.model.Tincture;
 import heraldry.model.Variation;
 import heraldry.model.VariationBackground;
@@ -129,10 +130,12 @@ public class CoatOfArmsReader
                 return readOrdinaryCharge(element);
             case "repeat":
                 return readRepeatCharge(element);
-            case "inescutcheon":
-                return readInescutcheonCharge(element);
+            case "sequence":
+                return readSequenceCharge(element);
             case "mobile":
                 return readMobileCharge(element);
+            case "inescutcheon":
+                return readInescutcheonCharge(element);
             default:
                 throw new IllegalStateException(String.format("Undefined charge type '%s'", tag));
         }
@@ -148,7 +151,12 @@ public class CoatOfArmsReader
         Charge charge = readCharge(getChildElements(element).get(0));
         return new RepeatCharge(number, charge);
     }
-    
+
+    private SequenceCharge readSequenceCharge(Element element)
+    {
+        return new SequenceCharge(readCharges(getChildElement(element, "charges").get()));
+    }
+
     private InescutcheonCharge readInescutcheonCharge(Element element)
     {
         return new InescutcheonCharge(readChargedBackgroundModel(element));
@@ -243,7 +251,7 @@ public class CoatOfArmsReader
         Tincture tincture1 = readTincture(element.getAttribute("firstTincture"));
         Tincture tincture2 = readTincture(element.getAttribute("secondTincture"));
         Line line = readLine(element.getAttribute("line"));
-        return new VariationBackground(variation, tincture1, tincture2,line);
+        return new VariationBackground(variation, tincture1, tincture2, line);
     }
 
     private Variation readVariation(String name)

@@ -42,7 +42,6 @@ public class RepeatCharge extends Charge
         if (contour.isRectangle())
         {
             List<RenderShape> list = new ArrayList<>();
-
             double width = bounds.getWidth();
             double height = bounds.getHeight();
             if (width > height)
@@ -55,7 +54,6 @@ public class RepeatCharge extends Charge
                     list.addAll(charge.render(child, painter));
                 }
             }
-
             return list;
         }
 
