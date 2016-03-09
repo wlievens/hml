@@ -6,6 +6,7 @@ import heraldry.render.variation.ChevronnyVariationRenderer;
 import heraldry.render.variation.FrettyVariationRenderer;
 import heraldry.render.variation.LozengyVariationRenderer;
 import heraldry.render.variation.PalyVariationRenderer;
+import heraldry.render.variation.PappellonyVariationRenderer;
 import heraldry.render.variation.VariationRenderer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public enum Variation
     CHEVRONNY(new ChevronnyVariationRenderer(false)),
     CHEVRONNY_INVERTED(new ChevronnyVariationRenderer(true)),
     FRETTY(new FrettyVariationRenderer()),
+    PAPPELLONY(new PappellonyVariationRenderer()),
     GYRONNY(null),
     LOZENGY(new LozengyVariationRenderer()),
     PALY(new PalyVariationRenderer());

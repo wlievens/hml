@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <title>Arms of Baron de Châteaubriant</title>
+    <blazon>Gules papellony or</blazon>
+    <shape>heater-shield</shape>
+    <background>
+        <variation type="pappellony" firstTincture="gules" secondTincture="or"/>
+    </background>
+</coatOfArms>
