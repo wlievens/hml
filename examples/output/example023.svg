@@ -10,16 +10,14 @@
 </radialGradient>
 </defs>
 <g>
-<path d="M 8.0,8.0 L 8.0,28.0 L 108.0,28.0 L 108.0,8.0 L 8.0,8.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,28.0 L 8.0,48.0 L 108.0,48.0 L 108.0,28.0 L 8.0,28.0 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,48.0 L 8.0,68.0 L 108.0,68.0 L 108.0,48.0 L 8.0,48.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,68.0 L 8.0,88.0 L 108.0,88.0 L 108.0,68.0 L 8.0,68.0 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,88.0 L 8.0,108.0 L 108.0,108.0 L 108.0,88.0 L 8.0,88.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
-<path d="M 108.0,8.0 L 108.0,108.0 L 128.0,108.0 L 128.0,8.0 L 108.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 128.0,8.0 L 128.0,108.0 L 148.0,108.0 L 148.0,8.0 L 128.0,8.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>
-<path d="M 148.0,8.0 L 148.0,108.0 L 168.0,108.0 L 168.0,8.0 L 148.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 168.0,8.0 L 168.0,108.0 L 188.0,108.0 L 188.0,8.0 L 168.0,8.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>
-<path d="M 188.0,8.0 L 188.0,108.0 L 208.0,108.0 L 208.0,8.0 L 188.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,8.0 L 8.0,36.75 L 108.0,36.75 L 108.0,8.0 L 8.0,8.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,36.75 L 8.0,65.5 L 108.0,65.5 L 108.0,36.75 L 8.0,36.75 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,65.5 L 8.0,94.25 L 108.0,94.25 L 108.0,65.5 L 8.0,65.5 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,94.25 L 8.0,108.0 L 108.0,108.0 L 108.0,94.25 L 8.0,94.25 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
+<path d="M 108.0,8.0 L 108.0,108.0 L 136.75,108.0 L 136.75,8.0 L 108.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 136.75,8.0 L 136.75,108.0 L 165.5,108.0 L 165.5,8.0 L 136.75,8.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>
+<path d="M 165.5,8.0 L 165.5,108.0 L 194.25,108.0 L 194.25,8.0 L 165.5,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 194.25,8.0 L 194.25,108.0 L 208.0,108.0 L 208.0,8.0 L 194.25,8.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>
 <path d="M 108.0,108.0 L 108.0,238.0 C 168.0,208.0 208.0,158.0 208.0,108.0 L 108.0,108.0 Z" style="fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
 <path d="M 197.39340209960938,108.0 L 207.4644775390625,118.07107543945312 L 207.4644775390625,118.07107543945312 C 207.81947326660156,114.71809387207031 208.0,111.35904693603516 208.0,108.0 L 197.39340209960938,108.0 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
 <path d="M 108.0,108.0 L 108.0,118.60660552978516 L 118.60660552978516,108.0 L 197.39340209960938,108.0 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
