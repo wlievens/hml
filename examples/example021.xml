@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <shape>heater-shield</shape>
+    <background>
+        <division type="quarterly">
+            <part position="1">
+                <background>
+                    <field tincture="argent"/>
+                </background>
+                <charges>
+                    <ordinary type="chevron" tincture="azure" line="plain"/>
+                </charges>
+            </part>
+            <part position="2">
+                <background>
+                    <field tincture="sable"/>
+                </background>
+                <charges>
+                    <ordinary type="chevron" tincture="or" line="invected"/>
+                </charges>
+            </part>
+            <part position="3">
+                <background>
+                    <field tincture="argent"/>
+                </background>
+                <charges>
+                    <ordinary type="chevron-inverted" tincture="vert" line="indented"/>
+                </charges>
+            </part>
+            <part position="4">
+                <background>
+                    <field tincture="sable"/>
+                </background>
+                <charges>
+                    <ordinary type="chevron-inverted" tincture="gules" line="wavy"/>
+                </charges>
+            </part>
+        </division>
+    </background>
+</coatOfArms>
