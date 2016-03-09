@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 public enum Ordinary
 {
     BAR(null),
-    BEND(new BendOrdinaryRenderer(1.0)),
-    BEND_SINISTER(null),
-    BENDLET(new BendOrdinaryRenderer(0.5)),
-    BENDLET_SINISTER(null),
+    BEND(new BendOrdinaryRenderer(false, 1.0)),
+    BEND_SINISTER(new BendOrdinaryRenderer(true, 1.0)),
+    BENDLET(new BendOrdinaryRenderer(false, 0.5)),
+    BENDLET_SINISTER(new BendOrdinaryRenderer(true, 0.5)),
     BORDURE(null),
     CANTON(null),
     CHEVRON(null),
