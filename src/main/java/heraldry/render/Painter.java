@@ -12,7 +12,7 @@ public interface Painter
     
     Color getOuterBorderColor();
 
-    double getChequyPatternSize();
+    double getGridPatternSize();
 
     double getFrettyPatternSize();
 

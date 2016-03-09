@@ -91,7 +91,7 @@ public class CoatOfArms
                 }
 
                 @Override
-                public double getChequyPatternSize()
+                public double getGridPatternSize()
                 {
                     return 0.10 * contour.getBounds().getWidth();
                 }

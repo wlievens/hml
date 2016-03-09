@@ -2,6 +2,7 @@ package heraldry.model;
 
 import heraldry.render.variation.ChequyVariationRenderer;
 import heraldry.render.variation.FrettyVariationRenderer;
+import heraldry.render.variation.LozengyVariationRenderer;
 import heraldry.render.variation.VariationRenderer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public enum Variation
     CHEVRONNY(null),
     FRETTY(new FrettyVariationRenderer()),
     GYRONNY(null),
-    LOZENGY(null),
+    LOZENGY(new LozengyVariationRenderer()),
     PALY(null);
 
     @Getter

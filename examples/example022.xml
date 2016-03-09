@@ -3,7 +3,7 @@
             xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
     <shape>heater-shield</shape>
     <background>
-        <field tincture="argent"/>
+        <variation type="lozengy" firstTincture="argent" secondTincture="azure"/>
     </background>
     <charges>
         <ordinary type="saltire" tincture="gules"/>
