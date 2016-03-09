@@ -1,6 +1,13 @@
 package heraldry.model;
 
-import heraldry.render.ordinary.*;
+import heraldry.render.ordinary.BendOrdinaryRenderer;
+import heraldry.render.ordinary.ChevronOrdinaryRenderer;
+import heraldry.render.ordinary.ChiefOrdinaryRenderer;
+import heraldry.render.ordinary.CrossOrdinaryRenderer;
+import heraldry.render.ordinary.FretOrdinaryRenderer;
+import heraldry.render.ordinary.OrdinaryRenderer;
+import heraldry.render.ordinary.PaleOrdinaryRenderer;
+import heraldry.render.ordinary.SaltireOrdinaryRenderer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +29,8 @@ public enum Ordinary
     FRET(new FretOrdinaryRenderer()),
     ORLE(null),
     SALTIRE(new SaltireOrdinaryRenderer()),
-    PALE(null),
+    PALE(new PaleOrdinaryRenderer(1.0)),
+    PALLET(new PaleOrdinaryRenderer(0.5)),
     QUARTER(null),
     TRESSURE(null);
 

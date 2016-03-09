@@ -21,4 +21,6 @@ public interface Painter
     double getFretSizeStep();
 
     double getLinePeriodFactor();
+
+    double getChiefHeight();
 }

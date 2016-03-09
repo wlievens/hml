@@ -17,6 +17,6 @@ public class ChiefOrdinaryRenderer implements OrdinaryRenderer
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
     {
-        return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.getX1(), bounds.getY1(), bounds.getX2(), bounds.lerpY(0.25)), painter.getColor(tincture), null));
+        return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.getX1(), bounds.getY1(), bounds.getX2(), bounds.getY1() + painter.getChiefHeight()), painter.getColor(tincture), null));
     }
 }

@@ -93,7 +93,7 @@ public class CoatOfArms
                 @Override
                 public double getGridPatternSize()
                 {
-                    return 0.10 * contour.getBounds().getWidth();
+                    return contour.getBounds().getHeight() / 8;
                 }
 
                 @Override
@@ -118,6 +118,12 @@ public class CoatOfArms
                 public double getLinePeriodFactor()
                 {
                     return 0.125;
+                }
+
+                @Override
+                public double getChiefHeight()
+                {
+                    return contour.getBounds().getHeight() / 4;
                 }
             };
             List<RenderShape> paths = new ArrayList<>();

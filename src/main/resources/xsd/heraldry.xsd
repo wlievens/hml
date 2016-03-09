@@ -53,6 +53,7 @@
             <xs:enumeration value="fret"/>
             <xs:enumeration value="orle"/>
             <xs:enumeration value="pale"/>
+            <xs:enumeration value="pallet"/>
             <xs:enumeration value="quarter"/>
             <xs:enumeration value="saltire"/>
             <xs:enumeration value="tressure"/>
@@ -167,6 +168,7 @@
                 <xs:attribute type="Variation" name="type" use="required"/>
                 <xs:attribute type="Tincture" name="firstTincture" use="required"/>
                 <xs:attribute type="Tincture" name="secondTincture" use="required"/>
+                <xs:attribute type="Line" name="line" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>

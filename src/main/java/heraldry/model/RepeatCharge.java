@@ -39,6 +39,26 @@ public class RepeatCharge extends Charge
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         Box bounds = contour.getBounds();
+        if (contour.isRectangle())
+        {
+            List<RenderShape> list = new ArrayList<>();
+
+            double width = bounds.getWidth();
+            double height = bounds.getHeight();
+            if (width > height)
+            {
+                for (double n = 0; n < number; ++n)
+                {
+                    double x1 = bounds.getX1() + (n + 0) * width / number;
+                    double x2 = bounds.getX1() + (n + 1) * width / number;
+                    RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, bounds.getY1(), x2, bounds.getY2()));
+                    list.addAll(charge.render(child, painter));
+                }
+            }
+
+            return list;
+        }
+
         Area area = GeometryUtils.convertContourToArea(contour);
         // Use a rasterized Voronoi approach with Lloyd's algorithm for approaching optimal distribution
         // https://en.wikipedia.org/wiki/Voronoi_diagram

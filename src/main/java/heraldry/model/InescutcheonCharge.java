@@ -38,7 +38,7 @@ public class InescutcheonCharge extends Charge
         try
         {
             SVGDiagram diagram = SvgUtils.loadSvg("/shapes/heater-shield.svg");
-            double scale = 0.32;
+            double scale = 0.37;
             Box bounds = contour.getBounds();
             Point center = bounds.getFessPoint();
             AffineTransform transform = AffineTransform.getTranslateInstance(center.getX() - 0.5 * scale * bounds.getWidth(), center.getY() - 0.5 * scale * bounds.getHeight());
