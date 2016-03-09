@@ -16,11 +16,6 @@ public final class RenderContour
 {
     private final List<PathStep> steps;
 
-    public Point getCenter()
-    {
-        return getBounds().getFessPoint();
-    }
-
     public RenderContour(List<PathStep> steps)
     {
         if (steps.isEmpty())
@@ -28,6 +23,11 @@ public final class RenderContour
             throw new IllegalArgumentException();
         }
         this.steps = steps;
+    }
+
+    public Point getCenter()
+    {
+        return getBounds().getFessPoint();
     }
 
     public Box getBounds()
@@ -48,7 +48,7 @@ public final class RenderContour
 
     public List<RenderShape> clip(RenderShape shape)
     {
-        if (true)
+        if (false)
         {
             return Collections.singletonList(shape);
         }

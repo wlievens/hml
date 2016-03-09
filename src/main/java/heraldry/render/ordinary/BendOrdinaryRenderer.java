@@ -39,7 +39,7 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
         double bottom2;
         if (width > height)
         {
-            step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2);
+            step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
             bottom1 = height;
             bottom2 = height;
             right1 = height + step;
@@ -47,7 +47,7 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
         }
         else
         {
-            step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2);
+            step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
             bottom1 = width - step;
             bottom2 = width + step;
             right1 = width;
@@ -112,17 +112,18 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
                         double oy = Math.sin(angle + Math.PI / 2) * amplitude;
                         if (alternate)
                         {
-                            double mx = (x1 + x2) / 2 - ox * 2;
-                            double my = (y1 + y2) / 2 - oy * 2;
-                            double f1 = 0.85;
-                            double f2 = 0.50;
-                            double f3 = 2.50;
+                            double f0 = 1.30;
+                            double f1 = 0.70;
+                            double f2 = 0.70;
+                            double f3 = 1.20;
+                            double mx = (x1 + x2) / 2 - ox * f0;
+                            double my = (y1 + y2) / 2 - oy * f0;
                             double mx1 = mx - Math.cos(angle) * period * f1;
                             double my1 = my - Math.sin(angle) * period * f1;
                             double mx2 = mx + Math.cos(angle) * period * f1;
                             double my2 = my + Math.sin(angle) * period * f1;
                             steps.add(new CubicPathStep(x1, y1, x1 - ox * f2, y1 - oy * f2, mx1 + ox * f2, my1 + oy * f2, mx1, my1));
-                            steps.add(new CubicPathStep(mx1, my1, mx1 - ox * f3, my1 - ox * f3, mx2 - ox * f3, my2 - ox * f3, mx2, my2));
+                            steps.add(new CubicPathStep(mx1, my1, mx1 - ox * f3, my1 - oy * f3, mx2 - ox * f3, my2 - oy * f3, mx2, my2));
                             steps.add(new CubicPathStep(mx2, my2, mx2 + ox * f2, my2 + oy * f2, x2 - ox * f2, y2 - oy * f2, x2, y2));
                         }
                         else
