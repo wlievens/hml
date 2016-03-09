@@ -29,23 +29,26 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
     {
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
+        double x2 = bounds.getX2();
+        double y2 = bounds.getY2();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
-        double startX = x1;
+        double startX = flip ? x2 : x1;
         double startY = y1;
-        double endX = x1 + Math.max(width, height);
-        double endY = y1 + Math.max(width, height);
+        double size = Math.max(width, height);
+        double endX = flip ? (x2 - size) : (x1 + size);
+        double endY = y1 + size;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
-        Point end1 = plotLine(steps, startX, startY - step, endX, endY - step, line, period);
+        Point end1 = plotLine(steps, startX, startY - step, endX, endY - step, line, period, flip);
         steps.add(new LinePathStep(end1.getX(), end1.getY(), endX, endY + step));
-        Point end2 = plotLine(steps, endX, endY + step, startX, startY + step, line, period);
+        Point end2 = plotLine(steps, endX, endY + step, startX, startY + step, line, period, flip);
         steps.add(new LinePathStep(end2.getX(), end2.getY(), startX, startY - step));
         return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
     }
 
-    private Point plotLine(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period)
+    private static Point plotLine(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped)
     {
         switch (line)
         {
@@ -63,7 +66,7 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
                 double angle = Math.atan2(endY - startY, endX - startX);
                 double length = MathUtils.distance(startX, startY, endX, endY);
                 double offset = 0;
-                double amplitude = period / 2;
+                double amplitude = period / 2 * (flipped ? -1 : +1);
                 boolean alternate = false;
                 while (offset < length)
                 {
