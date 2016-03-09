@@ -33,6 +33,6 @@ public enum Ordinary
 
     public String getLabel()
     {
-        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1);
+        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1).replace("_", " ");
     }
 }
