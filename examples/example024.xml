@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <title>Arms of Roger Mortimer</title>
+    <blazon>Barry or and azure, on a chief of the first two pallets between two gyrons of the second over all an
+        inescutcheon argent
+    </blazon>
+    <shape>heater-shield</shape>
+    <background>
+        <variation type="barry" firstTincture="or" secondTincture="azure"/>
+    </background>
+    <charges>
+        <ordinary type="chief" tincture="or">
+            <charges>
+                <sequence>
+                    <charges>
+                        <ordinary type="gyron" tincture="azure"/>
+                        <repeat number="2">
+                            <ordinary type="pallet" tincture="azure"/>
+                        </repeat>
+                        <ordinary type="gyron" tincture="azure"/>
+                    </charges>
+                </sequence>
+            </charges>
+        </ordinary>
+        <inescutcheon shape="heater-shield" position="nombril">
+            <background>
+                <field tincture="argent"/>
+            </background>
+        </inescutcheon>
+    </charges>
+</coatOfArms>
