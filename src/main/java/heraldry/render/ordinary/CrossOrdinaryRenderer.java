@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class CrossOrdinaryRenderer implements OrdinaryRenderer
+public class CrossOrdinaryRenderer extends AbstractOrdinaryRenderer
 {
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)

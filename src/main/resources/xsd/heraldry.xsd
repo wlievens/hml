@@ -46,6 +46,7 @@
             <xs:enumeration value="bordure"/>
             <xs:enumeration value="canton"/>
             <xs:enumeration value="chevron"/>
+            <xs:enumeration value="chevron-inverted"/>
             <xs:enumeration value="chief"/>
             <xs:enumeration value="cross"/>
             <xs:enumeration value="fess"/>

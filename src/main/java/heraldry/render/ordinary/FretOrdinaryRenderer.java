@@ -15,13 +15,11 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class FretOrdinaryRenderer implements OrdinaryRenderer
+public class FretOrdinaryRenderer extends AbstractOrdinaryRenderer
 {
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
     {
-        Color border = null;
-
         Point center = bounds.getFessPoint();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
@@ -50,35 +48,35 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
                 x1, y1 - step,
                 nearX - margin, nearY - step - margin,
                 nearX - step - margin, nearY - margin
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 nearX + margin, nearY + step + margin,
                 nearX + step + margin, nearY + margin,
                 farX - margin, farY - step - margin,
                 farX - step - margin, farY - margin
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 farX + margin, farY + step + margin,
                 farX + step + margin, farY + margin,
                 x1 + width + step, y1 + width,
                 x1 + width, y1 + width + step
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 x1 + width, y1 - step,
                 x1 + width + step, y1,
                 middleX + step + margin, middleY - margin,
                 middleX + margin, middleY - step - margin
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 middleX - step - margin, middleY + margin,
                 middleX - margin, middleY + step + margin,
                 x1, y1 + width + step,
                 x1 - step, y1 + width
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 middleX, middleY - 2 * distance - step,
@@ -89,7 +87,7 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
                 middleX, middleY - 2 * distance + step,
                 middleX + distance - step - margin, middleY - distance - margin,
                 middleX + distance - margin, middleY - distance - step - margin
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         list.add(new RenderShape(GeometryUtils.polygon(
                 middleX, middleY + 2 * distance - step,
@@ -100,7 +98,7 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
                 middleX, middleY + 2 * distance + step,
                 middleX - distance + margin, middleY + step + distance + margin,
                 middleX - distance + step + margin, middleY + distance + margin
-        ), painter.getColor(tincture), border));
+        ), painter.getColor(tincture), null));
 
         return list;
     }

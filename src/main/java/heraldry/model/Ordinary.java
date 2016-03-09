@@ -1,10 +1,6 @@
 package heraldry.model;
 
-import heraldry.render.ordinary.BendOrdinaryRenderer;
-import heraldry.render.ordinary.ChiefOrdinaryRenderer;
-import heraldry.render.ordinary.CrossOrdinaryRenderer;
-import heraldry.render.ordinary.FretOrdinaryRenderer;
-import heraldry.render.ordinary.OrdinaryRenderer;
+import heraldry.render.ordinary.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +14,8 @@ public enum Ordinary
     BENDLET_SINISTER(new BendOrdinaryRenderer(true, 0.5)),
     BORDURE(null),
     CANTON(null),
-    CHEVRON(null),
+    CHEVRON(new ChevronOrdinaryRenderer(false, 1.0)),
+    CHEVRON_INVERTED(new ChevronOrdinaryRenderer(true, 1.0)),
     CHIEF(new ChiefOrdinaryRenderer()),
     CROSS(new CrossOrdinaryRenderer()),
     FESS(null),
