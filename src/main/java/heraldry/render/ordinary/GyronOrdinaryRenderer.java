@@ -3,13 +3,11 @@ package heraldry.render.ordinary;
 import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
-import heraldry.render.Color;
 import heraldry.render.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.RenderShape;
-import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -18,9 +16,10 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class PaleOrdinaryRenderer implements OrdinaryRenderer
+public class GyronOrdinaryRenderer implements OrdinaryRenderer
 {
-    private final double sizeRatio;
+    private final boolean flipX;
+    private final boolean flipY;
 
     @Override
     public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
@@ -31,14 +30,15 @@ public class PaleOrdinaryRenderer implements OrdinaryRenderer
         double y2 = bounds.getY2();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
-        double step = sizeRatio * painter.getOrdinaryThickness() * line.getScaleFactor();
-        double midX = (x1 + x2) / 2;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
-        steps.add(new LinePathStep(midX - step, y1, midX + step, y1));
-        LineRenderer.plotLine(steps, midX + step, y1, midX + step, y2, line, period, false);
-        steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
-        LineRenderer.plotLine(steps, midX - step, y2, midX - step, y1, line, period, false);
+
+        double startX = flipX ? x2 : x1;
+        double endX = flipX ? x1 : x2;
+        LineRenderer.plotLine(steps, startX, y1, endX, y2, line, period, false);
+        steps.add(new LinePathStep(endX, y2, startX, y2));
+        steps.add(new LinePathStep(startX, y2, startX, y1));
+
         return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
     }
 }

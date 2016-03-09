@@ -18,7 +18,7 @@
                         <repeat number="2">
                             <ordinary type="pallet" tincture="azure"/>
                         </repeat>
-                        <ordinary type="gyron" tincture="azure"/>
+                        <ordinary type="gyron-sinister" tincture="azure"/>
                     </charges>
                 </sequence>
             </charges>

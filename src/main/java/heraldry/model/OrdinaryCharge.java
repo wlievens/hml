@@ -46,6 +46,19 @@ public class OrdinaryCharge extends Charge
     }
 
     @Override
+    public boolean isSquareShapePreferred()
+    {
+        switch (ordinary)
+        {
+            case GYRON:
+            case GYRON_SINISTER:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         List<RenderShape> list = new ArrayList<>();

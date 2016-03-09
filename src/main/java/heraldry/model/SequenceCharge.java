@@ -1,10 +1,10 @@
 package heraldry.model;
 
 import heraldry.render.Box;
+import heraldry.render.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
-import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -20,12 +20,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SequenceCharge extends Charge
 {
+    private static final boolean DEBUG = false;
+
     private final List<Charge> charges;
 
     @Override
     public String generateBlazon(BlazonContext context)
     {
         return "TODO";
+    }
+
+    @Override
+    public boolean isSquareShapePreferred()
+    {
+        return charges.size() == 1 && charges.get(0).isSquareShapePreferred();
     }
 
     @Override
@@ -40,13 +48,41 @@ public class SequenceCharge extends Charge
             double height = bounds.getHeight();
             if (width > height)
             {
+                List<Box> boxes = new ArrayList<>();
+                int squares = (int)charges.stream().filter(Charge::isSquareShapePreferred).count();
+                if (squares * height <= width)
+                {
+                    double x = bounds.getX1();
+                    for (Charge charge : charges)
+                    {
+                        double chargeWidth;
+                        if (charge.isSquareShapePreferred())
+                        {
+                            chargeWidth = height;
+                        }
+                        else
+                        {
+                            chargeWidth = (width - height * squares) / (charges.size() - squares);
+                        }
+                        boxes.add(new Box(x, bounds.getY1(), x + chargeWidth, bounds.getY1() + height));
+                        x += chargeWidth;
+                    }
+                }
+                else
+                {
+                    throw new IllegalStateException("TODO");
+                }
+
                 for (int n = 0; n < charges.size(); ++n)
                 {
                     Charge charge = charges.get(n);
-                    double x1 = bounds.getX1() + (n + 0) * width / charges.size();
-                    double x2 = bounds.getX1() + (n + 1) * width / charges.size();
-                    RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, bounds.getY1(), x2, bounds.getY2()));
+                    Box box = boxes.get(n);
+                    RenderContour child = new RenderContour(box.toPath());
                     list.addAll(charge.render(child, painter));
+                    if (DEBUG)
+                    {
+                        list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1)));
+                    }
                 }
             }
             else

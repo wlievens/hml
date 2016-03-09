@@ -1,8 +1,11 @@
 package heraldry.render;
 
+import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import lombok.ToString;
 import lombok.Value;
+
+import java.util.List;
 
 @Value
 @ToString
@@ -47,5 +50,10 @@ public final class Box
     public boolean contains(double x, double y)
     {
         return x >= x1 && y >= y1 && x <= x2 && y <= y2;
+    }
+
+    public List<PathStep> toPath()
+    {
+        return GeometryUtils.rectangle(x1, y1, x2, y2);
     }
 }

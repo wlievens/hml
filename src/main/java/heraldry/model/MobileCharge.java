@@ -47,6 +47,12 @@ public class MobileCharge extends Charge
     }
 
     @Override
+    public boolean isSquareShapePreferred()
+    {
+        return false;
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         // TODO implement mobile charges
@@ -55,6 +61,6 @@ public class MobileCharge extends Charge
         double y1 = bounds.getY1() + bounds.getHeight() * 0.2;
         double x2 = bounds.getX1() + bounds.getWidth() * 0.8;
         double y2 = bounds.getY1() + bounds.getHeight() * 0.8;
-        return Collections.singleton(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null,  new Color(0, 1, 1)));
+        return Collections.singleton(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1)));
     }
 }

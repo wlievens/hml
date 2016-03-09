@@ -33,6 +33,12 @@ public class InescutcheonCharge extends Charge
     }
 
     @Override
+    public boolean isSquareShapePreferred()
+    {
+        return false;
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         try

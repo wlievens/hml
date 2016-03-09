@@ -36,6 +36,12 @@ public class RepeatCharge extends Charge
     }
 
     @Override
+    public boolean isSquareShapePreferred()
+    {
+        return number == 1 && charge.isSquareShapePreferred();
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         Box bounds = contour.getBounds();

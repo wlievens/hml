@@ -5,6 +5,7 @@ import heraldry.render.ordinary.ChevronOrdinaryRenderer;
 import heraldry.render.ordinary.ChiefOrdinaryRenderer;
 import heraldry.render.ordinary.CrossOrdinaryRenderer;
 import heraldry.render.ordinary.FretOrdinaryRenderer;
+import heraldry.render.ordinary.GyronOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
 import heraldry.render.ordinary.SaltireOrdinaryRenderer;
@@ -27,6 +28,8 @@ public enum Ordinary
     CROSS(new CrossOrdinaryRenderer()),
     FESS(null),
     FRET(new FretOrdinaryRenderer()),
+    GYRON(new GyronOrdinaryRenderer(false, false)),
+    GYRON_SINISTER(new GyronOrdinaryRenderer(true, false)),
     ORLE(null),
     SALTIRE(new SaltireOrdinaryRenderer()),
     PALE(new PaleOrdinaryRenderer(1.0)),
