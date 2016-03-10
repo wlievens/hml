@@ -24,8 +24,8 @@ public class Demo
             {
                 try
                 {
-                    System.out.println(input);
                     CoatOfArms coatOfArms = new CoatOfArmsReader().readCoatOfArms(input);
+                    System.out.println(input);
                     System.out.println("\t" + coatOfArms.getBlazon());
                     System.out.println("\t" + coatOfArms);
                     System.out.println("\t" + coatOfArms.generateBlazon());

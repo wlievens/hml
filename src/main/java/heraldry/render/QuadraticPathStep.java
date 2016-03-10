@@ -35,4 +35,10 @@ public final class QuadraticPathStep implements PathStep
     {
         return Math.max(y1, y3);
     }
+
+    @Override
+    public QuadraticPathStep offset(double x, double y)
+    {
+        return new QuadraticPathStep(x1 + x, y1 + y, x2 + x, y2 + y, x3 + x, y3 + y);
+    }
 }

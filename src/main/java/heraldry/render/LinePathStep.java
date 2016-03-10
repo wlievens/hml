@@ -33,4 +33,10 @@ public final class LinePathStep implements PathStep
     {
         return Math.max(y1, y2);
     }
+
+    @Override
+    public LinePathStep offset(double x, double y)
+    {
+        return new LinePathStep(x1 + x, y1 + y, x2 + x, y2 + y);
+    }
 }

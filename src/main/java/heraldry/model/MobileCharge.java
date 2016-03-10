@@ -1,7 +1,12 @@
 package heraldry.model;
 
 import com.kitfox.svg.SVGDiagram;
-import heraldry.render.*;
+import heraldry.render.Box;
+import heraldry.render.Color;
+import heraldry.render.Painter;
+import heraldry.render.PathStep;
+import heraldry.render.RenderContour;
+import heraldry.render.RenderShape;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import heraldry.util.SvgUtils;
@@ -11,7 +16,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.geom.AffineTransform;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,33 +64,25 @@ public class MobileCharge extends Charge
         double x2 = bounds.getX2() - bounds.getWidth() * margin;
         double y2 = bounds.getY2() - bounds.getHeight() * margin;
         RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
-        String resource = String.format("/mobiles/%s.svg", this.figure);
-        try
+        SVGDiagram diagram = SvgUtils.loadSvg(String.format("/mobiles/%s.svg", this.figure));
+        float diagramWidth = diagram.getWidth();
+        float diagramHeight = diagram.getHeight();
+        AffineTransform transform = new AffineTransform();
+        double scale = Math.min((x2 - x1) / diagramWidth, (y2 - y1) / diagramHeight);
+        transform.translate(x1, y1);
+        transform.scale(scale, scale);
+        List<RenderShape> list = new ArrayList<>();
+        for (List<PathStep> c1 : SvgUtils.collect(diagram, transform))
         {
-            SVGDiagram diagram = SvgUtils.loadSvg(resource);
-            float diagramWidth = diagram.getWidth();
-            float diagramHeight = diagram.getHeight();
-            AffineTransform transform = new AffineTransform();
-            double scale = Math.min((x2 - x1) / diagramWidth, (y2 - y1) / diagramHeight);
-            transform.translate(x1, y1);
-            transform.scale(scale, scale);
-            List<RenderShape> list = new ArrayList<>();
-            for (List<PathStep> c1 : SvgUtils.collect(diagram, transform))
+            for (List<PathStep> c2 : GeometryUtils.clip(c1, contour))
             {
-                for (List<PathStep> c2 : GeometryUtils.clip(c1, contour))
-                {
-                    list.addAll(background.render(new RenderContour(c2), painter));
-                }
+                list.addAll(background.render(new RenderContour(c2), painter));
             }
-            if (DEBUG)
-            {
-                list.add(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1)));
-            }
-            return list;
         }
-        catch (URISyntaxException e)
+        if (DEBUG)
         {
-            throw new IllegalStateException(e);
+            list.add(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1)));
         }
+        return list;
     }
 }

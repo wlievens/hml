@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,99 +40,91 @@ public class CoatOfArms
 
     public Rendering render()
     {
-        String resource = String.format("/shapes/%s.svg", shape);
-        try
+        SVGDiagram diagram = SvgUtils.loadSvg(String.format("/shapes/%s.svg", shape));
+        RenderContour contour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour")));
+        Painter painter = new Painter()
         {
-            SVGDiagram diagram = SvgUtils.loadSvg(resource);
-            RenderContour contour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour")));
-            Painter painter = new Painter()
+            @Override
+            public double getOrdinaryThickness()
             {
-                @Override
-                public double getOrdinaryThickness()
-                {
-                    return 0.15 * contour.getBounds().getWidth();
-                }
+                return 0.15 * contour.getBounds().getWidth();
+            }
 
-                @Override
-                public Paint getColor(Tincture tincture)
+            @Override
+            public Paint getColor(Tincture tincture)
+            {
+                switch (tincture)
                 {
-                    switch (tincture)
-                    {
-                        case ARGENT:
-                            return COLOR_ARGENT;
-                        case OR:
-                            return COLOR_OR;
-                        case SABLE:
-                            return COLOR_SABLE;
-                        case AZURE:
-                            return COLOR_AZURE;
-                        case GULES:
-                            return COLOR_GULES;
-                        case VERT:
-                            return COLOR_VERT;
-                        case PURPURE:
-                            return COLOR_PURPURE;
-                        default:
-                            throw new IllegalStateException("Unmapped tincture " + tincture);
-                    }
+                    case ARGENT:
+                        return COLOR_ARGENT;
+                    case OR:
+                        return COLOR_OR;
+                    case SABLE:
+                        return COLOR_SABLE;
+                    case AZURE:
+                        return COLOR_AZURE;
+                    case GULES:
+                        return COLOR_GULES;
+                    case VERT:
+                        return COLOR_VERT;
+                    case PURPURE:
+                        return COLOR_PURPURE;
+                    default:
+                        throw new IllegalStateException("Unmapped tincture " + tincture);
                 }
+            }
 
-                @Override
-                public Color getOrdinaryBorderColor()
-                {
-                    return new Color(0, 0, 0);
-                }
+            @Override
+            public Color getOrdinaryBorderColor()
+            {
+                return new Color(0, 0, 0);
+            }
 
-                @Override
-                public Color getOuterBorderColor()
-                {
-                    return new Color(0, 0, 0);
-                }
+            @Override
+            public Color getOuterBorderColor()
+            {
+                return new Color(0, 0, 0);
+            }
 
-                @Override
-                public double getGridPatternSize()
-                {
-                    return contour.getBounds().getHeight() / 8;
-                }
+            @Override
+            public double getGridPatternSize()
+            {
+                return contour.getBounds().getHeight() / 8;
+            }
 
-                @Override
-                public double getFrettyPatternSize()
-                {
-                    return 0.25 * contour.getBounds().getWidth();
-                }
+            @Override
+            public double getFrettyPatternSize()
+            {
+                return 0.25 * contour.getBounds().getWidth();
+            }
 
-                @Override
-                public double getFretMargin()
-                {
-                    return 0.005 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
-                }
+            @Override
+            public double getFretMargin()
+            {
+                return 0.005 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+            }
 
-                @Override
-                public double getFretSizeStep()
-                {
-                    return 0.05 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
-                }
+            @Override
+            public double getFretSizeStep()
+            {
+                return 0.05 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+            }
 
-                @Override
-                public double getLinePeriodFactor()
-                {
-                    return 0.125;
-                }
+            @Override
+            public double getLinePeriodFactor()
+            {
+                return 0.125;
+            }
 
-                @Override
-                public double getChiefHeight()
-                {
-                    return contour.getBounds().getHeight() / 4;
-                }
-            };
-            List<RenderShape> paths = new ArrayList<>();
-            paths.addAll(model.render(contour, painter));
-            paths.add(new RenderShape(contour.getSteps(), null, painter.getOuterBorderColor()));
-            return new Rendering(contour, paths);
-        }
-        catch (URISyntaxException e)
-        {
-            throw new IllegalStateException(e);
-        }
+            @Override
+            public double getChiefHeight()
+            {
+                return contour.getBounds().getHeight() / 4;
+            }
+        };
+        List<RenderShape> paths = new ArrayList<>();
+        paths.addAll(model.render(contour, painter));
+        paths.add(new RenderShape(contour.getSteps(), null, painter.getOuterBorderColor()));
+        return new Rendering(contour, paths);
     }
 }

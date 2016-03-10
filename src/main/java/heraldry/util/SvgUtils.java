@@ -5,7 +5,7 @@ import com.kitfox.svg.SVGDiagram;
 import heraldry.render.PathStep;
 import lombok.NonNull;
 
-import java.awt.*;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.net.URISyntaxException;
@@ -35,13 +35,20 @@ public class SvgUtils
         throw new IllegalStateException();
     }
 
-    public static SVGDiagram loadSvg(String resource) throws URISyntaxException
+    public static SVGDiagram loadSvg(String resource)
     {
-        SVGDiagram diagram = SVGCache.getSVGUniverse().getDiagram(SvgUtils.class.getResource(resource).toURI());
-        if (diagram == null)
+        try
         {
-            throw new IllegalArgumentException(String.format("Could not find resource '%s'", resource));
+            SVGDiagram diagram = SVGCache.getSVGUniverse().getDiagram(SvgUtils.class.getResource(resource).toURI());
+            if (diagram == null)
+            {
+                throw new IllegalArgumentException(String.format("Could not find resource '%s'", resource));
+            }
+            return diagram;
         }
-        return diagram;
+        catch (URISyntaxException e)
+        {
+            throw new IllegalStateException(e);
+        }
     }
 }

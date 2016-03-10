@@ -13,7 +13,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.geom.AffineTransform;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,23 +40,16 @@ public class InescutcheonCharge extends Charge
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        try
-        {
-            SVGDiagram diagram = SvgUtils.loadSvg("/shapes/heater-shield.svg");
-            double scale = 0.37;
-            Box bounds = contour.getBounds();
-            Point center = bounds.getFessPoint();
-            AffineTransform transform = AffineTransform.getTranslateInstance(center.getX() - 0.5 * scale * bounds.getWidth(), center.getY() - 0.5 * scale * bounds.getHeight());
-            transform.scale(scale, scale);
-            RenderContour subContour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour"), transform));
-            List<RenderShape> shapes = new ArrayList<>();
-            shapes.addAll(model.render(subContour, painter));
-            shapes.add(new RenderShape(subContour.getSteps(), null, painter.getOuterBorderColor()));
-            return shapes;
-        }
-        catch (URISyntaxException e)
-        {
-            throw new IllegalStateException(e);
-        }
+        SVGDiagram diagram = SvgUtils.loadSvg("/shapes/heater-shield.svg");
+        double scale = 0.37;
+        Box bounds = contour.getBounds();
+        Point center = bounds.getFessPoint();
+        AffineTransform transform = AffineTransform.getTranslateInstance(center.getX() - 0.5 * scale * bounds.getWidth(), center.getY() - 0.5 * scale * bounds.getHeight());
+        transform.scale(scale, scale);
+        RenderContour subContour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour"), transform));
+        List<RenderShape> shapes = new ArrayList<>();
+        shapes.addAll(model.render(subContour, painter));
+        shapes.add(new RenderShape(subContour.getSteps(), null, painter.getOuterBorderColor()));
+        return shapes;
     }
 }

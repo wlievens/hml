@@ -37,4 +37,10 @@ public final class CubicPathStep implements PathStep
     {
         return Math.max(y1, y4);
     }
+
+    @Override
+    public CubicPathStep offset(double x, double y)
+    {
+        return new CubicPathStep(x1 + x, y1 + y, x2 + x, y2 + y, x3 + x, y3 + y, x4 + x, y4 + y);
+    }
 }

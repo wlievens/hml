@@ -9,4 +9,6 @@ public interface PathStep
     double getMaxX();
 
     double getMaxY();
+
+    PathStep offset(double x, double y);
 }
