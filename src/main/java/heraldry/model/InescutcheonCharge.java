@@ -28,7 +28,7 @@ public class InescutcheonCharge extends Charge
     @Override
     public String generateBlazon(BlazonContext context)
     {
-        return "TODO";
+        return "An inescutcheon " + model.generateBlazon(context.create());
     }
 
     @Override

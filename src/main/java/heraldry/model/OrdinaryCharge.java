@@ -61,13 +61,15 @@ public class OrdinaryCharge extends Charge
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        List<RenderShape> list = new ArrayList<>();
+        System.out.println(generateBlazon(BlazonContext.create()));
+
         OrdinaryRenderer renderer = ordinary.getRenderer();
         if (renderer == null)
         {
             throw new IllegalStateException(String.format("No renderer implemented for ordinary '%s'", ordinary));
         }
         List<RenderContour> contours = contour.clipContours(renderer.render(contour.getBounds(), line, painter));
+        List<RenderShape> list = new ArrayList<>();
         contours.forEach(child -> list.addAll(background.render(child, painter)));
         for (Charge charge : charges)
         {

@@ -3,6 +3,9 @@
             xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
     <shape>heater-shield</shape>
     <background>
-        <field tincture="ermine"/>
+        <field tincture="gules"/>
     </background>
+    <charges>
+        <ordinary type="saltire" tincture="ermine"/>
+    </charges>
 </coatOfArms>
