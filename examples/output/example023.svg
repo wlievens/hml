@@ -10,9 +10,9 @@
 </radialGradient>
 </defs>
 <g>
-<path d="M 8.0,8.0 L 8.0,36.75 L 108.0,36.75 L 108.0,8.0 L 8.0,8.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,8.0 L 8.0,36.75 L 108.0,36.75 L 108.0,8.0 L 8.0,8.0 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
 <path d="M 8.0,36.75 L 8.0,65.5 L 108.0,65.5 L 108.0,36.75 L 8.0,36.75 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,65.5 L 8.0,94.25 L 108.0,94.25 L 108.0,65.5 L 8.0,65.5 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,65.5 L 8.0,94.25 L 108.0,94.25 L 108.0,65.5 L 8.0,65.5 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
 <path d="M 8.0,94.25 L 8.0,108.0 L 108.0,108.0 L 108.0,94.25 L 8.0,94.25 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
 <path d="M 108.0,8.0 L 108.0,108.0 L 136.75,108.0 L 136.75,8.0 L 108.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
 <path d="M 136.75,8.0 L 136.75,108.0 L 165.5,108.0 L 165.5,8.0 L 136.75,8.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>

@@ -21,7 +21,7 @@ import java.util.List;
 public class CoatOfArms
 {
     private static final Color COLOR_ARGENT = new Color(0.90, 0.90, 0.90);
-    private static final Color COLOR_AZURE = new Color(0.15, 0.15, 0.85);
+    private static final Color COLOR_AZURE = new Color(0.05, 0.15, 0.85);
     private static final Color COLOR_OR = new Color(0.85, 0.85, 0.15);
     private static final Color COLOR_SABLE = new Color(0.15, 0.15, 0.15);
     private static final Color COLOR_GULES = new Color(0.85, 0.15, 0.15);

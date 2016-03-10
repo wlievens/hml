@@ -11,7 +11,7 @@
 </defs>
 <g>
 <path d="M 8.0,8.0 L 408.0,8.0 L 328.0,108.0 L 408.0,208.0 L 8.0,208.0 L 8.0,8.0 Z" style="fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,8.0 L 8.0,50.42640686035156 L 165.57359313964844,208.0 L 250.42640686035156,208.0 L 50.42640686035156,8.0 L 8.0,8.0 Z" style="fill: rgb(38, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 8.0,8.0 L 8.0,50.42640686035156 L 165.57359313964844,208.0 L 250.42640686035156,208.0 L 50.42640686035156,8.0 L 8.0,8.0 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
 <path d="M 8.0,8.0 L 408.0,8.0 L 328.0,108.0 L 408.0,208.0 L 8.0,208.0 L 8.0,8.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 <rect clip-path="url(#contour)" fill="url(#lighting)" height="216.0" width="416.0" x="0.0" y="0.0"/>
