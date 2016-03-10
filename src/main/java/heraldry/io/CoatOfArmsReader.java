@@ -1,23 +1,6 @@
 package heraldry.io;
 
-import heraldry.model.Background;
-import heraldry.model.Charge;
-import heraldry.model.ChargedBackgroundModel;
-import heraldry.model.CoatOfArms;
-import heraldry.model.Division;
-import heraldry.model.DivisionBackground;
-import heraldry.model.DivisionPart;
-import heraldry.model.FieldBackground;
-import heraldry.model.InescutcheonCharge;
-import heraldry.model.Line;
-import heraldry.model.MobileCharge;
-import heraldry.model.Ordinary;
-import heraldry.model.OrdinaryCharge;
-import heraldry.model.RepeatCharge;
-import heraldry.model.SequenceCharge;
-import heraldry.model.Tincture;
-import heraldry.model.Variation;
-import heraldry.model.VariationBackground;
+import heraldry.model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,23 +20,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoatOfArmsReader
 {
-    
+
     private Schema schema;
-    
+
     public CoatOfArmsReader()
     {
         loadSchema();
     }
-    
+
     public CoatOfArms readCoatOfArms(File file) throws IOException
     {
         try
@@ -70,7 +49,7 @@ public class CoatOfArmsReader
             throw new IllegalStateException(e);
         }
     }
-    
+
     private void loadSchema()
     {
         try (InputStream stream = CoatOfArmsReader.class.getResourceAsStream("/xsd/heraldry.xsd"))
@@ -82,7 +61,7 @@ public class CoatOfArmsReader
             throw new IllegalStateException();
         }
     }
-    
+
     private CoatOfArms readCoatOfArms(Element element)
     {
         assertNodeName("coatOfArms", element);
@@ -113,14 +92,14 @@ public class CoatOfArmsReader
         model.setCharges(getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList()));
         return model;
     }
-    
+
     private List<Charge> readCharges(Element element)
     {
         return getChildElements(element).stream()
-                .map(this::readCharge)
-                .collect(Collectors.toList());
+            .map(this::readCharge)
+            .collect(Collectors.toList());
     }
-    
+
     private Charge readCharge(Element element)
     {
         String tag = element.getNodeName();
@@ -140,7 +119,7 @@ public class CoatOfArmsReader
                 throw new IllegalStateException(String.format("Undefined charge type '%s'", tag));
         }
     }
-    
+
     private RepeatCharge readRepeatCharge(Element element)
     {
         int number = Integer.parseInt(element.getAttribute("number"));
@@ -161,23 +140,32 @@ public class CoatOfArmsReader
     {
         return new InescutcheonCharge(readChargedBackgroundModel(element));
     }
-    
+
     private MobileCharge readMobileCharge(Element element)
     {
         Tincture tincture = element.hasAttribute("tincture") ? readTincture(element.getAttribute("tincture")) : null;
         String figure = element.getAttribute("figure");
         return new MobileCharge(tincture, figure);
     }
-    
+
     private OrdinaryCharge readOrdinaryCharge(Element element)
     {
         Ordinary type = readOrdinary(element.getAttribute("type"));
         Line line = readLine(element.getAttribute("line"));
-        Tincture tincture = readTincture(element.getAttribute("tincture"));
+        Background background;
+        Optional<Element> backgroundElement = getChildElement(element, "background");
+        if (backgroundElement.isPresent())
+        {
+            background = readBackground(backgroundElement.get());
+        }
+        else
+        {
+            background = new FieldBackground(readTincture(element.getAttribute("tincture")));
+        }
         List<Charge> charges = getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList());
-        return new OrdinaryCharge(type, line, tincture, charges);
+        return new OrdinaryCharge(type, line, background, charges);
     }
-    
+
     private List<Element> getChildElements(Element element)
     {
         List<Element> list = new ArrayList<>();
@@ -192,7 +180,7 @@ public class CoatOfArmsReader
         }
         return list;
     }
-    
+
     private Background readBackground(Element element)
     {
         NodeList children = element.getChildNodes();
@@ -218,15 +206,15 @@ public class CoatOfArmsReader
         }
         throw new IllegalStateException(String.format("No background present"));
     }
-    
+
     private DivisionBackground readDivisionBackground(Element element)
     {
         List<DivisionPart> parts = getChildElements(element).stream()
-                .map(this::readDivisionPart)
-                .collect(Collectors.toList());
+            .map(this::readDivisionPart)
+            .collect(Collectors.toList());
         return new DivisionBackground(readDivision(element.getAttribute("type")), parts);
     }
-    
+
     private DivisionPart readDivisionPart(Element element)
     {
         List<Integer> positions = readIntegerList(element.getAttribute("position"));
@@ -238,7 +226,7 @@ public class CoatOfArmsReader
     {
         return Arrays.stream(text.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
-    
+
     private FieldBackground readFieldBackground(Element element)
     {
         Tincture tincture = readTincture(element.getAttribute("tincture"));
@@ -258,7 +246,7 @@ public class CoatOfArmsReader
     {
         return readEnumValue(Variation.class, name);
     }
-    
+
     private Ordinary readOrdinary(String name)
     {
         return readEnumValue(Ordinary.class, name);
@@ -269,11 +257,11 @@ public class CoatOfArmsReader
         try
         {
             return (T)Arrays.stream(type.getDeclaredMethods())
-                    .filter(method -> method.getName().equals("valueOf"))
-                    .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
-                    .findAny()
-                    .get()
-                    .invoke(null, name.toUpperCase().replace("-", "_"));
+                .filter(method -> method.getName().equals("valueOf"))
+                .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                .findAny()
+                .get()
+                .invoke(null, name.toUpperCase().replace("-", "_"));
         }
         catch (IllegalAccessException e)
         {
@@ -288,7 +276,7 @@ public class CoatOfArmsReader
             throw new IllegalStateException(e.getCause());
         }
     }
-    
+
     private Division readDivision(String name)
     {
         try
@@ -300,17 +288,17 @@ public class CoatOfArmsReader
             throw new IllegalStateException(String.format("Invalid Division value '%s'", name));
         }
     }
-    
+
     private Tincture readTincture(String name)
     {
         return readEnumValue(Tincture.class, name);
     }
-    
+
     private Line readLine(String name)
     {
         return (name == null || name.length() == 0) ? Line.PLAIN : readEnumValue(Line.class, name);
     }
-    
+
     private Optional<Element> getChildElement(Element element, String name)
     {
         NodeList children = element.getChildNodes();
@@ -324,7 +312,7 @@ public class CoatOfArmsReader
         }
         return Optional.empty();
     }
-    
+
     private void assertNodeName(String name, Element element)
     {
         if (!name.equals(element.getNodeName()))

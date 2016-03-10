@@ -1,13 +1,6 @@
 package heraldry.util;
 
-import heraldry.render.Box;
-import heraldry.render.CubicPathStep;
-import heraldry.render.LinePathStep;
-import heraldry.render.PathStep;
-import heraldry.render.Point;
-import heraldry.render.QuadraticPathStep;
-import heraldry.render.RenderContour;
-import heraldry.render.RenderShape;
+import heraldry.render.*;
 
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
@@ -20,20 +13,18 @@ import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static List<RenderShape> clip(RenderShape shape, RenderContour contour)
+    public static List<List<PathStep>> clip(List<PathStep> steps, RenderContour contour)
     {
-        Area area = convertShapeToArea(shape);
+        Area area = convertPathStepsToArea(steps);
         area.intersect(convertContourToArea(contour));
-        return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
-                .map(path -> new RenderShape(path, shape.getFillPaint(), shape.getBorderColor()))
-                .collect(toList());
+        return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream().collect(toList());
     }
 
     public static List<RenderContour> convertAreaToContour(Area area)
     {
-        return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+        return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream()
+            .map(RenderContour::new)
+            .collect(toList());
     }
 
     public static Area convertBoxToArea(Box box)
@@ -46,7 +37,7 @@ public class GeometryUtils
         return convertPathStepsToArea(contour.getSteps());
     }
 
-    public static List<List<PathStep>> convertPathIteratorToPaths(PathIterator it)
+    public static List<List<PathStep>> convertPathIteratorToPathSteps(PathIterator it)
     {
         float[] xys = new float[6];
         List<List<PathStep>> list = new ArrayList<>();

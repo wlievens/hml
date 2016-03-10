@@ -1,7 +1,6 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.model.Tincture;
 import heraldry.render.*;
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +16,7 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
     private final double sizeRatio;
 
     @Override
-    public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
+    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
     {
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
@@ -37,6 +36,6 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(endX, endY - step, endX, endY + step));
         LineRenderer.plotLine(steps, endX, endY + step, startX, startY + step, line, period, flip);
         steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
-        return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
+        return Arrays.asList(new RenderContour(steps));
     }
 }

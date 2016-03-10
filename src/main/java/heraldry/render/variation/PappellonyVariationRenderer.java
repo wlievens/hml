@@ -55,7 +55,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
             ++row;
         }
 
-        return contour.clipAll(list);
+        return contour.clipShapes(list);
     }
 
 }

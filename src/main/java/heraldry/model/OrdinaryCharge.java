@@ -22,7 +22,7 @@ public class OrdinaryCharge extends Charge
 {
     private final Ordinary ordinary;
     private final Line line;
-    private final Tincture tincture;
+    private final Background background;
     private final List<Charge> charges;
 
     @Override
@@ -40,7 +40,7 @@ public class OrdinaryCharge extends Charge
         {
             list.add(line.getLabel().toLowerCase());
         }
-        list.add(tincture.getLabel().toLowerCase());
+        list.add(background.generateBlazon(context).toLowerCase());
         charges.forEach(charge -> list.add(charge.generateBlazon(context)));
         return StringUtils.sentence(list);
     }
@@ -67,12 +67,12 @@ public class OrdinaryCharge extends Charge
         {
             throw new IllegalStateException(String.format("No renderer implemented for ordinary '%s'", ordinary));
         }
-        List<RenderShape> shapes = contour.clipAll(renderer.render(contour.getBounds(), tincture, line, painter));
-        list.addAll(shapes);
+        List<RenderContour> contours = contour.clipContours(renderer.render(contour.getBounds(), line, painter));
+        contours.forEach(child -> list.addAll(background.render(child, painter)));
         for (Charge charge : charges)
         {
             // TODO Use the first shape as contour for now
-            list.addAll(charge.render(new RenderContour(shapes.get(0).getSteps()), painter));
+            list.addAll(charge.render(new RenderContour(contours.get(0).getSteps()), painter));
         }
         return list;
     }

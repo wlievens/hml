@@ -44,7 +44,7 @@ public class FrettyVariationRenderer implements VariationRenderer
             }
         }
 
-        return contour.clipAll(list);
+        return contour.clipShapes(list);
     }
 
 }

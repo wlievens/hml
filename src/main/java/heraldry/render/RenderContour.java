@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 @Getter
 @ToString
 public final class RenderContour
@@ -36,12 +38,22 @@ public final class RenderContour
         return new Box(bounds.getX(), bounds.getY(), bounds.getMaxX(), bounds.getMaxY());
     }
 
-    public List<RenderShape> clipAll(Collection<RenderShape> shapes)
+    public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
     {
         List<RenderShape> list = new ArrayList<>();
         for (RenderShape shape : shapes)
         {
             list.addAll(clip(shape));
+        }
+        return list;
+    }
+
+    public List<RenderContour> clipContours(Collection<RenderContour> contours)
+    {
+        List<RenderContour> list = new ArrayList<>();
+        for (RenderContour contour : contours)
+        {
+            list.addAll(clip(contour));
         }
         return list;
     }
@@ -52,7 +64,20 @@ public final class RenderContour
         {
             return Collections.singletonList(shape);
         }
-        return GeometryUtils.clip(shape, this);
+        return GeometryUtils.clip(shape.getSteps(), this).stream()
+            .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor()))
+            .collect(toList());
+    }
+
+    public List<RenderContour> clip(RenderContour contour)
+    {
+        if (false)
+        {
+            return Collections.singletonList(contour);
+        }
+        return GeometryUtils.clip(contour.getSteps(), this).stream()
+            .map(RenderContour::new)
+            .collect(toList());
     }
 
     public boolean isRectangle()

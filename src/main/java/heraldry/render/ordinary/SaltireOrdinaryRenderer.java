@@ -1,13 +1,7 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.model.Tincture;
-import heraldry.render.Box;
-import heraldry.render.LinePathStep;
-import heraldry.render.LineRenderer;
-import heraldry.render.Painter;
-import heraldry.render.PathStep;
-import heraldry.render.RenderShape;
+import heraldry.render.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -19,7 +13,7 @@ import java.util.List;
 public class SaltireOrdinaryRenderer implements OrdinaryRenderer
 {
     @Override
-    public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
+    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
     {
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
@@ -48,6 +42,6 @@ public class SaltireOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.plotLine(steps, midX - step, midY, x1, y1 + step, line, period, false);
         steps.add(new LinePathStep(x1, y1 + step, x1, y1));
 
-        return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
+        return Arrays.asList(new RenderContour(steps));
     }
 }

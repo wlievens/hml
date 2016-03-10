@@ -1,14 +1,13 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.model.Tincture;
 import heraldry.render.Box;
 import heraldry.render.Painter;
-import heraldry.render.RenderShape;
+import heraldry.render.RenderContour;
 
 import java.util.Collection;
 
 public interface OrdinaryRenderer
 {
-    Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter);
+    Collection<RenderContour> render(Box bounds, Line line, Painter painter);
 }

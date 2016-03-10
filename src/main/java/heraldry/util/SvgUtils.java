@@ -21,7 +21,7 @@ public class SvgUtils
     {
         Shape path2d = svgPath.getShape();
         PathIterator it = path2d.getPathIterator(transform);
-        List<List<PathStep>> paths = GeometryUtils.convertPathIteratorToPaths(it);
+        List<List<PathStep>> paths = GeometryUtils.convertPathIteratorToPathSteps(it);
         if (paths.size() == 1)
         {
             return paths.get(0);

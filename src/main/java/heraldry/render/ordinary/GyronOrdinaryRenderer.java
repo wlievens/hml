@@ -1,13 +1,7 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.model.Tincture;
-import heraldry.render.Box;
-import heraldry.render.LinePathStep;
-import heraldry.render.LineRenderer;
-import heraldry.render.Painter;
-import heraldry.render.PathStep;
-import heraldry.render.RenderShape;
+import heraldry.render.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -22,7 +16,7 @@ public class GyronOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipY;
 
     @Override
-    public Collection<RenderShape> render(Box bounds, Tincture tincture, Line line, Painter painter)
+    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
     {
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
@@ -39,6 +33,6 @@ public class GyronOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(endX, y2, startX, y2));
         steps.add(new LinePathStep(startX, y2, startX, y1));
 
-        return Arrays.asList(new RenderShape(steps, painter.getColor(tincture), null));
+        return Arrays.asList(new RenderContour(steps));
     }
 }

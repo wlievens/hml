@@ -146,10 +146,11 @@
         <xs:complexContent>
             <xs:extension base="Charge">
                 <xs:sequence>
+                    <xs:element type="BackgroundContainer" name="background" minOccurs="0" maxOccurs="1"/>
                     <xs:element type="Charges" name="charges" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
                 <xs:attribute type="Ordinary" name="type" use="required"/>
-                <xs:attribute type="Tincture" name="tincture" use="required"/>
+                <xs:attribute type="Tincture" name="tincture" use="optional"/>
                 <xs:attribute type="Line" name="line" use="optional"/>
             </xs:extension>
         </xs:complexContent>
