@@ -143,27 +143,34 @@ public class CoatOfArmsReader
 
     private MobileCharge readMobileCharge(Element element)
     {
-        Tincture tincture = element.hasAttribute("tincture") ? readTincture(element.getAttribute("tincture")) : null;
         String figure = element.getAttribute("figure");
-        return new MobileCharge(tincture, figure);
+        Background background = readChildBackground(element);
+        List<Charge> charges = getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList());
+        return new MobileCharge(figure, background, charges);
     }
 
     private OrdinaryCharge readOrdinaryCharge(Element element)
     {
         Ordinary type = readOrdinary(element.getAttribute("type"));
         Line line = readLine(element.getAttribute("line"));
+        Background background = readChildBackground(element);
+        List<Charge> charges = getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList());
+        return new OrdinaryCharge(type, line, background, charges);
+    }
+
+    private Background readChildBackground(Element element)
+    {
         Background background;
         Optional<Element> backgroundElement = getChildElement(element, "background");
         if (backgroundElement.isPresent())
         {
-            background = readBackground(backgroundElement.get());
+            return readBackground(backgroundElement.get());
         }
-        else
+        if (element.hasAttribute("tincture"))
         {
-            background = new FieldBackground(readTincture(element.getAttribute("tincture")));
+            return new FieldBackground(readTincture(element.getAttribute("tincture")));
         }
-        List<Charge> charges = getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList());
-        return new OrdinaryCharge(type, line, background, charges);
+        return null;
     }
 
     private List<Element> getChildElements(Element element)

@@ -3,10 +3,7 @@ package heraldry.model;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,11 +14,16 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class FieldBackground extends Background
 {
+    @NonNull
     private final Tincture tincture;
 
     @Override
     public String generateBlazon(BlazonContext context)
     {
+        if (context.getTincture() == tincture)
+        {
+            return "of the field";
+        }
         return tincture.getLabel();
     }
 
