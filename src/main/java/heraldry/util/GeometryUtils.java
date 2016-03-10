@@ -167,24 +167,6 @@ public class GeometryUtils
         return convertPathStepsToArea(shape.getSteps());
     }
 
-    public static Point intersection(
-            double x1, double y1, double x2, double y2,
-            double x3, double y3, double x4, double y4)
-    {
-        double d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-        if (d == 0)
-        {
-            return null;
-        }
-        double xi = ((x3 - x4) * (x1 * y2 - y1 * x2) - (x1 - x2) * (x3 * y4 - y3 * x4)) / d;
-        double yi = ((y3 - y4) * (x1 * y2 - y1 * x2) - (y1 - y2) * (x3 * y4 - y3 * x4)) / d;
-        if (xi < Math.min(x1, x2) || xi > Math.max(x1, x2) || xi < Math.min(x3, x4) || xi > Math.max(x3, x4))
-        {
-            return null;
-        }
-        return new Point(xi, yi);
-    }
-
     public static List<PathStep> polygon(double... xys)
     {
         List<PathStep> steps = new ArrayList<>();
