@@ -9,13 +9,13 @@
 <stop offset="100%" stop-color="white" stop-opacity="0%"/>
 </radialGradient>
 </defs>
-<g>
-<path d="M 8.0,8.0 L 208.0,8.0 L 208.0,408.0 L 108.0,328.0 L 8.0,408.0 L 8.0,8.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,8.0 L 8.0,29.21320343017578 L 208.0,229.2132110595703 L 208.0,229.2132110595703 L 208.0,186.7867889404297 L 29.21320343017578,8.0 L 8.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 186.7867889404297,8.0 L 8.0,186.7867889404297 L 8.0,229.2132110595703 L 8.000000000000028,229.2132110595703 L 208.0,29.21320343017578 L 208.0,8.0 L 186.7867889404297,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 93.0,8.0 L 93.0,340.0 L 108.0,328.0 L 123.0,340.0 L 123.0,8.0 L 93.0,8.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,93.0 L 8.0,123.0 L 208.0,123.0 L 208.0,93.0 L 8.0,93.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 8.0,8.0 L 208.0,8.0 L 208.0,408.0 L 108.0,328.0 L 8.0,408.0 L 8.0,8.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<g transform="translate(8.0,8.0)">
+<path d="M 0.0,0.0 L 200.0,0.0 L 200.0,400.0 L 100.0,320.0 L 0.0,400.0 L 0.0,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path d="M 0.0,0.0 L 0.0,21.21320343017578 L 200.0,221.2132110595703 L 200.0,221.2132110595703 L 200.0,178.7867889404297 L 21.21320343017578,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 178.7867889404297,0.0 L 0.0,178.7867889404297 L 0.0,221.2132110595703 L 2.8421709430404007E-14,221.2132110595703 L 200.0,21.21320343017578 L 200.0,0.0 L 178.7867889404297,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 85.0,0.0 L 85.0,332.0 L 100.0,320.0 L 115.0,332.0 L 115.0,0.0 L 85.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 0.0,85.0 L 0.0,115.0 L 200.0,115.0 L 200.0,85.0 L 0.0,85.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 0.0,0.0 L 200.0,0.0 L 200.0,400.0 L 100.0,320.0 L 0.0,400.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 <rect clip-path="url(#contour)" fill="url(#lighting)" height="416.0" width="216.0" x="0.0" y="0.0"/>
 </svg>

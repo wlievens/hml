@@ -64,16 +64,8 @@ public final class Rendering
                 xmlSvg.appendChild(xmlDefs);
             }
 
-            Element xmlG = document.createElement("g");
-
-            for (RenderShape path : paths)
-            {
-                Element xmlPath = document.createElement("path");
-                xmlPath.setAttribute("d", buildPath(path.getSteps(), margin, margin));
-                xmlPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", path.getFillPaint() == null ? "none" : toSvgColor(path.getFillPaint()), path.getBorderColor() == null ? "none" : toSvgColor(path.getBorderColor())));
-                //xmlPath.setAttribute("clip-path", "url(#contour)");
-                xmlG.appendChild(xmlPath);
-            }
+            Element xmlG = toSvgElement(document);
+            xmlG.setAttribute("transform", String.format("translate(%s,%s)", margin, margin));
             xmlSvg.appendChild(xmlG);
 
             Element xmlRect = document.createElement("rect");
@@ -92,6 +84,20 @@ public final class Rendering
         {
             throw new IllegalStateException(e);
         }
+    }
+
+    public Element toSvgElement(Document document)
+    {
+        Element group = document.createElement("g");
+        for (RenderShape path : paths)
+        {
+            Element xmlPath = document.createElement("path");
+            xmlPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
+            xmlPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", path.getFillPaint() == null ? "none" : toSvgColor(path.getFillPaint()), path.getBorderColor() == null ? "none" : toSvgColor(path.getBorderColor())));
+            //xmlPath.setAttribute("clip-path", "url(#contour)");
+            group.appendChild(xmlPath);
+        }
+        return group;
     }
 
     private String buildPath(List<PathStep> steps, double offsetX, double offsetY)

@@ -10,7 +10,7 @@ public enum Tincture
     SABLE,
     VERT,
     ERMINE,
-    VAIR;
+    ;// VAIR;
 
     public boolean isMetal()
     {
@@ -24,7 +24,7 @@ public enum Tincture
 
     public boolean isFur()
     {
-        return this == ERMINE || this == VAIR;
+        return this == ERMINE;// || this == VAIR;
     }
 
     public String getLabel()

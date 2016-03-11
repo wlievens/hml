@@ -35,7 +35,7 @@ public class SvgUtils
         throw new IllegalStateException();
     }
 
-    public static SVGDiagram loadSvg(String resource)
+    public static SVGDiagram loadSvg(@NonNull String resource)
     {
         try
         {
