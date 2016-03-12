@@ -36,43 +36,46 @@ public class ExhaustiveGenerator
         file.getParentFile().mkdirs();
 
         List<CoatOfArms> coats = new ArrayList<>();
-        for (Tincture tincture : Tincture.values())
+        for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
         {
-            CoatOfArms coat = new CoatOfArms();
-            coat.setShape("heater-shield");
-            ChargedBackgroundModel model = new ChargedBackgroundModel();
-            model.setBackground(new FieldBackground(tincture));
-            model.setCharges(new ArrayList<>());
-            coat.setModel(model);
-            coats.add(coat);
-        }
-        for (Line line : new Line[]{ Line.PLAIN, Line.WAVY, Line.ENGRAILED })
-        {
-            for (Variation variation : Variation.values())
+            for (Tincture tincture : Tincture.values())
             {
                 CoatOfArms coat = new CoatOfArms();
-                coat.setShape("heater-shield");
+                coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel();
-                model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line));
+                model.setBackground(new FieldBackground(tincture));
                 model.setCharges(new ArrayList<>());
                 coat.setModel(model);
                 coats.add(coat);
             }
-            for (Ordinary ordinary : Ordinary.values())
+            for (Line line : new Line[]{ Line.PLAIN, Line.WAVY, Line.ENGRAILED })
             {
-                CoatOfArms coat = new CoatOfArms();
-                coat.setShape("heater-shield");
-                ChargedBackgroundModel model = new ChargedBackgroundModel();
-                model.setBackground(new FieldBackground(Tincture.ARGENT));
-                ArrayList<Charge> charges = new ArrayList<>();
-                if (ordinary != null)
+                for (Variation variation : Variation.values())
                 {
-                    charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                    charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line));
+                    model.setCharges(new ArrayList<>());
+                    coat.setModel(model);
+                    coats.add(coat);
                 }
-                model.setCharges(charges);
-                coat.setModel(model);
-                coats.add(coat);
+                for (Ordinary ordinary : Ordinary.values())
+                {
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    model.setBackground(new FieldBackground(Tincture.ARGENT));
+                    ArrayList<Charge> charges = new ArrayList<>();
+                    if (ordinary != null)
+                    {
+                        charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                        charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
+                    }
+                    model.setCharges(charges);
+                    coat.setModel(model);
+                    coats.add(coat);
+                }
             }
         }
 
