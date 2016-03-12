@@ -4,6 +4,7 @@ import heraldry.render.variation.BarryVariationRenderer;
 import heraldry.render.variation.ChequyVariationRenderer;
 import heraldry.render.variation.ChevronnyVariationRenderer;
 import heraldry.render.variation.FrettyVariationRenderer;
+import heraldry.render.variation.GyronnyVariationRenderer;
 import heraldry.render.variation.LozengyVariationRenderer;
 import heraldry.render.variation.PalyVariationRenderer;
 import heraldry.render.variation.PappellonyVariationRenderer;
@@ -23,7 +24,7 @@ public enum Variation
     CHEVRONNY_INVERTED(new ChevronnyVariationRenderer(true)),
     FRETTY(new FrettyVariationRenderer()),
     PAPPELLONY(new PappellonyVariationRenderer()),
-    GYRONNY(null),
+    GYRONNY(new GyronnyVariationRenderer()),
     LOZENGY(new LozengyVariationRenderer()),
     PALY(new PalyVariationRenderer());
 
