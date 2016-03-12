@@ -8,6 +8,8 @@ import heraldry.model.Line;
 import heraldry.model.Ordinary;
 import heraldry.model.OrdinaryCharge;
 import heraldry.model.Tincture;
+import heraldry.model.Variation;
+import heraldry.model.VariationBackground;
 import heraldry.render.Rendering;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -40,6 +42,16 @@ public class ExhaustiveGenerator
             coat.setShape("heater-shield");
             ChargedBackgroundModel model = new ChargedBackgroundModel();
             model.setBackground(new FieldBackground(tincture));
+            model.setCharges(new ArrayList<>());
+            coat.setModel(model);
+            coats.add(coat);
+        }
+        for (Variation variation : Variation.values())
+        {
+            CoatOfArms coat = new CoatOfArms();
+            coat.setShape("heater-shield");
+            ChargedBackgroundModel model = new ChargedBackgroundModel();
+            model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, Line.PLAIN));
             model.setCharges(new ArrayList<>());
             coat.setModel(model);
             coats.add(coat);
