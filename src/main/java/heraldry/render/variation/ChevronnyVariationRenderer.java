@@ -38,7 +38,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
         List<RenderShape> shapes = new ArrayList<>();
         shapes.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
 
-        for (double y = y1 - spacing; y <= y2; y += spacing)
+        for (double y = y1 - width / 2; y <= y2 + width / 2; y += spacing)
         {
             List<PathStep> steps = new ArrayList<>();
             if (flip)
