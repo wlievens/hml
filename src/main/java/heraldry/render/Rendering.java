@@ -17,6 +17,67 @@ public final class Rendering
     private final RenderContour contour;
     private final Collection<RenderShape> paths;
 
+    public static String buildPath(List<PathStep> steps, double offsetX, double offsetY)
+    {
+        StringBuilder builder = new StringBuilder();
+        for (PathStep step : steps)
+        {
+            if (step instanceof LinePathStep)
+            {
+                LinePathStep line = (LinePathStep)step;
+                if (builder.length() == 0)
+                {
+                    builder.append(String.format("M %s,%s ",
+                            offsetX + line.getX1(), offsetY + line.getY1()
+                    ));
+                }
+                builder.append(String.format("L %s,%s ",
+                        offsetX + line.getX2(), offsetY + line.getY2()
+                ));
+            }
+            else if (step instanceof QuadraticPathStep)
+            {
+                QuadraticPathStep quadratic = (QuadraticPathStep)step;
+                if (builder.length() == 0)
+                {
+                    builder.append(String.format("M %s,%s ",
+                            offsetX + quadratic.getX1(), offsetY + quadratic.getY1()
+                    ));
+                }
+                builder.append(String.format("Q %s,%s %s,%s ",
+                        offsetX + quadratic.getX2(), offsetY + quadratic.getY2(),
+                        offsetX + quadratic.getX3(), offsetY + quadratic.getY3()
+                ));
+            }
+            else if (step instanceof CubicPathStep)
+            {
+                CubicPathStep cubic = (CubicPathStep)step;
+                if (builder.length() == 0)
+                {
+                    builder.append(String.format("M %s,%s ",
+                            offsetX + cubic.getX1(), offsetY + cubic.getY1()
+                    ));
+                }
+                builder.append(String.format("C %s,%s %s,%s %s,%s ",
+                        offsetX + cubic.getX2(), offsetY + cubic.getY2(),
+                        offsetX + cubic.getX3(), offsetY + cubic.getY3(),
+                        offsetX + cubic.getX4(), offsetY + cubic.getY4()
+                ));
+            }
+            else
+            {
+                throw new IllegalStateException();
+            }
+        }
+        builder.append("Z");
+        return builder.toString();
+    }
+
+    private static int to255(double value)
+    {
+        return (int)Math.round(255 * value);
+    }
+
     public Document toSvg(double margin)
     {
         try
@@ -100,62 +161,6 @@ public final class Rendering
         return group;
     }
 
-    private String buildPath(List<PathStep> steps, double offsetX, double offsetY)
-    {
-        StringBuilder builder = new StringBuilder();
-        for (PathStep step : steps)
-        {
-            if (step instanceof LinePathStep)
-            {
-                LinePathStep line = (LinePathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + line.getX1(), offsetY + line.getY1()
-                    ));
-                }
-                builder.append(String.format("L %s,%s ",
-                        offsetX + line.getX2(), offsetY + line.getY2()
-                ));
-            }
-            else if (step instanceof QuadraticPathStep)
-            {
-                QuadraticPathStep quadratic = (QuadraticPathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + quadratic.getX1(), offsetY + quadratic.getY1()
-                    ));
-                }
-                builder.append(String.format("Q %s,%s %s,%s ",
-                        offsetX + quadratic.getX2(), offsetY + quadratic.getY2(),
-                        offsetX + quadratic.getX3(), offsetY + quadratic.getY3()
-                ));
-            }
-            else if (step instanceof CubicPathStep)
-            {
-                CubicPathStep cubic = (CubicPathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + cubic.getX1(), offsetY + cubic.getY1()
-                    ));
-                }
-                builder.append(String.format("C %s,%s %s,%s %s,%s ",
-                        offsetX + cubic.getX2(), offsetY + cubic.getY2(),
-                        offsetX + cubic.getX3(), offsetY + cubic.getY3(),
-                        offsetX + cubic.getX4(), offsetY + cubic.getY4()
-                ));
-            }
-            else
-            {
-                throw new IllegalStateException();
-            }
-        }
-        builder.append("Z");
-        return builder.toString();
-    }
-
     private String toSvgColor(Paint paint)
     {
         if (paint instanceof Color)
@@ -167,10 +172,5 @@ public final class Rendering
             return String.format("rgb(%s, %s, %s)", to255(red), to255(green), to255(blue));
         }
         throw new IllegalStateException();
-    }
-
-    private static int to255(double value)
-    {
-        return (int)Math.round(255 * value);
     }
 }
