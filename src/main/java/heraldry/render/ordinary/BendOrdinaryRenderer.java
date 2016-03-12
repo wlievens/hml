@@ -21,7 +21,6 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
         double x2 = bounds.getX2();
-        double y2 = bounds.getY2();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
