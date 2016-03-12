@@ -1,6 +1,7 @@
 package heraldry.model;
 
 import heraldry.render.Box;
+import heraldry.render.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -70,7 +72,7 @@ public class OrdinaryCharge extends Charge
         if (renderer == null)
         {
             log.warn("No renderer implemented for ordinary '{}'", ordinary);
-            return background.render(new RenderContour(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8))), painter);
+            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1)));
         }
         List<RenderContour> contours = contour.clipContours(renderer.render(bounds, line, painter));
         List<RenderShape> list = new ArrayList<>();

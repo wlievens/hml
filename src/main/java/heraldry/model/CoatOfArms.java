@@ -113,7 +113,7 @@ public class CoatOfArms
             @Override
             public double getLinePeriodFactor()
             {
-                return 0.125;
+                return 1.0 / 9.0;
             }
 
             @Override

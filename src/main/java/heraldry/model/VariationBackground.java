@@ -28,12 +28,13 @@ public class VariationBackground extends Background
     @Override
     public String generateBlazon(BlazonContext context)
     {
+        String variationLabelWithLine = variation.getLabel() + (line == Line.PLAIN ? "" : (" " + line.getLabel().toLowerCase()));
         switch (variation)
         {
             case FRETTY:
-                return String.format("%s %s %s", firstTincture.getLabel(), variation.getLabel(), secondTincture.getLabel());
+                return String.format("%s %s %s", firstTincture.getLabel(), variationLabelWithLine, secondTincture.getLabel());
             default:
-                return String.format("%s %s and %s", variation.getLabel(), firstTincture.getLabel(), secondTincture.getLabel());
+                return String.format("%s %s and %s", variationLabelWithLine, firstTincture.getLabel(), secondTincture.getLabel());
         }
     }
 

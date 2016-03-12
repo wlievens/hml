@@ -51,7 +51,7 @@ public class GyronOrdinaryRenderer implements OrdinaryRenderer
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
         LineRenderer.plotLine(steps, x1, y1, x2, y2, line, period, false);
-        steps.add(new LinePathStep(x2, y2, x1, y2));
+        LineRenderer.plotLine(steps, x2, y2, x1, y2, line, period, false);
         steps.add(new LinePathStep(x1, y2, x1, y1));
         return Arrays.asList(new RenderContour(steps));
     }

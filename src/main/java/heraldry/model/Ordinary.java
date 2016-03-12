@@ -36,6 +36,7 @@ public enum Ordinary
     ORLE(null),
     SALTIRE(new SaltireOrdinaryRenderer()),
     PALE(new PaleOrdinaryRenderer(1.0)),
+    PALL(null),
     PALLET(new PaleOrdinaryRenderer(0.5)),
     QUARTER(new QuarterOrdinaryRenderer(0.5)),
     TRESSURE(null);

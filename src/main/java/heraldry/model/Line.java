@@ -10,7 +10,7 @@ public enum Line
     PLAIN(1.0),
     DOVETAILED(1.0),
     EMBATTLED(1.0),
-    ENGRAILED(1.0),
+    ENGRAILED(1.2),
     INDENTED(1.0),
     INVECTED(0.9),
     NEBULY(0.75),
