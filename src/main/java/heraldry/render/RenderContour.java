@@ -65,19 +65,15 @@ public final class RenderContour
             return Collections.singletonList(shape);
         }
         return GeometryUtils.clip(shape.getSteps(), this).stream()
-            .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor()))
-            .collect(toList());
+                .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor()))
+                .collect(toList());
     }
 
     public List<RenderContour> clip(RenderContour contour)
     {
-        if (false)
-        {
-            return Collections.singletonList(contour);
-        }
         return GeometryUtils.clip(contour.getSteps(), this).stream()
-            .map(RenderContour::new)
-            .collect(toList());
+                .map(RenderContour::new)
+                .collect(toList());
     }
 
     public boolean isRectangle()
