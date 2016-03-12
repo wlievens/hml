@@ -1,6 +1,7 @@
 package heraldry.model;
 
 import heraldry.render.variation.BarryVariationRenderer;
+import heraldry.render.variation.BendyVariationRenderer;
 import heraldry.render.variation.ChequyVariationRenderer;
 import heraldry.render.variation.ChevronnyVariationRenderer;
 import heraldry.render.variation.FrettyVariationRenderer;
@@ -17,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 public enum Variation
 {
     BARRY(new BarryVariationRenderer()),
-    BENDY(null),
-    BENDY_SINISTER(null),
+    BENDY(new BendyVariationRenderer(false)),
+    BENDY_SINISTER(new BendyVariationRenderer(true)),
     CHEQUY(new ChequyVariationRenderer()),
     CHEVRONNY(new ChevronnyVariationRenderer(false)),
     CHEVRONNY_INVERTED(new ChevronnyVariationRenderer(true)),
