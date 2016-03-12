@@ -8,9 +8,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
+import java.util.Collections;
 
+@Slf4j
 @Getter
 @Setter
 @ToString
@@ -40,7 +43,8 @@ public class VariationBackground extends Background
         VariationRenderer renderer = variation.getRenderer();
         if (renderer == null)
         {
-            throw new IllegalStateException(String.format("No renderer implemented for variation '%s'", variation));
+            log.warn("No renderer implemented for variation '{}'", variation);
+            return Collections.singleton(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
         }
         return renderer.render(contour, firstTincture, secondTincture, line, painter);
     }
