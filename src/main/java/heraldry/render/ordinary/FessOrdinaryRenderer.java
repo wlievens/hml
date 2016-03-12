@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class PaleOrdinaryRenderer implements OrdinaryRenderer
+public class FessOrdinaryRenderer implements OrdinaryRenderer
 {
     private final double sizeRatio;
 
@@ -25,17 +25,16 @@ public class PaleOrdinaryRenderer implements OrdinaryRenderer
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
         double x2 = bounds.getX2();
-        double y2 = bounds.getY2();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double step = sizeRatio * painter.getOrdinaryThickness() * line.getScaleFactor() / 2;
-        double midX = (x1 + x2) / 2;
+        double midY = y1 + width / 2;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
-        steps.add(new LinePathStep(midX - step, y1, midX + step, y1));
-        LineRenderer.plotLine(steps, midX + step, y1, midX + step, y2, line, period, false);
-        steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
-        LineRenderer.plotLine(steps, midX - step, y2, midX - step, y1, line, period, false);
+        LineRenderer.plotLine(steps, x1, midY - step, x2, midY - step, line, period, false);
+        steps.add(new LinePathStep(x2, midY - step, x2, midY + step));
+        LineRenderer.plotLine(steps, x2, midY + step, x1, midY + step, line, period, false);
+        steps.add(new LinePathStep(x1, midY + step, x1, midY - step));
         return Arrays.asList(new RenderContour(steps));
     }
 }

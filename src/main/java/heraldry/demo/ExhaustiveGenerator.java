@@ -1,8 +1,12 @@
 package heraldry.demo;
 
+import heraldry.model.Charge;
 import heraldry.model.ChargedBackgroundModel;
 import heraldry.model.CoatOfArms;
 import heraldry.model.FieldBackground;
+import heraldry.model.Line;
+import heraldry.model.Ordinary;
+import heraldry.model.OrdinaryCharge;
 import heraldry.model.Tincture;
 import heraldry.render.Rendering;
 import org.w3c.dom.Document;
@@ -40,36 +44,61 @@ public class ExhaustiveGenerator
             coat.setModel(model);
             coats.add(coat);
         }
+        for (Ordinary ordinary : Ordinary.values())
+        {
+            CoatOfArms coat = new CoatOfArms();
+            coat.setShape("heater-shield");
+            ChargedBackgroundModel model = new ChargedBackgroundModel();
+            model.setBackground(new FieldBackground(Tincture.ARGENT));
+            ArrayList<Charge> charges = new ArrayList<>();
+            if (ordinary != null)
+            {
+                charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                charges.add(new OrdinaryCharge(ordinary, Line.PLAIN, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
+            }
+            model.setCharges(charges);
+            coat.setModel(model);
+            coats.add(coat);
+        }
 
-        int columns = Math.min(6, coats.size());
+        int columns = Math.min(7, coats.size());
         int rows = (coats.size() + columns - 1) / columns;
-        int spacing = 20;
+        int margin = 10;
+        int spacingX = 20;
+        int spacingY = 45;
 
         int shieldWidth = 200;
         int shieldHeight = 230;
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        Element xmlSvg = document.createElement("svg");
-        xmlSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        double fullWidth = columns * shieldWidth + (columns - 1) * spacing;
-        double fullHeight = rows * shieldHeight + (rows - 1) * spacing;
-        xmlSvg.setAttribute("width", String.valueOf(fullWidth));
-        xmlSvg.setAttribute("height", String.valueOf(fullHeight));
+        Element svg = document.createElement("svg");
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        double fullWidth = columns * shieldWidth + (columns - 1) * spacingX + 2 * margin;
+        double fullHeight = rows * shieldHeight + (rows - 1) * spacingY + 2 * margin + spacingY;
+        svg.setAttribute("width", String.valueOf(fullWidth));
+        svg.setAttribute("height", String.valueOf(fullHeight));
 
-        Element xmlG = document.createElement("g");
+        Element svgG = document.createElement("g");
         for (int index = 0; index < coats.size(); ++index)
         {
             CoatOfArms coat = coats.get(index);
             int column = index % columns;
             int row = index / columns;
             Rendering rendering = coat.render();
-            Element xmlG2 = document.createElement("g");
-            xmlG2.appendChild(rendering.toSvgElement(document));
-            xmlG2.setAttribute("transform", "translate(" + (column * (spacing + shieldWidth)) + "," + (row * (spacing + shieldHeight)) + ")");
-            xmlG.appendChild(xmlG2);
+            Element svgG2 = document.createElement("g");
+            svgG2.appendChild(rendering.toSvgElement(document));
+            svgG2.setAttribute("transform", "translate(" + (margin + column * (spacingX + shieldWidth)) + "," + (margin + row * (spacingY + shieldHeight)) + ")");
+            svgG.appendChild(svgG2);
+            Element svgText = document.createElement("text");
+            svgText.setTextContent(coat.generateBlazon());
+            svgText.setAttribute("x", Integer.toString(shieldWidth / 2));
+            svgText.setAttribute("y", Integer.toString(shieldHeight + 15 + 15 * (column % 2)));
+            svgText.setAttribute("style", "fill:black;");
+            svgText.setAttribute("text-anchor", "middle");
+            svgG2.appendChild(svgText);
         }
-        xmlSvg.appendChild(xmlG);
-        document.appendChild(xmlSvg);
+        svg.appendChild(svgG);
+        document.appendChild(svg);
 
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
