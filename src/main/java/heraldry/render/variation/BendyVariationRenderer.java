@@ -42,9 +42,9 @@ public class BendyVariationRenderer implements VariationRenderer
             double period = painter.getLinePeriodFactor() * Math.min(width, height);
 
             List<PathStep> steps = new ArrayList<>();
-            LineRenderer.plotLine(steps, startX, startY - step, endX, endY - step, line, period, flipX);
+            LineRenderer.line(steps, startX, startY - step, endX, endY - step, line, period, flipX, 1.0);
             steps.add(new LinePathStep(endX, endY - step, endX, endY + step));
-            LineRenderer.plotLine(steps, endX, endY + step, startX, startY + step, line, period, flipX);
+            LineRenderer.line(steps, endX, endY + step, startX, startY + step, line, period, flipX, 1.0);
             steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
 
             list.addAll(contour.clip(new RenderShape(steps, painter.getColor(secondTincture), null)));

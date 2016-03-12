@@ -37,22 +37,22 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         if (inverted)
         {
             steps.add(new LinePathStep(x1, y1, x1 + step, y1));
-            LineRenderer.plotLine(steps, x1 + step, y1, midX, midY - step, line, period, inverted);
-            LineRenderer.plotLine(steps, midX, midY - step, x2 - step, y1, line, period, inverted);
+            LineRenderer.line(steps, x1 + step, y1, midX, midY - step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY - step, x2 - step, y1, line, period, inverted, sizeRatio);
             steps.add(new LinePathStep(x2 - step, y1, x2, y1));
             steps.add(new LinePathStep(x2, y1, x2, y1 + step));
-            LineRenderer.plotLine(steps, x2, y1 + step, midX, midY + step, line, period, inverted);
-            LineRenderer.plotLine(steps, midX, midY + step, x1, y1 + step, line, period, inverted);
+            LineRenderer.line(steps, x2, y1 + step, midX, midY + step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY + step, x1, y1 + step, line, period, inverted, sizeRatio);
             steps.add(new LinePathStep(x1, y1 + step, x1, y1));
         }
         else
         {
-            LineRenderer.plotLine(steps, x1, y2 - step, midX, midY - step, line, period, inverted);
-            LineRenderer.plotLine(steps, midX, midY - step, x2, y2 - step, line, period, inverted);
+            LineRenderer.line(steps, x1, y2 - step, midX, midY - step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY - step, x2, y2 - step, line, period, inverted, sizeRatio);
             steps.add(new LinePathStep(x2, y2 - step, x2, y2));
             steps.add(new LinePathStep(x2, y2, x2 - step, y2));
-            LineRenderer.plotLine(steps, x2 - step, y2, midX, midY + step, line, period, inverted);
-            LineRenderer.plotLine(steps, midX, midY + step, x1 + step, y2, line, period, inverted);
+            LineRenderer.line(steps, x2 - step, y2, midX, midY + step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY + step, x1 + step, y2, line, period, inverted, sizeRatio);
             steps.add(new LinePathStep(x1 + step, y2, x1, y2));
             steps.add(new LinePathStep(x1, y2, x1, y2 - step));
         }

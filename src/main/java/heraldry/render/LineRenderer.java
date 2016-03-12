@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LineRenderer
 {
-    public static void plotLine(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped)
+    public static void line(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped, double amplitudeFactor)
     {
         double distance = MathUtils.distance(startX, startY, endX, endY);
         period = distance / Math.round(distance / period);
@@ -27,7 +27,7 @@ public class LineRenderer
                 double angle = Math.atan2(endY - startY, endX - startX);
                 double length = MathUtils.distance(startX, startY, endX, endY);
                 double offset = 0;
-                double amplitude = period / 2 * (flipped ? -1 : +1);
+                double amplitude = (period / 2 * (flipped ? -1 : +1)) * amplitudeFactor;
                 boolean alternate = false;
                 while (offset < length)
                 {
@@ -49,6 +49,8 @@ public class LineRenderer
                     if (line == Line.WAVY || line == Line.INVECTED || line == Line.ENGRAILED)
                     {
                         steps.add(new QuadraticPathStep(x1, y1, cx1, cy1, x2, y2));
+                        //steps.add(new LinePathStep(x1, y1, cx1, cy1));
+                        //steps.add(new LinePathStep(cx1, cy1, x2, y2));
                     }
                     else if (line == Line.NEBULY)
                     {

@@ -1,7 +1,10 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.render.*;
+import heraldry.render.Box;
+import heraldry.render.Painter;
+import heraldry.render.Point;
+import heraldry.render.RenderContour;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -39,60 +42,60 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
         List<RenderContour> list = new ArrayList<>();
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            x1 - step, y1,
-            x1, y1 - step,
-            nearX - margin, nearY - step - margin,
-            nearX - step - margin, nearY - margin
+                x1 - step, y1,
+                x1, y1 - step,
+                nearX - margin, nearY - step - margin,
+                nearX - step - margin, nearY - margin
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            nearX + margin, nearY + step + margin,
-            nearX + step + margin, nearY + margin,
-            farX - margin, farY - step - margin,
-            farX - step - margin, farY - margin
+                nearX + margin, nearY + step + margin,
+                nearX + step + margin, nearY + margin,
+                farX - margin, farY - step - margin,
+                farX - step - margin, farY - margin
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            farX + margin, farY + step + margin,
-            farX + step + margin, farY + margin,
-            x1 + width + step, y1 + width,
-            x1 + width, y1 + width + step
+                farX + margin, farY + step + margin,
+                farX + step + margin, farY + margin,
+                x1 + width + step, y1 + width,
+                x1 + width, y1 + width + step
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            x1 + width, y1 - step,
-            x1 + width + step, y1,
-            middleX + step + margin, middleY - margin,
-            middleX + margin, middleY - step - margin
+                x1 + width, y1 - step,
+                x1 + width + step, y1,
+                middleX + step + margin, middleY - margin,
+                middleX + margin, middleY - step - margin
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            middleX - step - margin, middleY + margin,
-            middleX - margin, middleY + step + margin,
-            x1, y1 + width + step,
-            x1 - step, y1 + width
+                middleX - step - margin, middleY + margin,
+                middleX - margin, middleY + step + margin,
+                x1, y1 + width + step,
+                x1 - step, y1 + width
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            middleX, middleY - 2 * distance - step,
-            middleX - 2 * distance - step, middleY,
-            middleX - distance - step - margin, middleY + distance - margin,
-            middleX - distance - margin, middleY + distance - step - margin,
-            middleX - 2 * distance + step, middleY,
-            middleX, middleY - 2 * distance + step,
-            middleX + distance - step - margin, middleY - distance - margin,
-            middleX + distance - margin, middleY - distance - step - margin
+                middleX, middleY - 2 * distance - step,
+                middleX - 2 * distance - step, middleY,
+                middleX - distance - step - margin, middleY + distance - margin,
+                middleX - distance - margin, middleY + distance - step - margin,
+                middleX - 2 * distance + step, middleY,
+                middleX, middleY - 2 * distance + step,
+                middleX + distance - step - margin, middleY - distance - margin,
+                middleX + distance - margin, middleY - distance - step - margin
         )));
 
         list.add(new RenderContour(GeometryUtils.polygon(
-            middleX, middleY + 2 * distance - step,
-            middleX + 2 * distance - step, middleY,
-            middleX + distance + margin, middleY - distance + step + margin,
-            middleX + distance + step + margin, middleY - distance + margin,
-            middleX + 2 * distance + step, middleY,
-            middleX, middleY + 2 * distance + step,
-            middleX - distance + margin, middleY + step + distance + margin,
-            middleX - distance + step + margin, middleY + distance + margin
+                middleX, middleY + 2 * distance - step,
+                middleX + 2 * distance - step, middleY,
+                middleX + distance + margin, middleY - distance + step + margin,
+                middleX + distance + step + margin, middleY - distance + margin,
+                middleX + 2 * distance + step, middleY,
+                middleX, middleY + 2 * distance + step,
+                middleX - distance + margin, middleY + step + distance + margin,
+                middleX - distance + step + margin, middleY + distance + margin
         )));
 
         return list;

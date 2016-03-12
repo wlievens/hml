@@ -44,22 +44,22 @@ public class ChevronnyVariationRenderer implements VariationRenderer
             if (flip)
             {
                 double midY = y + width / 2;
-                LineRenderer.plotLine(steps, x1, y - step, midX, midY - step, line, period, flip);
-                LineRenderer.plotLine(steps, midX, midY - step, x2, y - step, line, period, flip);
+                LineRenderer.line(steps, x1, y - step, midX, midY - step, line, period, flip, 1.0);
+                LineRenderer.line(steps, midX, midY - step, x2, y - step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x2, y - step, x2, y + step));
-                LineRenderer.plotLine(steps, x2, y + step, midX, midY + step, line, period, flip);
-                LineRenderer.plotLine(steps, midX, midY + step, x1, y + step, line, period, flip);
+                LineRenderer.line(steps, x2, y + step, midX, midY + step, line, period, flip, 1.0);
+                LineRenderer.line(steps, midX, midY + step, x1, y + step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x1, y + step, x1, y - step));
             }
             else
             {
                 double midY = y - width / 2;
                 steps.add(new LinePathStep(x1, y, x1, y - step));
-                LineRenderer.plotLine(steps, x1, y - step, midX, midY - step, line, period, flip);
-                LineRenderer.plotLine(steps, midX, midY - step, x2, y - step, line, period, flip);
+                LineRenderer.line(steps, x1, y - step, midX, midY - step, line, period, flip, 1.0);
+                LineRenderer.line(steps, midX, midY - step, x2, y - step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x2, y - step, x2, y + step));
-                LineRenderer.plotLine(steps, x2, y + step, midX, midY + step, line, period, flip);
-                LineRenderer.plotLine(steps, midX, midY + step, x1, y + step, line, period, flip);
+                LineRenderer.line(steps, x2, y + step, midX, midY + step, line, period, flip, 1.0);
+                LineRenderer.line(steps, midX, midY + step, x1, y + step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x1, y + step, x1, y));
             }
             shapes.addAll(contour.clip(new RenderShape(steps, painter.getColor(secondTincture), null)));

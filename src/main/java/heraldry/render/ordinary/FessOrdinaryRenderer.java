@@ -31,9 +31,9 @@ public class FessOrdinaryRenderer implements OrdinaryRenderer
         double midY = y1 + width / 2;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
-        LineRenderer.plotLine(steps, x1, midY - step, x2, midY - step, line, period, false);
+        LineRenderer.line(steps, x1, midY - step, x2, midY - step, line, period, false, sizeRatio);
         steps.add(new LinePathStep(x2, midY - step, x2, midY + step));
-        LineRenderer.plotLine(steps, x2, midY + step, x1, midY + step, line, period, false);
+        LineRenderer.line(steps, x2, midY + step, x1, midY + step, line, period, false, sizeRatio);
         steps.add(new LinePathStep(x1, midY + step, x1, midY - step));
         return Arrays.asList(new RenderContour(steps));
     }

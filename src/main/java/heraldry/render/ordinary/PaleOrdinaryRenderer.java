@@ -33,9 +33,9 @@ public class PaleOrdinaryRenderer implements OrdinaryRenderer
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
         steps.add(new LinePathStep(midX - step, y1, midX + step, y1));
-        LineRenderer.plotLine(steps, midX + step, y1, midX + step, y2, line, period, false);
+        LineRenderer.line(steps, midX + step, y1, midX + step, y2, line, period, false,sizeRatio);
         steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
-        LineRenderer.plotLine(steps, midX - step, y2, midX - step, y1, line, period, false);
+        LineRenderer.line(steps, midX - step, y2, midX - step, y1, line, period, false,sizeRatio);
         return Arrays.asList(new RenderContour(steps));
     }
 }

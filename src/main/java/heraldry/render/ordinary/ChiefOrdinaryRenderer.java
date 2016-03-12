@@ -17,21 +17,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChiefOrdinaryRenderer implements OrdinaryRenderer
 {
+    private final double sizeRatio;
+
     @Override
     public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
     {
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
         double x2 = bounds.getX2();
-        double y2 = y1 + painter.getChiefHeight();
+        double y2 = y1 + sizeRatio * painter.getChiefHeight();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
-        double midY = y1 + width / 2;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         List<PathStep> steps = new ArrayList<>();
         steps.add(new LinePathStep(x1, y1, x2, y1));
         steps.add(new LinePathStep(x2, y1, x2, y2));
-        LineRenderer.plotLine(steps, x2, y2, x1, y2, line, period, false);
+        LineRenderer.line(steps, x2, y2, x1, y2, line, period, false,sizeRatio);
         steps.add(new LinePathStep(x1, y2, x1, y1));
         return Arrays.asList(new RenderContour(steps));
     }
