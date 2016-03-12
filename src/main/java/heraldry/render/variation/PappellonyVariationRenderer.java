@@ -2,7 +2,13 @@ package heraldry.render.variation;
 
 import heraldry.model.Line;
 import heraldry.model.Tincture;
-import heraldry.render.*;
+import heraldry.render.Box;
+import heraldry.render.CubicPathStep;
+import heraldry.render.LinePathStep;
+import heraldry.render.Painter;
+import heraldry.render.PathStep;
+import heraldry.render.RenderContour;
+import heraldry.render.RenderShape;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,9 +31,8 @@ public class PappellonyVariationRenderer implements VariationRenderer
         double control1 = spacingX / 4;
         double control2 = (spacingX + 2 * step) / 4;
         double ratioY = 0.7;
-
-        int row = 0;
-        while (row < 10)
+        int rows = (int)Math.ceil(height / spacingY);
+        for (int row = 0; row < rows; ++row)
         {
             for (int column = -1; column < columns; ++column)
             {
@@ -52,9 +57,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
                 steps.add(new CubicPathStep(x3, y3, x3 - control2, y3, x1, y1 + control2, x1, y1));
                 list.add(new RenderShape(steps, painter.getColor(secondTincture), null));
             }
-            ++row;
         }
-
         return contour.clipShapes(list);
     }
 
