@@ -1,5 +1,6 @@
 package heraldry.model;
 
+import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,6 @@ public enum Line
 
     public String getLabel()
     {
-        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1);
+        return EnumUtils.getLabel(this);
     }
 }

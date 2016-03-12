@@ -11,6 +11,7 @@ import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
 import heraldry.render.ordinary.QuarterOrdinaryRenderer;
 import heraldry.render.ordinary.SaltireOrdinaryRenderer;
+import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -44,6 +45,6 @@ public enum Ordinary
 
     public String getLabel()
     {
-        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1).replace("_", " ");
+        return EnumUtils.getLabel(this);
     }
 }

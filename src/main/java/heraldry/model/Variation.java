@@ -8,6 +8,7 @@ import heraldry.render.variation.LozengyVariationRenderer;
 import heraldry.render.variation.PalyVariationRenderer;
 import heraldry.render.variation.PappellonyVariationRenderer;
 import heraldry.render.variation.VariationRenderer;
+import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +32,6 @@ public enum Variation
 
     public String getLabel()
     {
-        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1);
+        return EnumUtils.getLabel(this);
     }
 }

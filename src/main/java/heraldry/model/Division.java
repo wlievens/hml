@@ -3,6 +3,7 @@ package heraldry.model;
 import heraldry.render.division.DivisionRenderer;
 import heraldry.render.division.PaleDivisionRenderer;
 import heraldry.render.division.QuarterlyDivisionRenderer;
+import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,6 @@ public enum Division
 
     public String getLabel()
     {
-        return Character.toUpperCase(name().toLowerCase().charAt(0)) + name().toLowerCase().substring(1);
+        return EnumUtils.getLabel(this);
     }
 }
