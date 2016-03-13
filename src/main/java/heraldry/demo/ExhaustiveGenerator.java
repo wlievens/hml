@@ -11,6 +11,7 @@ import heraldry.model.Line;
 import heraldry.model.MobileCharge;
 import heraldry.model.Ordinary;
 import heraldry.model.OrdinaryCharge;
+import heraldry.model.SemyBackground;
 import heraldry.model.Tincture;
 import heraldry.model.Variation;
 import heraldry.model.VariationBackground;
@@ -63,6 +64,16 @@ public class ExhaustiveGenerator
                     ChargedBackgroundModel model = new ChargedBackgroundModel();
                     model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line, 0));
                     model.setCharges(new ArrayList<>());
+                    coat.setModel(model);
+                    coats.add(coat);
+                }
+                {
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    model.setBackground(new SemyBackground(new FieldBackground(Tincture.ARGENT), new OrdinaryCharge(Ordinary.LOZENGE, Tincture.AZURE)));
+                    ArrayList<Charge> charges = new ArrayList<>();
+                    model.setCharges(charges);
                     coat.setModel(model);
                     coats.add(coat);
                 }

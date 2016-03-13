@@ -31,6 +31,11 @@ public class OrdinaryCharge extends Charge
     private final Background background;
     private final List<Charge> charges;
 
+    public OrdinaryCharge(Ordinary ordinary, Tincture tincture)
+    {
+        this(ordinary, Line.PLAIN, new FieldBackground(tincture), new ArrayList<>());
+    }
+
     @Override
     public String generateBlazon(BlazonContext context)
     {
