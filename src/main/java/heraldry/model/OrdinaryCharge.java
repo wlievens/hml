@@ -40,7 +40,10 @@ public class OrdinaryCharge extends Charge
         {
             list.add("on");
         }
-        list.add(StringUtils.getArticle(ordinaryLabel));
+        if (!ordinary.isNamePlural())
+        {
+            list.add(StringUtils.getArticle(ordinaryLabel));
+        }
         list.add(ordinaryLabel);
         if (line != Line.PLAIN)
         {
