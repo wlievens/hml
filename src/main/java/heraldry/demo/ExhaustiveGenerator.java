@@ -69,6 +69,7 @@ public class ExhaustiveGenerator
                     ArrayList<Charge> charges = new ArrayList<>();
                     if (ordinary != null)
                     {
+                        charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
                         charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
                         charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
                     }

@@ -63,7 +63,7 @@ public enum Ordinary
     SALTOREL(null),
     SHAKEFORK(null),
     TRESSURE(null);
-
+    
     @Getter
     private final OrdinaryRenderer renderer;
 
