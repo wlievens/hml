@@ -76,6 +76,7 @@
             <xs:enumeration value="pall-reversed"/>
             <xs:enumeration value="pallet"/>
             <xs:enumeration value="pile"/>
+            <xs:enumeration value="pile-inverted"/>
             <xs:enumeration value="quarter"/>
             <xs:enumeration value="ribbon"/>
             <xs:enumeration value="ribbon-sinister"/>

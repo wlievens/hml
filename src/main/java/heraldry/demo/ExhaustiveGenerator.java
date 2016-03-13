@@ -36,7 +36,8 @@ public class ExhaustiveGenerator
         file.getParentFile().mkdirs();
 
         List<CoatOfArms> coats = new ArrayList<>();
-        for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
+        //for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
+        for (String shape : new String[]{ "heater-shield" })
         {
             for (Tincture tincture : Tincture.values())
             {

@@ -1,6 +1,5 @@
 package heraldry.model;
 
-import heraldry.render.ordinary.RoundelOrdinaryRenderer;
 import heraldry.render.ordinary.BendOrdinaryRenderer;
 import heraldry.render.ordinary.ChevronOrdinaryRenderer;
 import heraldry.render.ordinary.ChiefOrdinaryRenderer;
@@ -12,7 +11,9 @@ import heraldry.render.ordinary.LozengeOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
 import heraldry.render.ordinary.PallOrdinaryRenderer;
+import heraldry.render.ordinary.PileOrdinaryRenderer;
 import heraldry.render.ordinary.QuarterOrdinaryRenderer;
+import heraldry.render.ordinary.RoundelOrdinaryRenderer;
 import heraldry.render.ordinary.SaltireOrdinaryRenderer;
 import heraldry.util.EnumUtils;
 import lombok.Getter;
@@ -58,7 +59,8 @@ public enum Ordinary
     PALL(new PallOrdinaryRenderer(1.0, false)),
     PALL_REVERSED(new PallOrdinaryRenderer(1.0, true)),
     PALLET(new PaleOrdinaryRenderer(0.5)),
-    PILE(null),
+    PILE(new PileOrdinaryRenderer(false)),
+    PILE_INVERTED(new PileOrdinaryRenderer(true)),
     QUARTER(new QuarterOrdinaryRenderer(0.5)),
     RIBBON(new BendOrdinaryRenderer(false, 0.25)),
     RIBBON_SINISTER(new BendOrdinaryRenderer(true, 0.25)),
