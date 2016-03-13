@@ -1,5 +1,6 @@
 package heraldry.model;
 
+import heraldry.render.ordinary.AnnuletOrdinaryRenderer;
 import heraldry.render.ordinary.BendOrdinaryRenderer;
 import heraldry.render.ordinary.ChevronOrdinaryRenderer;
 import heraldry.render.ordinary.ChiefOrdinaryRenderer;
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Ordinary
 {
-    ANNULET(null),
+    ANNULET(new AnnuletOrdinaryRenderer()),
     BAR(new FessOrdinaryRenderer(0.5)),
     BARRULET(new FessOrdinaryRenderer(0.25)),
     BATON(null),
