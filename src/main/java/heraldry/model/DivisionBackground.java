@@ -1,19 +1,25 @@
 package heraldry.model;
 
+import heraldry.render.Box;
+import heraldry.render.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.division.DivisionRenderer;
+import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Getter
 @Setter
 @ToString
@@ -81,7 +87,9 @@ public class DivisionBackground extends Background
         DivisionRenderer renderer = division.getRenderer();
         if (renderer == null)
         {
-            throw new IllegalStateException(String.format("No renderer implemented for division '%s'", division));
+            log.warn("No renderer implemented for division '{}'", division);
+            Box bounds = contour.getBounds();
+            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1)));
         }
         List<RenderContour> divisionContours = renderer.render(contour, painter);
         List<RenderShape> list = new ArrayList<>();
