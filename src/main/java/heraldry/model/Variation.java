@@ -24,10 +24,10 @@ public enum Variation
     CHEVRONNY(new ChevronnyVariationRenderer(false)),
     CHEVRONNY_INVERTED(new ChevronnyVariationRenderer(true)),
     FRETTY(new FrettyVariationRenderer()),
-    PAPPELLONY(new PappellonyVariationRenderer()),
     GYRONNY(new GyronnyVariationRenderer()),
     LOZENGY(new LozengyVariationRenderer()),
-    PALY(new PalyVariationRenderer());
+    PALY(new PalyVariationRenderer()),
+    PAPPELLONY(new PappellonyVariationRenderer());
 
     @Getter
     private final VariationRenderer renderer;

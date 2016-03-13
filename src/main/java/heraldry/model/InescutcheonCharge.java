@@ -41,10 +41,12 @@ public class InescutcheonCharge extends Charge
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         SVGDiagram diagram = SvgUtils.loadSvg("/shapes/heater-shield.svg");
-        double scale = 0.37;
         Box bounds = contour.getBounds();
+        double scale = Math.min(bounds.getWidth() / diagram.getWidth(), bounds.getHeight() / diagram.getHeight());
         Point center = bounds.getFessPoint();
-        AffineTransform transform = AffineTransform.getTranslateInstance(center.getX() - 0.5 * scale * bounds.getWidth(), center.getY() - 0.5 * scale * bounds.getHeight());
+        double translateX = center.getX() - 0.5 * scale * diagram.getWidth();
+        double translateY = center.getY() - 0.5 * scale * diagram.getHeight();
+        AffineTransform transform = AffineTransform.getTranslateInstance(translateX, translateY);
         transform.scale(scale, scale);
         RenderContour subContour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour"), transform));
         List<RenderShape> shapes = new ArrayList<>();

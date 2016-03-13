@@ -1,6 +1,24 @@
 package heraldry.io;
 
-import heraldry.model.*;
+import heraldry.model.Background;
+import heraldry.model.Charge;
+import heraldry.model.ChargedBackgroundModel;
+import heraldry.model.CoatOfArms;
+import heraldry.model.Division;
+import heraldry.model.DivisionBackground;
+import heraldry.model.DivisionPart;
+import heraldry.model.FieldBackground;
+import heraldry.model.InescutcheonCharge;
+import heraldry.model.Line;
+import heraldry.model.MobileCharge;
+import heraldry.model.Ordinary;
+import heraldry.model.OrdinaryCharge;
+import heraldry.model.RepeatCharge;
+import heraldry.model.SemyBackground;
+import heraldry.model.SequenceCharge;
+import heraldry.model.Tincture;
+import heraldry.model.Variation;
+import heraldry.model.VariationBackground;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,7 +38,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CoatOfArmsReader
@@ -96,8 +118,8 @@ public class CoatOfArmsReader
     private List<Charge> readCharges(Element element)
     {
         return getChildElements(element).stream()
-            .map(this::readCharge)
-            .collect(Collectors.toList());
+                .map(this::readCharge)
+                .collect(Collectors.toList());
     }
 
     private Charge readCharge(Element element)
@@ -200,12 +222,14 @@ public class CoatOfArmsReader
                 Element childElement = (Element)child;
                 switch (tag)
                 {
-                    case "field":
-                        return readFieldBackground(childElement);
-                    case "variation":
-                        return readVariationBackground(childElement);
                     case "division":
                         return readDivisionBackground(childElement);
+                    case "field":
+                        return readFieldBackground(childElement);
+                    case "semy":
+                        return readSemyBackground(childElement);
+                    case "variation":
+                        return readVariationBackground(childElement);
                     default:
                         throw new IllegalStateException(String.format("Undefined background type '%s'", tag));
                 }
@@ -217,8 +241,8 @@ public class CoatOfArmsReader
     private DivisionBackground readDivisionBackground(Element element)
     {
         List<DivisionPart> parts = getChildElements(element).stream()
-            .map(this::readDivisionPart)
-            .collect(Collectors.toList());
+                .map(this::readDivisionPart)
+                .collect(Collectors.toList());
         return new DivisionBackground(readDivision(element.getAttribute("type")), parts);
     }
 
@@ -249,6 +273,13 @@ public class CoatOfArmsReader
         return new VariationBackground(variation, tincture1, tincture2, line);
     }
 
+    private SemyBackground readSemyBackground(Element element)
+    {
+        Tincture tincture = readTincture(element.getAttribute("tincture"));
+        Charge charge = readCharge(getChildElements(element).get(0));
+        return new SemyBackground(tincture, charge);
+    }
+
     private Variation readVariation(String name)
     {
         return readEnumValue(Variation.class, name);
@@ -264,11 +295,11 @@ public class CoatOfArmsReader
         try
         {
             return (T)Arrays.stream(type.getDeclaredMethods())
-                .filter(method -> method.getName().equals("valueOf"))
-                .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
-                .findAny()
-                .get()
-                .invoke(null, name.toUpperCase().replace("-", "_"));
+                    .filter(method -> method.getName().equals("valueOf"))
+                    .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                    .findAny()
+                    .get()
+                    .invoke(null, name.toUpperCase().replace("-", "_"));
         }
         catch (IllegalAccessException e)
         {

@@ -135,9 +135,10 @@
 
     <xs:complexType name="BackgroundContainer">
         <xs:choice minOccurs="1" maxOccurs="1">
-            <xs:element type="FieldBackground" name="field"/>
-            <xs:element type="VariationBackground" name="variation"/>
             <xs:element type="DivisionBackground" name="division"/>
+            <xs:element type="FieldBackground" name="field"/>
+            <xs:element type="SemyBackground" name="semy"/>
+            <xs:element type="VariationBackground" name="variation"/>
         </xs:choice>
     </xs:complexType>
     <xs:complexType name="Background">
@@ -216,6 +217,20 @@
                 <xs:attribute type="Line" name="line" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SemyBackground">
+        <xs:complexContent>
+            <xs:extension base="Background">
+                <xs:sequence>
+                    <xs:choice minOccurs="1" maxOccurs="1">
+                        <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
+                        <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
+                        <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
+                    </xs:choice>
+                </xs:sequence>
+                <xs:attribute type="Tincture" name="tincture" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="DivisionBackground">
         <xs:complexContent>

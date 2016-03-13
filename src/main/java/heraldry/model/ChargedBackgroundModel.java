@@ -5,6 +5,7 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Renderable;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @ToString
 public class ChargedBackgroundModel implements Renderable
 {
+    @NonNull
     private Background background;
     private List<Charge> charges;
 
