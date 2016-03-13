@@ -30,7 +30,7 @@ public class PaleDivisionRenderer extends AbstractDivisionRenderer
                     area.intersect(GeometryUtils.convertBoxToArea(box));
                     return area;
                 })
-                .map(GeometryUtils::convertAreaToContour)
+                .map(GeometryUtils::convertAreaToContours)
                 .map(list -> {
                     if (list.size() != 1)
                     {

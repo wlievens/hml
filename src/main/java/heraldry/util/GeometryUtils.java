@@ -31,7 +31,7 @@ public class GeometryUtils
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream().collect(toList());
     }
 
-    public static List<RenderContour> convertAreaToContour(Area area)
+    public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream()
                 .map(RenderContour::new)
