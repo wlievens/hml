@@ -10,10 +10,10 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path d="M 0.0,0.0 L 0.0,50.0 L 100.0,50.0 L 100.0,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: rgb(0, 255, 255);"/>
-<path d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: rgb(0, 255, 255);"/>
-<path d="M 100.0,50.0 L 100.0,100.0 L 200.0,100.0 L 160.0,50.0 L 100.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: rgb(0, 255, 255);"/>
-<path d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: rgb(0, 255, 255);"/>
+<path d="M 0.0,0.0 L 0.0,50.0 L 100.0,50.0 L 100.0,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path d="M 100.0,50.0 L 100.0,100.0 L 200.0,100.0 L 160.0,50.0 L 100.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
 <path d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 <rect clip-path="url(#contour)" fill="url(#lighting)" height="116.0" width="216.0" x="0.0" y="0.0"/>
