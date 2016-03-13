@@ -21,7 +21,7 @@ public class BendyVariationRenderer implements VariationRenderer
     private final boolean flipX;
 
     @Override
-    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter)
+    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         List<RenderShape> list = new ArrayList<>();
         list.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));

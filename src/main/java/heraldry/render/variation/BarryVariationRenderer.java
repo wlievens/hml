@@ -16,11 +16,11 @@ import java.util.List;
 public class BarryVariationRenderer implements VariationRenderer
 {
     @Override
-    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter)
+    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        double step = painter.getGridPatternSize();
+        double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
         boolean alternate = true;
         for (double y1 = bounds.getY1(); y1 < bounds.getY2(); y1 += step)
         {

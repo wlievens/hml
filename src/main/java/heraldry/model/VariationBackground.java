@@ -4,6 +4,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.variation.VariationRenderer;
+import heraldry.util.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -24,17 +25,26 @@ public class VariationBackground extends Background
     private final Tincture firstTincture;
     private final Tincture secondTincture;
     private final Line line;
+    private final int number;
 
     @Override
     public String generateBlazon(BlazonContext context)
     {
-        String variationLabelWithLine = variation.getLabel() + (line == Line.PLAIN ? "" : (" " + line.getLabel().toLowerCase()));
+        String label = variation.getLabel();
+        if (line != Line.PLAIN)
+        {
+            label += " " + line.getLabel().toLowerCase();
+        }
+        if (number != 0)
+        {
+            label += " of " + StringUtils.getNumeral(number).toLowerCase();
+        }
         switch (variation)
         {
             case FRETTY:
-                return String.format("%s %s %s", firstTincture.getLabel(), variationLabelWithLine, secondTincture.getLabel());
+                return String.format("%s %s %s", firstTincture.getLabel().toLowerCase(), label, secondTincture.getLabel().toLowerCase());
             default:
-                return String.format("%s %s and %s", variationLabelWithLine, firstTincture.getLabel(), secondTincture.getLabel());
+                return String.format("%s %s and %s", label, firstTincture.getLabel().toLowerCase(), secondTincture.getLabel().toLowerCase());
         }
     }
 
@@ -47,6 +57,6 @@ public class VariationBackground extends Background
             log.warn("No renderer implemented for variation '{}'", variation);
             return Collections.singleton(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
         }
-        return renderer.render(contour, firstTincture, secondTincture, line, painter);
+        return renderer.render(contour, firstTincture, secondTincture, line, number, painter);
     }
 }

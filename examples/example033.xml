@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
+    <blazon>Barry of twelve argent and azure semy of fleurs de lis or</blazon>
     <shape>heater-shield</shape>
     <background>
-        <semy tincture="azure">
+        <semy>
+            <background>
+                <variation type="barry" firstTincture="argent" secondTincture="azure" number="12"/>
+            </background>
             <charge>
-                <inescutcheon shape="heater-shield" position="fess">
-                    <background>
-                        <field tincture="gules"/>
-                    </background>
-                    <charges>
-                        <mobile figure="fleur-de-lis" tincture="argent"/>
-                    </charges>
-                </inescutcheon>
+                <mobile figure="fleur-de-lis" tincture="or"/>
             </charge>
         </semy>
     </background>

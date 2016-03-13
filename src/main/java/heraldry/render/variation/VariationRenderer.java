@@ -10,5 +10,5 @@ import java.util.Collection;
 
 public interface VariationRenderer
 {
-    Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter);
+    Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter);
 }

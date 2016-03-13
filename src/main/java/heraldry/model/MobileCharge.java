@@ -63,13 +63,12 @@ public class MobileCharge extends Charge
         double y1 = bounds.getY1() + bounds.getHeight() * margin;
         double x2 = bounds.getX2() - bounds.getWidth() * margin;
         double y2 = bounds.getY2() - bounds.getHeight() * margin;
-        RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
         SVGDiagram diagram = SvgUtils.loadSvg(String.format("/mobiles/%s.svg", this.figure));
         float diagramWidth = diagram.getWidth();
         float diagramHeight = diagram.getHeight();
         AffineTransform transform = new AffineTransform();
         double scale = Math.min((x2 - x1) / diagramWidth, (y2 - y1) / diagramHeight);
-        transform.translate(x1, y1);
+        transform.translate((x1 + x2) / 2 - 0.5 * scale * diagramWidth, (y1 + y2) / 2 - 0.5 * scale * diagramHeight);
         transform.scale(scale, scale);
         List<RenderShape> list = new ArrayList<>();
         for (List<PathStep> c1 : SvgUtils.collect(diagram, transform))

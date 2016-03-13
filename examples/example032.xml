@@ -5,14 +5,7 @@
     <background>
         <semy tincture="azure">
             <charge>
-                <inescutcheon shape="heater-shield" position="fess">
-                    <background>
-                        <field tincture="gules"/>
-                    </background>
-                    <charges>
-                        <mobile figure="fleur-de-lis" tincture="argent"/>
-                    </charges>
-                </inescutcheon>
+                <mobile figure="fleur-de-lis" tincture="argent"/>
             </charge>
         </semy>
     </background>

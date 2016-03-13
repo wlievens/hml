@@ -16,7 +16,7 @@ import java.util.List;
 public class ChequyVariationRenderer implements VariationRenderer
 {
     @Override
-    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter)
+    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();

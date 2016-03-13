@@ -60,7 +60,7 @@ public class ExhaustiveGenerator
                     CoatOfArms coat = new CoatOfArms();
                     coat.setShape(shape);
                     ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line));
+                    model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line, 0));
                     model.setCharges(new ArrayList<>());
                     coat.setModel(model);
                     coats.add(coat);

@@ -270,14 +270,16 @@ public class CoatOfArmsReader
         Tincture tincture1 = readTincture(element.getAttribute("firstTincture"));
         Tincture tincture2 = readTincture(element.getAttribute("secondTincture"));
         Line line = readLine(element.getAttribute("line"));
-        return new VariationBackground(variation, tincture1, tincture2, line);
+        int number = element.hasAttribute("number") ? Integer.valueOf(element.getAttribute("number")) : 0;
+        return new VariationBackground(variation, tincture1, tincture2, line, number);
     }
 
     private SemyBackground readSemyBackground(Element element)
     {
-        Tincture tincture = readTincture(element.getAttribute("tincture"));
-        Charge charge = readCharge(getChildElements(element).get(0));
-        return new SemyBackground(tincture, charge);
+        Background background = readChildBackground(element);
+        Element chargeElement = getChildElement(element, "charge").get();
+        Charge charge = readCharge(getChildElements(chargeElement).get(0));
+        return new SemyBackground(background, charge);
     }
 
     private Variation readVariation(String name)

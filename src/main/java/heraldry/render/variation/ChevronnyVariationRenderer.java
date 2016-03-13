@@ -21,7 +21,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
     private final boolean flip;
 
     @Override
-    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, Painter painter)
+    public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();

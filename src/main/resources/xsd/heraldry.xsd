@@ -159,6 +159,13 @@
             <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
         </xs:choice>
     </xs:complexType>
+    <xs:complexType name="SingleChargeContainer">
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
+            <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+    </xs:complexType>
     <xs:complexType name="Charge">
     </xs:complexType>
     <xs:complexType name="MobileCharge">
@@ -215,6 +222,7 @@
                 <xs:attribute type="Tincture" name="firstTincture" use="required"/>
                 <xs:attribute type="Tincture" name="secondTincture" use="required"/>
                 <xs:attribute type="Line" name="line" use="optional"/>
+                <xs:attribute type="xs:int" name="number" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -222,13 +230,10 @@
         <xs:complexContent>
             <xs:extension base="Background">
                 <xs:sequence>
-                    <xs:choice minOccurs="1" maxOccurs="1">
-                        <xs:element type="OrdinaryCharge" name="ordinary" minOccurs="0" maxOccurs="1"/>
-                        <xs:element type="MobileCharge" name="mobile" minOccurs="0" maxOccurs="1"/>
-                        <xs:element type="InescutcheonCharge" name="inescutcheon" minOccurs="0" maxOccurs="1"/>
-                    </xs:choice>
+                    <xs:element type="BackgroundContainer" name="background" minOccurs="0" maxOccurs="1"/>
+                    <xs:element type="SingleChargeContainer" name="charge" minOccurs="1" maxOccurs="1"/>
                 </xs:sequence>
-                <xs:attribute type="Tincture" name="tincture" use="required"/>
+                <xs:attribute type="Tincture" name="tincture" use="optional"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

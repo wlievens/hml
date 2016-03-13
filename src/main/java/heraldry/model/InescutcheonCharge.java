@@ -28,6 +28,10 @@ public class InescutcheonCharge extends Charge
     @Override
     public String generateBlazon(BlazonContext context)
     {
+        if (context.isPlural())
+        {
+            return "Escutcheons " + model.generateBlazon(context.create());
+        }
         return "An inescutcheon " + model.generateBlazon(context.create());
     }
 
