@@ -10,6 +10,7 @@ import heraldry.render.ordinary.GyronOrdinaryRenderer;
 import heraldry.render.ordinary.LozengeOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
+import heraldry.render.ordinary.PallOrdinaryRenderer;
 import heraldry.render.ordinary.QuarterOrdinaryRenderer;
 import heraldry.render.ordinary.SaltireOrdinaryRenderer;
 import heraldry.util.EnumUtils;
