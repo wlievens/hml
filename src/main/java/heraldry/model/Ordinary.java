@@ -7,6 +7,7 @@ import heraldry.render.ordinary.CrossOrdinaryRenderer;
 import heraldry.render.ordinary.FessOrdinaryRenderer;
 import heraldry.render.ordinary.FretOrdinaryRenderer;
 import heraldry.render.ordinary.GyronOrdinaryRenderer;
+import heraldry.render.ordinary.LozengeOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
 import heraldry.render.ordinary.QuarterOrdinaryRenderer;
@@ -47,8 +48,9 @@ public enum Ordinary
     GYRON(new GyronOrdinaryRenderer(1 / 3.0, false, false)),
     GYRON_SINISTER(new GyronOrdinaryRenderer(1 / 3.0, true, false)),
     HAMADE(null),
-    LOZENGE(null),
+    LOZENGE(new LozengeOrdinaryRenderer(1.0)),
     MASCLE(null),
+    MOUNT(null),
     ORLE(null),
     PALE(new PaleOrdinaryRenderer(1.0)),
     PALL(null),
@@ -70,5 +72,10 @@ public enum Ordinary
     public String getLabel()
     {
         return EnumUtils.getLabel(this);
+    }
+
+    public boolean isNamePlural()
+    {
+        return this == FLAUNCHES;
     }
 }
