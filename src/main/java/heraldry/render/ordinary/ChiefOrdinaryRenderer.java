@@ -32,7 +32,7 @@ public class ChiefOrdinaryRenderer implements OrdinaryRenderer
         List<PathStep> steps = new ArrayList<>();
         steps.add(new LinePathStep(x1, y1, x2, y1));
         steps.add(new LinePathStep(x2, y1, x2, y2));
-        LineRenderer.line(steps, x2, y2, x1, y2, line, period, false,sizeRatio);
+        LineRenderer.line(steps, x2, y2, x1, y2, line, period, false, sizeRatio);
         steps.add(new LinePathStep(x1, y2, x1, y1));
         return Arrays.asList(new RenderContour(steps));
     }

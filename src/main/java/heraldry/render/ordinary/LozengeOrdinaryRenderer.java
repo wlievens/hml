@@ -8,10 +8,8 @@ import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
-import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
-import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
