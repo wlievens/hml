@@ -30,7 +30,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
         double y2 = bounds.getY2();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
-        double spacing = 2 * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
+        double spacing = 2 * Math.sqrt(2) * painter.getOrdinaryThickness() * line.getScaleFactor();
         double step = spacing / 4;
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
         double midX = (x1 + x2) / 2;
