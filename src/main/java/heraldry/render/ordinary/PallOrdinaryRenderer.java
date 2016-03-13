@@ -39,7 +39,15 @@ public class PallOrdinaryRenderer implements OrdinaryRenderer
 
         if (flipY)
         {
-
+            double endY = midY + x2 - midX;
+            steps.add(new LinePathStep(midX - step, y1, midX + step, y1));
+            LineRenderer.line(steps, midX + step, y1, midX + step, midY - stepDiagonal + step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, midX + step, midY - stepDiagonal + step, x2, endY - stepDiagonal, line, period, false, sizeRatio);
+            steps.add(new LinePathStep(x2, endY - stepDiagonal, x2, endY + stepDiagonal));
+            LineRenderer.line(steps, x2, endY + stepDiagonal, midX, midY + stepDiagonal, line, period, false, sizeRatio);
+            LineRenderer.line(steps, midX, midY + stepDiagonal, x1, endY + stepDiagonal, line, period, false, sizeRatio);
+            steps.add(new LinePathStep(x1, endY + stepDiagonal, x1, endY - stepDiagonal));
+            LineRenderer.line(steps, x1, endY - stepDiagonal, midX - step, midY - stepDiagonal + step, line, period, false, sizeRatio);
         }
         else
         {
@@ -56,7 +64,7 @@ public class PallOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps, midX - step, midY + stepDiagonal - step, x1, y1 + stepDiagonal, line, period, false, sizeRatio);
             steps.add(new LinePathStep(x1, y1 + stepDiagonal, x1, y1));
         }
-        
+
         return Collections.singleton(new RenderContour(steps));
     }
 }
