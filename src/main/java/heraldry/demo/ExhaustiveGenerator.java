@@ -3,6 +3,9 @@ package heraldry.demo;
 import heraldry.model.Charge;
 import heraldry.model.ChargedBackgroundModel;
 import heraldry.model.CoatOfArms;
+import heraldry.model.Division;
+import heraldry.model.DivisionBackground;
+import heraldry.model.DivisionPart;
 import heraldry.model.FieldBackground;
 import heraldry.model.Line;
 import heraldry.model.Ordinary;
@@ -69,13 +72,25 @@ public class ExhaustiveGenerator
                     ChargedBackgroundModel model = new ChargedBackgroundModel();
                     model.setBackground(new FieldBackground(Tincture.ARGENT));
                     ArrayList<Charge> charges = new ArrayList<>();
-                    if (ordinary != null)
-                    {
-                        charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                        charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                        charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
-                    }
+                    charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                    charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                    charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
                     model.setCharges(charges);
+                    coat.setModel(model);
+                    coats.add(coat);
+                }
+                for (Division division : Division.values())
+                {
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    List<DivisionPart> parts = new ArrayList<>();
+                    for (int n = 0; n < division.getMaxPositions(); ++n)
+                    {
+                        parts.add(new DivisionPart(n + 1, Tincture.values()[n]));
+                    }
+                    model.setBackground(new DivisionBackground(division, parts));
+                    model.setCharges(new ArrayList<>());
                     coat.setModel(model);
                     coats.add(coat);
                 }
