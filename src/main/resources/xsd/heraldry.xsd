@@ -73,6 +73,7 @@
             <xs:enumeration value="orle"/>
             <xs:enumeration value="pale"/>
             <xs:enumeration value="pall"/>
+            <xs:enumeration value="pall-reversed"/>
             <xs:enumeration value="pallet"/>
             <xs:enumeration value="pile"/>
             <xs:enumeration value="quarter"/>
