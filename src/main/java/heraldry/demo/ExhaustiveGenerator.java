@@ -8,6 +8,7 @@ import heraldry.model.DivisionBackground;
 import heraldry.model.DivisionPart;
 import heraldry.model.FieldBackground;
 import heraldry.model.Line;
+import heraldry.model.MobileCharge;
 import heraldry.model.Ordinary;
 import heraldry.model.OrdinaryCharge;
 import heraldry.model.Tincture;
@@ -75,6 +76,19 @@ public class ExhaustiveGenerator
                     charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
                     charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
                     charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
+                    model.setCharges(charges);
+                    coat.setModel(model);
+                    coats.add(coat);
+                }
+                {
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    model.setBackground(new FieldBackground(Tincture.ARGENT));
+                    ArrayList<Charge> charges = new ArrayList<>();
+                    charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                    charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
+                    charges.add(new MobileCharge("fleur-de-lis", new FieldBackground(Tincture.GULES), new ArrayList<>()));
                     model.setCharges(charges);
                     coat.setModel(model);
                     coats.add(coat);
