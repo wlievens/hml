@@ -22,8 +22,9 @@ public class GyronOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipY;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double x1, y1, x2, y2;

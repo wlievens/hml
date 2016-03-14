@@ -20,8 +20,9 @@ public class FessOrdinaryRenderer implements OrdinaryRenderer
     private final double sizeRatio;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
         double x2 = bounds.getX2();

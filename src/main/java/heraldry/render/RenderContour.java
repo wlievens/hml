@@ -27,7 +27,7 @@ public final class RenderContour
         this.steps = steps;
     }
 
-    public Point getCenter()
+    public Point getFessPoint()
     {
         return getBounds().getFessPoint();
     }

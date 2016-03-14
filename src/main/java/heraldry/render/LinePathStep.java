@@ -35,8 +35,38 @@ public final class LinePathStep implements PathStep
     }
 
     @Override
+    public double getStartX()
+    {
+        return x1;
+    }
+
+    @Override
+    public double getStartY()
+    {
+        return y1;
+    }
+
+    @Override
+    public double getEndX()
+    {
+        return x2;
+    }
+
+    @Override
+    public double getEndY()
+    {
+        return y2;
+    }
+
+    @Override
     public LinePathStep offset(double x, double y)
     {
         return new LinePathStep(x1 + x, y1 + y, x2 + x, y2 + y);
+    }
+
+    @Override
+    public LinePathStep inverse()
+    {
+        return new LinePathStep(x2, y2, x1, y1);
     }
 }

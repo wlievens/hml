@@ -23,8 +23,9 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
     private final boolean open;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
         double width = bounds.getWidth() * 2 / 3;
         double height = bounds.getHeight() * 2 / 3;

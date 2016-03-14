@@ -17,8 +17,9 @@ public class CrossOrdinaryRenderer implements OrdinaryRenderer
     private final double sizeRatio;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
         double step = sizeRatio * painter.getOrdinaryThickness() * 0.5;
         double centerX = center.getX();

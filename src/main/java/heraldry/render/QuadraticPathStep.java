@@ -13,6 +13,30 @@ public final class QuadraticPathStep implements PathStep
     private final double y3;
 
     @Override
+    public double getStartX()
+    {
+        return x1;
+    }
+
+    @Override
+    public double getStartY()
+    {
+        return y1;
+    }
+
+    @Override
+    public double getEndX()
+    {
+        return x3;
+    }
+
+    @Override
+    public double getEndY()
+    {
+        return y3;
+    }
+
+    @Override
     public double getMinX()
     {
         return Math.min(x1, x3);
@@ -40,5 +64,11 @@ public final class QuadraticPathStep implements PathStep
     public QuadraticPathStep offset(double x, double y)
     {
         return new QuadraticPathStep(x1 + x, y1 + y, x2 + x, y2 + y, x3 + x, y3 + y);
+    }
+
+    @Override
+    public QuadraticPathStep inverse()
+    {
+        return new QuadraticPathStep(x3, y3, x2, y2, x1, y1);
     }
 }

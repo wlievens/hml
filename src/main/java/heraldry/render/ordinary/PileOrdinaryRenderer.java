@@ -20,8 +20,9 @@ public class PileOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipY;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
         double margin = 0.15;
         double x1 = bounds.lerpX(margin);

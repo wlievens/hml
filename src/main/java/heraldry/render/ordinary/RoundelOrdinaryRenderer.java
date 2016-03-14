@@ -22,8 +22,9 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
     private final boolean open;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
         double width = bounds.getWidth();
         double height = bounds.getHeight();

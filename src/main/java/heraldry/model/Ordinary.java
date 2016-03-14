@@ -1,6 +1,7 @@
 package heraldry.model;
 
 import heraldry.render.ordinary.BendOrdinaryRenderer;
+import heraldry.render.ordinary.BordureOrdinaryRenderer;
 import heraldry.render.ordinary.ChevronOrdinaryRenderer;
 import heraldry.render.ordinary.ChiefOrdinaryRenderer;
 import heraldry.render.ordinary.CrossOrdinaryRenderer;
@@ -32,14 +33,14 @@ public enum Ordinary
     BENDLET(new BendOrdinaryRenderer(false, 0.5)),
     BENDLET_SINISTER(new BendOrdinaryRenderer(true, 0.5)),
     BILLET(null),
-    BORDURE(null),
+    BORDURE(new BordureOrdinaryRenderer()),
     CANTON(new QuarterOrdinaryRenderer(1 / 3.0)),
     CHEVRON(new ChevronOrdinaryRenderer(false, 1.0)),
     CHEVRON_INVERTED(new ChevronOrdinaryRenderer(true, 1.0)),
     CHEVRONEL(new ChevronOrdinaryRenderer(false, 0.25)),
     CHEVRONEL_INVERTED(new ChevronOrdinaryRenderer(true, 0.25)),
     CHIEF(new ChiefOrdinaryRenderer(1.0)),
-    COMBLE(new ChiefOrdinaryRenderer(1.0)),
+    COMBLE(new ChiefOrdinaryRenderer(0.5)),
     CROSS(new CrossOrdinaryRenderer(1.0)),
     CROSS_FILLET(new CrossOrdinaryRenderer(0.5)),
     ENDORSE(new PaleOrdinaryRenderer(0.25)),

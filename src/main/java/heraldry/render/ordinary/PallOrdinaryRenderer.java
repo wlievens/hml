@@ -21,8 +21,9 @@ public class PallOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipY;
 
     @Override
-    public Collection<RenderContour> render(Box bounds, Line line, Painter painter)
+    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
+        Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
         double x2 = bounds.getX2();
         double y1 = bounds.getY1();
