@@ -1,5 +1,6 @@
 package heraldry.model;
 
+import heraldry.render.ordinary.BatonOrdinaryRenderer;
 import heraldry.render.ordinary.BendOrdinaryRenderer;
 import heraldry.render.ordinary.BordureOrdinaryRenderer;
 import heraldry.render.ordinary.ChevronOrdinaryRenderer;
@@ -26,8 +27,8 @@ public enum Ordinary
     ANNULET(new RoundelOrdinaryRenderer(true)),
     BAR(new FessOrdinaryRenderer(0.5)),
     BARRULET(new FessOrdinaryRenderer(0.25)),
-    BATON(null),
-    BATON_SINISTER(null),
+    BATON(new BatonOrdinaryRenderer(false)),
+    BATON_SINISTER(new BatonOrdinaryRenderer(true)),
     BEND(new BendOrdinaryRenderer(false, 1.0)),
     BEND_SINISTER(new BendOrdinaryRenderer(true, 1.0)),
     BENDLET(new BendOrdinaryRenderer(false, 0.5)),
