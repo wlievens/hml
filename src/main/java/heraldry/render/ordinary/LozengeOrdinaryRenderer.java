@@ -28,10 +28,10 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
-        double width = bounds.getWidth() * 2 / 3;
-        double height = bounds.getHeight() * 2 / 3;
-        double sizeX = Math.min(width, height) * sizeXRatio;
-        double sizeY = Math.min(width, height) * sizeYRatio;
+        double size = Math.min(bounds.getWidth(), bounds.getHeight());
+        double scale = 2.0 / 3.0;
+        double sizeX = size * scale * sizeXRatio;
+        double sizeY = size * scale * sizeYRatio;
         //      X2
         //     /:\      :: Y1
         //    /   \
@@ -46,7 +46,8 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
         double y2 = center.getY();
         double y3 = center.getY() + sizeY / 2;
         double step = painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
-        double period = painter.getLinePeriodFactor() * Math.min(width, height);
+        double period = painter.getLinePeriodFactor() * size;
+
         if (open)
         {
             List<PathStep> steps1 = new ArrayList<>();

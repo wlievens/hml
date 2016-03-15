@@ -34,7 +34,8 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
             y1 += shift;
             middleY += shift;
         }
-        double distance = Math.min(width, height) / 6;
+        double scale = 2.0 / 3.0;
+        double distance = Math.min(width, height) / 4 * scale - step / 2;
         double nearX = middleX - distance;
         double nearY = middleY - distance;
         double farX = middleX + distance;
