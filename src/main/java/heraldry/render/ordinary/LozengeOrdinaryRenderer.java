@@ -19,7 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LozengeOrdinaryRenderer implements OrdinaryRenderer
 {
-    private final double aspectRatio;
+    private final double sizeXRatio;
+    private final double sizeYRatio;
     private final boolean open;
 
     @Override
@@ -29,8 +30,8 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
         Point center = bounds.getFessPoint();
         double width = bounds.getWidth() * 2 / 3;
         double height = bounds.getHeight() * 2 / 3;
-        double sizeX = Math.min(width, height) * aspectRatio;
-        double sizeY = Math.min(width, height) / aspectRatio;
+        double sizeX = Math.min(width, height) * sizeXRatio;
+        double sizeY = Math.min(width, height) * sizeYRatio;
         //      X2
         //     /:\      :: Y1
         //    /   \
