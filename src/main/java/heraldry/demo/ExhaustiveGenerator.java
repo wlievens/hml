@@ -54,8 +54,7 @@ public class ExhaustiveGenerator
                 coat.setModel(model);
                 coats.add(coat);
             }
-            //for (Line line : new Line[]{ Line.PLAIN, Line.WAVY, Line.ENGRAILED })
-            for (Line line : new Line[]{ Line.PLAIN })
+            for (Line line : new Line[]{ Line.PLAIN, Line.WAVY })
             {
                 for (Variation variation : Variation.values())
                 {
