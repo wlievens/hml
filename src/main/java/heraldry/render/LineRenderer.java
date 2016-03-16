@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LineRenderer
 {
-    public static void line(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean flipped, double amplitudeFactor)
+    public static void line(List<PathStep> steps, double startX, double startY, double endX, double endY, Line line, double period, boolean phase, double amplitudeFactor)
     {
         double distance = MathUtils.distance(startX, startY, endX, endY);
         period = distance / Math.round(distance / period);
@@ -27,7 +27,7 @@ public class LineRenderer
                 double angle = Math.atan2(endY - startY, endX - startX);
                 double length = MathUtils.distance(startX, startY, endX, endY);
                 double offset = 0;
-                double amplitude = (period / 2 * (flipped ? -1 : +1)) * amplitudeFactor;
+                double amplitude = (period / 2 * (phase ? -1 : +1)) * amplitudeFactor;
                 boolean alternate = false;
                 while (offset < length)
                 {
