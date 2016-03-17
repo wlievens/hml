@@ -60,10 +60,6 @@ public final class RenderContour
 
     public List<RenderShape> clip(RenderShape shape)
     {
-        if (false)
-        {
-            return Collections.singletonList(shape);
-        }
         return GeometryUtils.clip(shape.getSteps(), this).stream()
                 .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor()))
                 .collect(toList());
