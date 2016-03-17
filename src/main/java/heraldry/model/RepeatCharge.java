@@ -104,10 +104,10 @@ public class RepeatCharge extends Charge
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < number; ++n)
         {
-            double x1 = points.get(n).getX() - 5;
-            double y1 = points.get(n).getY() - 5;
-            double x2 = points.get(n).getX() + 5;
-            double y2 = points.get(n).getY() + 5;
+            double x1 = points.get(n).getX() - 25;
+            double y1 = points.get(n).getY() - 25;
+            double x2 = points.get(n).getX() + 25;
+            double y2 = points.get(n).getY() + 25;
             RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
             list.addAll(charge.render(child, painter));
         }
