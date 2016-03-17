@@ -10,6 +10,7 @@ import heraldry.render.ordinary.FessOrdinaryRenderer;
 import heraldry.render.ordinary.FretOrdinaryRenderer;
 import heraldry.render.ordinary.GyronOrdinaryRenderer;
 import heraldry.render.ordinary.LozengeOrdinaryRenderer;
+import heraldry.render.ordinary.MountOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.ordinary.PaleOrdinaryRenderer;
 import heraldry.render.ordinary.PallOrdinaryRenderer;
@@ -55,7 +56,7 @@ public enum Ordinary
     HAMADE(null),
     LOZENGE(new LozengeOrdinaryRenderer(1.0, 1.0, false)),
     MASCLE(new LozengeOrdinaryRenderer(1.0, 1.0, true)),
-    MOUNT(null),
+    MOUNT(new MountOrdinaryRenderer()),
     ORLE(null),
     PALE(new PaleOrdinaryRenderer(1.0)),
     PALL(new PallOrdinaryRenderer(1.0, false)),
