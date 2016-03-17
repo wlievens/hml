@@ -37,14 +37,12 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         List<PathStep> steps = new ArrayList<>();
         if (inverted)
         {
-            steps.add(new LinePathStep(x1, y1, x1 + step, y1));
-            LineRenderer.line(steps, x1 + step, y1, midX, midY - step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY - step, x2 - step, y1, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x2 - step, y1, x2, y1));
-            steps.add(new LinePathStep(x2, y1, x2, y1 + step));
+            LineRenderer.line(steps, x1, y1 - step, midX, midY - step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY - step, x2, y1 - step, line, period, inverted, sizeRatio);
+            steps.add(new LinePathStep(x2, y1 - step, x2, y1 + step));
             LineRenderer.line(steps, x2, y1 + step, midX, midY + step, line, period, inverted, sizeRatio);
             LineRenderer.line(steps, midX, midY + step, x1, y1 + step, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x1, y1 + step, x1, y1));
+            steps.add(new LinePathStep(x1, y1 + step, x1, y1 - step));
         }
         else
         {
