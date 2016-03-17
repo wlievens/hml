@@ -36,6 +36,12 @@ public class InescutcheonCharge extends Charge
     }
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return true;
+    }
+
+    @Override
     public boolean isSquareShapePreferred()
     {
         return false;

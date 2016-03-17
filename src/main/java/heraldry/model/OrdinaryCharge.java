@@ -37,6 +37,12 @@ public class OrdinaryCharge extends Charge
     }
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return ordinary.isRepeatSupported();
+    }
+
+    @Override
     public String generateBlazon(BlazonContext context)
     {
         List<String> list = new ArrayList<>();

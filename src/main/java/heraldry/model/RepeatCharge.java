@@ -42,9 +42,20 @@ public class RepeatCharge extends Charge
     }
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return false;
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         Box bounds = contour.getBounds();
+
+        if (!charge.isRepeatSupported())
+        {
+            return charge.render(contour, painter);
+        }
 
         if (charge instanceof OrdinaryCharge)
         {

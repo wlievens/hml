@@ -95,9 +95,24 @@ public enum Ordinary
             case CHEVRON_INVERTED:
             case CHEVRONEL:
             case CHEVRONEL_INVERTED:
+            case FLAUNCHES:
+            case SALTIRE:
+            case SALTIRE_FILLET:
                 return true;
             default:
                 return false;
+        }
+    }
+
+    public boolean isRepeatSupported()
+    {
+        switch (this)
+        {
+            case CROSS:
+            case CROSS_FILLET:
+                return false;
+            default:
+                return true;
         }
     }
 }

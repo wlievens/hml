@@ -90,6 +90,10 @@ public class StringUtils
         {
             return getPlural(word.substring(0, index)) + word.substring(index);
         }
+        if (word.endsWith("ss"))
+        {
+            return word + "es";
+        }
         if (word.endsWith("es"))
         {
             return word;

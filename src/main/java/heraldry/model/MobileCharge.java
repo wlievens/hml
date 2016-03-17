@@ -39,6 +39,12 @@ public class MobileCharge extends Charge
     private final List<Charge> charges;
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return true;
+    }
+
+    @Override
     public String generateBlazon(BlazonContext context)
     {
         String figureLabel = context.isPlural() ? StringUtils.getPlural(this.figure) : this.figure;
