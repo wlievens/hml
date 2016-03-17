@@ -1,22 +1,6 @@
 package heraldry.model;
 
-import heraldry.render.ordinary.BatonOrdinaryRenderer;
-import heraldry.render.ordinary.BendOrdinaryRenderer;
-import heraldry.render.ordinary.BordureOrdinaryRenderer;
-import heraldry.render.ordinary.ChevronOrdinaryRenderer;
-import heraldry.render.ordinary.ChiefOrdinaryRenderer;
-import heraldry.render.ordinary.CrossOrdinaryRenderer;
-import heraldry.render.ordinary.FessOrdinaryRenderer;
-import heraldry.render.ordinary.FretOrdinaryRenderer;
-import heraldry.render.ordinary.GyronOrdinaryRenderer;
-import heraldry.render.ordinary.LozengeOrdinaryRenderer;
-import heraldry.render.ordinary.OrdinaryRenderer;
-import heraldry.render.ordinary.PaleOrdinaryRenderer;
-import heraldry.render.ordinary.PallOrdinaryRenderer;
-import heraldry.render.ordinary.PileOrdinaryRenderer;
-import heraldry.render.ordinary.QuarterOrdinaryRenderer;
-import heraldry.render.ordinary.RoundelOrdinaryRenderer;
-import heraldry.render.ordinary.SaltireOrdinaryRenderer;
+import heraldry.render.ordinary.*;
 import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +30,7 @@ public enum Ordinary
     CROSS_FILLET(new CrossOrdinaryRenderer(0.5)),
     ENDORSE(new PaleOrdinaryRenderer(0.25)),
     FESS(new FessOrdinaryRenderer(1.0)),
-    FLAUNCHES(null),
+    FLAUNCHES(new FlaunchesOrdinaryRenderer()),
     FRET(new FretOrdinaryRenderer()),
     FUSIL(new LozengeOrdinaryRenderer(0.5, 1.0, false)),
     GORE(null),
