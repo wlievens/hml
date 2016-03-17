@@ -41,11 +41,15 @@ public class OrdinaryCharge extends Charge
     {
         List<String> list = new ArrayList<>();
         String ordinaryLabel = ordinary.getLabel().toLowerCase();
+        if (context.isPlural())
+        {
+            ordinaryLabel = StringUtils.getPlural(ordinaryLabel);
+        }
         if (charges.size() > 0)
         {
             list.add("on");
         }
-        if (!ordinary.isNamePlural())
+        if (!ordinary.isNamePlural() && !context.isPlural())
         {
             list.add(StringUtils.getArticle(ordinaryLabel));
         }

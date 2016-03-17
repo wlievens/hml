@@ -39,8 +39,8 @@ public enum Ordinary
     CANTON(new QuarterOrdinaryRenderer(1 / 3.0)),
     CHEVRON(new ChevronOrdinaryRenderer(false, 1.0)),
     CHEVRON_INVERTED(new ChevronOrdinaryRenderer(true, 1.0)),
-    CHEVRONEL(new ChevronOrdinaryRenderer(false, 0.25)),
-    CHEVRONEL_INVERTED(new ChevronOrdinaryRenderer(true, 0.25)),
+    CHEVRONEL(new ChevronOrdinaryRenderer(false, 0.5)),
+    CHEVRONEL_INVERTED(new ChevronOrdinaryRenderer(true, 0.5)),
     CHIEF(new ChiefOrdinaryRenderer(1.0)),
     COMBLE(new ChiefOrdinaryRenderer(0.5)),
     CROSS(new CrossOrdinaryRenderer(1.0)),
@@ -85,5 +85,19 @@ public enum Ordinary
     public boolean isNamePlural()
     {
         return this == FLAUNCHES;
+    }
+
+    public boolean isVerticalStacking()
+    {
+        switch (this)
+        {
+            case CHEVRON:
+            case CHEVRON_INVERTED:
+            case CHEVRONEL:
+            case CHEVRONEL_INVERTED:
+                return true;
+            default:
+                return false;
+        }
     }
 }

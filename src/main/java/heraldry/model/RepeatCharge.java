@@ -49,7 +49,7 @@ public class RepeatCharge extends Charge
         if (charge instanceof OrdinaryCharge)
         {
             OrdinaryCharge ordinaryCharge = (OrdinaryCharge)charge;
-            if (ordinaryCharge.getOrdinary() == Ordinary.CHEVRON)
+            if (ordinaryCharge.getOrdinary().isVerticalStacking())
             {
                 List<RenderShape> list = new ArrayList<>();
                 for (int n = 0; n < number; ++n)

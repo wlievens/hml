@@ -11,6 +11,7 @@ import heraldry.model.Line;
 import heraldry.model.MobileCharge;
 import heraldry.model.Ordinary;
 import heraldry.model.OrdinaryCharge;
+import heraldry.model.RepeatCharge;
 import heraldry.model.SemyBackground;
 import heraldry.model.Tincture;
 import heraldry.model.Variation;
@@ -90,6 +91,18 @@ public class ExhaustiveGenerator
                     coat.setModel(model);
                     coats.add(coat);
                 }
+                for (Ordinary ordinary : Ordinary.values())
+                {
+                    CoatOfArms coat = new CoatOfArms();
+                    coat.setShape(shape);
+                    ChargedBackgroundModel model = new ChargedBackgroundModel();
+                    model.setBackground(new FieldBackground(Tincture.OR));
+                    ArrayList<Charge> charges = new ArrayList<>();
+                    charges.add(new RepeatCharge(3, new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.VERT), new ArrayList<Charge>())));
+                    model.setCharges(charges);
+                    coat.setModel(model);
+                    coats.add(coat);
+                }
                 {
                     CoatOfArms coat = new CoatOfArms();
                     coat.setShape(shape);
@@ -141,14 +154,20 @@ public class ExhaustiveGenerator
         Element svgG = document.createElement("g");
         for (int index = 0; index < coats.size(); ++index)
         {
-            CoatOfArms coat = coats.get(index);
             int column = index % columns;
             int row = index / columns;
-            Rendering rendering = coat.render();
+            CoatOfArms coat = coats.get(index);
             Element svgG2 = document.createElement("g");
-            svgG2.appendChild(rendering.toSvgElement(document));
             svgG2.setAttribute("transform", "translate(" + (margin + column * (spacingX + shieldWidth)) + "," + (margin + row * (spacingY + shieldHeight)) + ")");
             svgG.appendChild(svgG2);
+            try
+            {
+                svgG2.appendChild(coat.render().toSvgElement(document));
+            }
+            catch (Throwable e)
+            {
+                e.printStackTrace();
+            }
             Element svgText = document.createElement("text");
             svgText.setTextContent(coat.generateBlazon());
             svgText.setAttribute("x", Integer.toString(shieldWidth / 2));
