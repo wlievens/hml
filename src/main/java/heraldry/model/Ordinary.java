@@ -2,6 +2,7 @@ package heraldry.model;
 
 import heraldry.render.ordinary.BatonOrdinaryRenderer;
 import heraldry.render.ordinary.BendOrdinaryRenderer;
+import heraldry.render.ordinary.BilletOrdinaryRenderer;
 import heraldry.render.ordinary.BordureOrdinaryRenderer;
 import heraldry.render.ordinary.ChevronOrdinaryRenderer;
 import heraldry.render.ordinary.ChiefOrdinaryRenderer;
@@ -36,7 +37,7 @@ public enum Ordinary
     BEND_SINISTER(new BendOrdinaryRenderer(true, 1.0)),
     BENDLET(new BendOrdinaryRenderer(false, 0.5)),
     BENDLET_SINISTER(new BendOrdinaryRenderer(true, 0.5)),
-    BILLET(null),
+    BILLET(new BilletOrdinaryRenderer()),
     BORDURE(new BordureOrdinaryRenderer()),
     CANTON(new QuarterOrdinaryRenderer(1 / 3.0)),
     CHEVRON(new ChevronOrdinaryRenderer(false, 1.0)),
