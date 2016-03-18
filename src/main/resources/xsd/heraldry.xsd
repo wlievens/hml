@@ -64,6 +64,7 @@
             <xs:enumeration value="fret"/>
             <xs:enumeration value="fusil"/>
             <xs:enumeration value="gore"/>
+            <xs:enumeration value="gore-sinister"/>
             <xs:enumeration value="gyron"/>
             <xs:enumeration value="gyron-sinister"/>
             <xs:enumeration value="hamade"/>
