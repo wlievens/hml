@@ -10,9 +10,8 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path d="M 0.0,0.0 L 0.0,28.75 L 100.0,28.75 L 100.0,0.0 L 0.0,0.0 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
+<path d="M 0.0,0.0 L 0.0,100.0 L 100.0,100.0 L 100.0,0.0 L 0.0,0.0 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
 <path d="M 0.0,28.75 L 0.0,57.5 L 100.0,57.5 L 100.0,28.75 L 0.0,28.75 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,57.5 L 0.0,86.25 L 100.0,86.25 L 100.0,57.5 L 0.0,57.5 Z" style="fill: rgb(13, 38, 217); stroke-width: 1px; stroke: none;"/>
 <path d="M 0.0,86.25 L 0.0,100.0 L 100.0,100.0 L 100.0,86.25 L 0.0,86.25 Z" style="fill: rgb(38, 217, 38); stroke-width: 1px; stroke: none;"/>
 <path d="M 100.0,0.0 L 100.0,100.0 L 128.75,100.0 L 128.75,0.0 L 100.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
 <path d="M 128.75,0.0 L 128.75,100.0 L 157.5,100.0 L 157.5,0.0 L 128.75,0.0 Z" style="fill: rgb(166, 64, 166); stroke-width: 1px; stroke: none;"/>
