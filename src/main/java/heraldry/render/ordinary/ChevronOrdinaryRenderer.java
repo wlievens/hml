@@ -29,33 +29,29 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double y1 = bounds.getY1();
-        double midY = y1 + width / 2;
-        double y2 = midY * 2;
+        double midX = (x1 + x2) / 2;
+        double midY = width < height ? (y1 + width / 2) : bounds.lerpY(0.5);
+        double y2 = midY + midX - x1;
         double step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
-        double midX = (x1 + x2) / 2;
         List<PathStep> steps = new ArrayList<>();
         if (inverted)
         {
-            steps.add(new LinePathStep(x1, y1, x1 + step, y1));
-            LineRenderer.line(steps, x1 + step, y1, midX, midY - step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY - step, x2 - step, y1, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x2 - step, y1, x2, y1));
-            steps.add(new LinePathStep(x2, y1, x2, y1 + step));
+            LineRenderer.line(steps, x1, y1 - step, midX, midY - step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY - step, x2, y1 - step, line, period, inverted, sizeRatio);
+            steps.add(new LinePathStep(x2, y1 - step, x2, y1 + step));
             LineRenderer.line(steps, x2, y1 + step, midX, midY + step, line, period, inverted, sizeRatio);
             LineRenderer.line(steps, midX, midY + step, x1, y1 + step, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x1, y1 + step, x1, y1));
+            steps.add(new LinePathStep(x1, y1 + step, x1, y1 - step));
         }
         else
         {
             LineRenderer.line(steps, x1, y2 - step, midX, midY - step, line, period, inverted, sizeRatio);
             LineRenderer.line(steps, midX, midY - step, x2, y2 - step, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x2, y2 - step, x2, y2));
-            steps.add(new LinePathStep(x2, y2, x2 - step, y2));
-            LineRenderer.line(steps, x2 - step, y2, midX, midY + step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY + step, x1 + step, y2, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x1 + step, y2, x1, y2));
-            steps.add(new LinePathStep(x1, y2, x1, y2 - step));
+            steps.add(new LinePathStep(x2, y2 - step, x2, y2 + step));
+            LineRenderer.line(steps, x2, y2 + step, midX, midY + step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, midX, midY + step, x1, y2 + step, line, period, inverted, sizeRatio);
+            steps.add(new LinePathStep(x1, y2 + step, x1, y2 - step));
         }
         return Collections.singleton(new RenderContour(steps));
     }

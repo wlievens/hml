@@ -25,6 +25,12 @@ public class SequenceCharge extends Charge
     private final List<Charge> charges;
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return false;
+    }
+
+    @Override
     public String generateBlazon(BlazonContext context)
     {
         return "TODO";

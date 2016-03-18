@@ -42,9 +42,38 @@ public class RepeatCharge extends Charge
     }
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return false;
+    }
+
+    @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
         Box bounds = contour.getBounds();
+
+        if (!charge.isRepeatSupported())
+        {
+            return charge.render(contour, painter);
+        }
+
+        if (charge instanceof OrdinaryCharge)
+        {
+            OrdinaryCharge ordinaryCharge = (OrdinaryCharge)charge;
+            if (ordinaryCharge.getOrdinary().isVerticalStacking())
+            {
+                List<RenderShape> list = new ArrayList<>();
+                for (int n = 0; n < number; ++n)
+                {
+                    double t1 = (n - number / 2.0 + 0.5) / (number);
+                    double t2 = t1 + 1.0;
+                    RenderContour child = new RenderContour(GeometryUtils.rectangle(bounds.getX1(), bounds.lerpY(t1), bounds.getX2(), bounds.lerpY(t2)));
+                    list.addAll(contour.clipShapes(charge.render(child, painter)));
+                }
+                return list;
+            }
+        }
+
         if (contour.isRectangle())
         {
             List<RenderShape> list = new ArrayList<>();
@@ -75,10 +104,10 @@ public class RepeatCharge extends Charge
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < number; ++n)
         {
-            double x1 = points.get(n).getX() - 5;
-            double y1 = points.get(n).getY() - 5;
-            double x2 = points.get(n).getX() + 5;
-            double y2 = points.get(n).getY() + 5;
+            double x1 = points.get(n).getX() - 25;
+            double y1 = points.get(n).getY() - 25;
+            double x2 = points.get(n).getX() + 25;
+            double y2 = points.get(n).getY() + 25;
             RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
             list.addAll(charge.render(child, painter));
         }

@@ -85,6 +85,19 @@ public class StringUtils
 
     public static String getPlural(String word)
     {
+        int index = word.indexOf(' ');
+        if (index > 0)
+        {
+            return getPlural(word.substring(0, index)) + word.substring(index);
+        }
+        if (word.endsWith("ss"))
+        {
+            return word + "es";
+        }
+        if (word.endsWith("es"))
+        {
+            return word;
+        }
         if ("fleur-de-lis".equals(word))
         {
             // TODO where do we define this?

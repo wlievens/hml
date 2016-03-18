@@ -37,15 +37,25 @@ public class OrdinaryCharge extends Charge
     }
 
     @Override
+    public boolean isRepeatSupported()
+    {
+        return ordinary.isRepeatSupported();
+    }
+
+    @Override
     public String generateBlazon(BlazonContext context)
     {
         List<String> list = new ArrayList<>();
         String ordinaryLabel = ordinary.getLabel().toLowerCase();
+        if (context.isPlural())
+        {
+            ordinaryLabel = StringUtils.getPlural(ordinaryLabel);
+        }
         if (charges.size() > 0)
         {
             list.add("on");
         }
-        if (!ordinary.isNamePlural())
+        if (!ordinary.isNamePlural() && !context.isPlural())
         {
             list.add(StringUtils.getArticle(ordinaryLabel));
         }
