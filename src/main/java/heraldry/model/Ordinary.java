@@ -12,6 +12,7 @@ import heraldry.render.ordinary.FlaunchesOrdinaryRenderer;
 import heraldry.render.ordinary.FretOrdinaryRenderer;
 import heraldry.render.ordinary.GoreOrdinaryRenderer;
 import heraldry.render.ordinary.GyronOrdinaryRenderer;
+import heraldry.render.ordinary.HamadeOrdinaryRenderer;
 import heraldry.render.ordinary.LozengeOrdinaryRenderer;
 import heraldry.render.ordinary.MountOrdinaryRenderer;
 import heraldry.render.ordinary.OrdinaryRenderer;
@@ -57,7 +58,7 @@ public enum Ordinary
     GORE_SINISTER(new GoreOrdinaryRenderer(true)),
     GYRON(new GyronOrdinaryRenderer(1 / 3.0, false, false)),
     GYRON_SINISTER(new GyronOrdinaryRenderer(1 / 3.0, true, false)),
-    HAMADE(null),
+    HAMADE(new HamadeOrdinaryRenderer()),
     LOZENGE(new LozengeOrdinaryRenderer(1.0, 1.0, false)),
     MASCLE(new LozengeOrdinaryRenderer(1.0, 1.0, true)),
     MOUNT(new MountOrdinaryRenderer()),
