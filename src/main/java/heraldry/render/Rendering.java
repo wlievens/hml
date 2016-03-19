@@ -1,5 +1,6 @@
 package heraldry.render;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.w3c.dom.Document;
@@ -149,28 +150,35 @@ public final class Rendering
 
     public Element toSvgElement(Document document)
     {
-        Element group = document.createElement("g");
+        Element svgGroup = document.createElement("g");
         for (RenderShape path : paths)
         {
-            Element xmlPath = document.createElement("path");
-            xmlPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
-            xmlPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", path.getFillPaint() == null ? "none" : toSvgColor(path.getFillPaint()), path.getBorderColor() == null ? "none" : toSvgColor(path.getBorderColor())));
-            //xmlPath.setAttribute("clip-path", "url(#contour)");
-            group.appendChild(xmlPath);
+            Element svgPath = document.createElement("path");
+            svgPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
+            svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(path.getFillPaint()), getSvgColor(path.getBorderColor())));
+            svgGroup.appendChild(svgPath);
         }
-        return group;
+        return svgGroup;
     }
 
-    private String toSvgColor(Paint paint)
+    private String getSvgColor(Paint paint)
     {
+        if (paint == null)
+        {
+            return "none";
+        }
         if (paint instanceof Color)
         {
-            Color color = (Color)paint;
-            double red = color.getRed();
-            double green = color.getGreen();
-            double blue = color.getBlue();
-            return String.format("rgb(%s, %s, %s)", to255(red), to255(green), to255(blue));
+            return formatSvgColor((Color)paint);
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("Unhandled paint: " + paint);
+    }
+
+    private String formatSvgColor(@NonNull Color color)
+    {
+        double red = color.getRed();
+        double green = color.getGreen();
+        double blue = color.getBlue();
+        return String.format("rgb(%s, %s, %s)", to255(red), to255(green), to255(blue));
     }
 }
