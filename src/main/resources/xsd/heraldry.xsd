@@ -31,9 +31,18 @@
     </xs:simpleType>
     <xs:simpleType name="Division">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="chief"/>
+            <xs:enumeration value="bend"/>
+            <xs:enumeration value="bend-sinister"/>
+            <xs:enumeration value="chaussé"/>
+            <xs:enumeration value="chevron"/>
+            <xs:enumeration value="chevron-inverted"/>
+            <xs:enumeration value="cross"/>
+            <xs:enumeration value="fess"/>
             <xs:enumeration value="pale"/>
+            <xs:enumeration value="pall"/>
+            <xs:enumeration value="pall-inverted"/>
             <xs:enumeration value="quarterly"/>
+            <xs:enumeration value="saltire"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="Ordinary">

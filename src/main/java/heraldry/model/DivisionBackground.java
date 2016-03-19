@@ -27,6 +27,7 @@ import java.util.List;
 public class DivisionBackground extends Background
 {
     private final Division division;
+    private final Line line;
     private final List<DivisionPart> parts;
 
     @Override

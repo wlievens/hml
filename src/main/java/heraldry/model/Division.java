@@ -11,9 +11,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Division
 {
+    BEND(null),
+    BEND_SINISTER(null),
+    CHAUSSÉ(null),
+    CHEVRON(null),
+    CHEVRON_INVERTED(null),
+    CROSS(null),
     FESS(new FessDivisionRenderer()),
     PALE(new PaleDivisionRenderer()),
-    QUARTERLY(new QuarterlyDivisionRenderer());
+    PALL(null),
+    PALL_INVERTED(null),
+    QUARTERLY(new QuarterlyDivisionRenderer()),
+    SALTIRE(null);
 
     @Getter
     private final DivisionRenderer renderer;
@@ -25,6 +34,11 @@ public enum Division
             case QUARTERLY:
             {
                 return 4;
+            }
+            case PALL:
+            case PALL_INVERTED:
+            {
+                return 3;
             }
             default:
             {

@@ -243,7 +243,7 @@ public class CoatOfArmsReader
         List<DivisionPart> parts = getChildElements(element).stream()
                 .map(this::readDivisionPart)
                 .collect(Collectors.toList());
-        return new DivisionBackground(readDivision(element.getAttribute("type")), parts);
+        return new DivisionBackground(readDivision(element.getAttribute("type")), readLine(element.getAttribute("line")), parts);
     }
 
     private DivisionPart readDivisionPart(Element element)

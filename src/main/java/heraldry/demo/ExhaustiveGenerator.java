@@ -146,7 +146,7 @@ public class ExhaustiveGenerator
                     {
                         parts.add(new DivisionPart(n + 1, Tincture.values()[n]));
                     }
-                    model.setBackground(new DivisionBackground(division, parts));
+                    model.setBackground(new DivisionBackground(division, line, parts));
                     model.setCharges(new ArrayList<>());
                     coat.setModel(model);
                     coats.add(coat);
