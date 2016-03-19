@@ -28,14 +28,13 @@ public class FessDivisionRenderer implements DivisionRenderer
         double cy = center.getY();
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
 
-        List<PathStep> steps1 = new ArrayList<>();
-        steps1.add(new LinePathStep(x1, y1, x2, y1));
-        steps1.add(new LinePathStep(x2, y1, x2, cy));
-        LineRenderer.line(steps1, x2, cy, x1, cy, line, period, false, 1.0);
-        steps1.add(new LinePathStep(x1, cy, x1, y1));
+        List<PathStep> steps = new ArrayList<>();
+        steps.add(new LinePathStep(x1, y1, x2, y1));
+        steps.add(new LinePathStep(x2, y1, x2, cy));
+        LineRenderer.line(steps, x2, cy, x1, cy, line, period, false, 1.0);
+        steps.add(new LinePathStep(x1, cy, x1, y1));
 
-        RenderContour top = contour.clip(new RenderContour(steps1)).get(0);
-
+        RenderContour top = contour.clip(new RenderContour(steps)).get(0);
         RenderContour bottom = GeometryUtils.subtract(contour, top).get(0);
 
         return Arrays.asList(top, bottom);
