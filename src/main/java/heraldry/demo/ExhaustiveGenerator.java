@@ -16,7 +16,6 @@ import heraldry.model.SemyBackground;
 import heraldry.model.Tincture;
 import heraldry.model.Variation;
 import heraldry.model.VariationBackground;
-import heraldry.render.Rendering;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -32,6 +31,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ExhaustiveGenerator
@@ -45,6 +45,26 @@ public class ExhaustiveGenerator
         //for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
         for (String shape : new String[]{ "heater-shield" })
         {
+            // Hand-defined examples
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel();
+                model.setBackground(new FieldBackground(Tincture.GULES));
+                model.setCharges(Arrays.asList(new OrdinaryCharge(Ordinary.PALL_REVERSED, Tincture.ERMINE)));
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel();
+                model.setBackground(new VariationBackground(Variation.LOZENGY, Tincture.ERMINE, Tincture.GULES));
+                model.setCharges(new ArrayList<>());
+                coat.setModel(model);
+                coats.add(coat);
+            }
+
             for (Tincture tincture : Tincture.values())
             {
                 CoatOfArms coat = new CoatOfArms();

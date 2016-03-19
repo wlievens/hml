@@ -27,6 +27,11 @@ public class VariationBackground extends Background
     private final Line line;
     private final int number;
 
+    public VariationBackground(Variation variation, Tincture firstTincture, Tincture secondTincture)
+    {
+        this(variation, firstTincture, secondTincture, Line.PLAIN, 0);
+    }
+
     @Override
     public String generateBlazon(BlazonContext context)
     {
