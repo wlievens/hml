@@ -1,6 +1,7 @@
 package heraldry.model;
 
 import heraldry.render.division.BendDivisionRenderer;
+import heraldry.render.division.ChevronDivisionRenderer;
 import heraldry.render.division.DivisionRenderer;
 import heraldry.render.division.FessDivisionRenderer;
 import heraldry.render.division.PaleDivisionRenderer;
@@ -15,8 +16,8 @@ public enum Division
     BEND(new BendDivisionRenderer(false)),
     BEND_SINISTER(new BendDivisionRenderer(true)),
     CHAUSSÉ(null),
-    CHEVRON(null),
-    CHEVRON_INVERTED(null),
+    CHEVRON(new ChevronDivisionRenderer(false)),
+    CHEVRON_INVERTED(new ChevronDivisionRenderer(true)),
     CROSS(null),
     FESS(new FessDivisionRenderer()),
     PALE(new PaleDivisionRenderer()),

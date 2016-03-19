@@ -142,9 +142,10 @@ public class ExhaustiveGenerator
                     coat.setShape(shape);
                     ChargedBackgroundModel model = new ChargedBackgroundModel();
                     List<DivisionPart> parts = new ArrayList<>();
+                    Tincture[] tinctures = new Tincture[]{ Tincture.ARGENT, Tincture.GULES, Tincture.ERMINE, Tincture.PURPURE };
                     for (int n = 0; n < division.getMaxPositions(); ++n)
                     {
-                        parts.add(new DivisionPart(n + 1, Tincture.values()[n]));
+                        parts.add(new DivisionPart(n + 1, tinctures[n]));
                     }
                     model.setBackground(new DivisionBackground(division, line, parts));
                     model.setCharges(new ArrayList<>());

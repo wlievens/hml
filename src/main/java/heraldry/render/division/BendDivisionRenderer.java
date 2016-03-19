@@ -6,7 +6,6 @@ import heraldry.render.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.PathStep;
-import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +23,9 @@ public class BendDivisionRenderer implements DivisionRenderer
     public List<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
-        Point center = bounds.getFessPoint();
         double x1 = bounds.getX1();
         double x2 = bounds.getX2();
         double y1 = bounds.getY1();
-        double y2 = bounds.getY2();
-        double cx = center.getX();
         double size = Math.max(bounds.getWidth(), bounds.getHeight());
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
 

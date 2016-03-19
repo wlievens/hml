@@ -22,7 +22,6 @@ public class PaleDivisionRenderer implements DivisionRenderer
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
         double x1 = bounds.getX1();
-        double x2 = bounds.getX2();
         double y1 = bounds.getY1();
         double y2 = bounds.getY2();
         double cx = center.getX();

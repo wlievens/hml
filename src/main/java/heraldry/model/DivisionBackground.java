@@ -40,7 +40,14 @@ public class DivisionBackground extends Background
                 list.add(division.getLabel());
                 break;
             default:
-                list.add("Party");
+                if (parts.size() == 2)
+                {
+                    list.add("Party");
+                }
+                else
+                {
+                    list.add("Tierced");
+                }
                 list.add("per");
                 list.add(division.getLabel().toLowerCase());
         }
