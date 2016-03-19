@@ -93,7 +93,7 @@ public class OrdinaryCharge extends Charge
             return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1)));
         }
         List<RenderContour> contours = contour.clipContours(renderer.render(contour, line, painter));
-        List<RenderShape> list = new ArrayList<>();
+        List<RenderShape> list = new ArrayList<>(contours.size());
         contours.forEach(child -> list.addAll(background.render(child, painter)));
         for (Charge charge : charges)
         {
