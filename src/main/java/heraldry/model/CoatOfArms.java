@@ -37,7 +37,10 @@ public class CoatOfArms
     private static final Color COLOR_VERT = new Color(0.15, 0.85, 0.15);
     private static final Color COLOR_PURPURE = new Color(0.65, 0.25, 0.65);
 
-    private static final Pattern PATTERN_ERMINE = new Pattern(Tincture.ERMINE);
+    private static final Pattern PATTERN_ERMINE = new Pattern("ermine", COLOR_ARGENT, COLOR_SABLE);
+    private static final Pattern PATTERN_ERMINES = new Pattern("ermine", COLOR_SABLE, COLOR_ARGENT);
+    private static final Pattern PATTERN_ERMINOIS = new Pattern("ermine", COLOR_SABLE, COLOR_OR);
+    private static final Pattern PATTERN_PEAN = new Pattern("ermine", COLOR_OR, COLOR_SABLE);
 
     private String title;
     private String blazon;
@@ -82,6 +85,12 @@ public class CoatOfArms
                         return COLOR_PURPURE;
                     case ERMINE:
                         return PATTERN_ERMINE;
+                    case ERMINES:
+                        return PATTERN_ERMINES;
+                    case ERMINOIS:
+                        return PATTERN_ERMINOIS;
+                    case PEAN:
+                        return PATTERN_PEAN;
                     default:
                         throw new IllegalStateException("Unmapped tincture " + tincture);
                 }
@@ -143,8 +152,8 @@ public class CoatOfArms
                 .map(shape -> {
                     if (shape.getFillPaint() instanceof Pattern)
                     {
-                        Tincture tincture = ((Pattern)shape.getFillPaint()).getTincture();
-                        SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", tincture.name().toLowerCase()));
+                        Pattern pattern = (Pattern)shape.getFillPaint();
+                        SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", pattern.getFigure()));
                         float diagramWidth = patternDiagram.getWidth();
                         List<RenderShape> list = new ArrayList<>();
                         AffineTransform transform = new AffineTransform();
@@ -157,7 +166,7 @@ public class CoatOfArms
                         int columns = 9;
                         double scale = bounds.getWidth() / (2 * columns * diagramWidth);
                         transform.scale(scale, scale);
-                        list.add(new RenderShape(shapeContour.getSteps(), painter.getPaint(Tincture.ARGENT), null));
+                        list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null));
                         double stepX = bounds.getWidth() / columns;
                         double stepY = stepX * 1.25;
                         int row = 0;
@@ -168,14 +177,14 @@ public class CoatOfArms
                             {
                                 double patternX = x + (row % 2 - 0.5) * stepX / 2;
                                 double patternY = y - stepY / 2;
-                                List<List<PathStep>> transformedPaths = SvgUtils.collect(patternDiagram, transform).stream()
+                                List<List<PathStep>> transformedPaths = patternPaths.stream()
                                         .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
                                         .collect(Collectors.toList());
                                 for (List<PathStep> path : transformedPaths)
                                 {
                                     for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
                                     {
-                                        list.addAll(shapeContour.clip(new RenderShape(clipped, painter.getPaint(Tincture.SABLE), null)));
+                                        list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null)));
                                     }
                                 }
                             }

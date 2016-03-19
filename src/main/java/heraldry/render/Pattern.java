@@ -6,5 +6,7 @@ import lombok.Value;
 @Value
 public final class Pattern implements Paint
 {
-    private final Tincture tincture;
+    private final String figure;
+    private final Color background;
+    private final Color foreground;
 }
