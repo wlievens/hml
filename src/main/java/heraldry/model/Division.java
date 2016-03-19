@@ -1,5 +1,6 @@
 package heraldry.model;
 
+import heraldry.render.division.BendDivisionRenderer;
 import heraldry.render.division.DivisionRenderer;
 import heraldry.render.division.FessDivisionRenderer;
 import heraldry.render.division.PaleDivisionRenderer;
@@ -11,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Division
 {
-    BEND(null),
-    BEND_SINISTER(null),
+    BEND(new BendDivisionRenderer(false)),
+    BEND_SINISTER(new BendDivisionRenderer(true)),
     CHAUSSÉ(null),
     CHEVRON(null),
     CHEVRON_INVERTED(null),

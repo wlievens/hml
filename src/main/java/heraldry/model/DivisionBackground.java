@@ -36,14 +36,13 @@ public class DivisionBackground extends Background
         List<String> list = new ArrayList<>();
         switch (division)
         {
-            case FESS:
-            case PALE:
+            case QUARTERLY:
+                list.add(division.getLabel());
+                break;
+            default:
                 list.add("Party");
                 list.add("per");
                 list.add(division.getLabel().toLowerCase());
-                break;
-            default:
-                list.add(division.getLabel());
         }
         if (line != Line.PLAIN)
         {
