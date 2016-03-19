@@ -15,6 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public final class Rendering
 {
+    private static final String SVG_ID_CONTOUR = "contour";
+    private static final String SVG_ID_LIGHTING = "lighting";
+
     private final RenderContour contour;
     private final Collection<RenderShape> paths;
 
@@ -97,16 +100,16 @@ public final class Rendering
             {
                 Element xmlClipPath = document.createElement("clipPath");
                 {
-                    xmlClipPath.setAttribute("id", "contour");
+                    xmlClipPath.setAttribute("id", SVG_ID_CONTOUR);
                     Element xmlPath = document.createElement("path");
-                    xmlPath.setAttribute("d", buildPath(contour.getSteps(), margin, margin));
+                    xmlPath.setAttribute("d", buildPath(this.contour.getSteps(), margin, margin));
                     xmlClipPath.appendChild(xmlPath);
                     xmlDefs.appendChild(xmlClipPath);
                 }
 
                 Element xmlRadialGradient = document.createElement("radialGradient");
                 {
-                    xmlRadialGradient.setAttribute("id", "lighting");
+                    xmlRadialGradient.setAttribute("id", SVG_ID_LIGHTING);
                     Element xmlStop1 = document.createElement("stop");
                     {
                         xmlStop1.setAttribute("offset", "25%");
@@ -135,9 +138,9 @@ public final class Rendering
             xmlRect.setAttribute("y", String.valueOf(bounds.getY1()));
             xmlRect.setAttribute("width", String.valueOf(fullWidth));
             xmlRect.setAttribute("height", String.valueOf(fullHeight));
-            xmlRect.setAttribute("fill", "url(#lighting)");
-            xmlRect.setAttribute("clip-path", "url(#contour)");
-            xmlSvg.appendChild(xmlRect);
+            xmlRect.setAttribute("fill", String.format("url(#%s)", SVG_ID_LIGHTING));
+            xmlRect.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
+            //xmlSvg.appendChild(xmlRect);
 
             document.appendChild(xmlSvg);
             return document;
@@ -156,6 +159,7 @@ public final class Rendering
             Element svgPath = document.createElement("path");
             svgPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
             svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(path.getFillPaint()), getSvgColor(path.getBorderColor())));
+            svgPath.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
             svgGroup.appendChild(svgPath);
         }
         return svgGroup;
