@@ -30,24 +30,24 @@ public class GeometryUtils
         area.intersect(convertContourToArea(contour));
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream().collect(toList());
     }
-
+    
     public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream()
                 .map(RenderContour::new)
                 .collect(toList());
     }
-
+    
     public static Area convertBoxToArea(Box box)
     {
         return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
     }
-
+    
     public static Area convertContourToArea(RenderContour contour)
     {
         return convertPathStepsToArea(contour.getSteps());
     }
-
+    
     public static List<List<PathStep>> convertPathIteratorToPathSteps(PathIterator it)
     {
         float[] xys = new float[6];
@@ -120,7 +120,7 @@ public class GeometryUtils
         }
         return list;
     }
-
+    
     public static Area convertPathStepsToArea(List<PathStep> steps)
     {
         if (steps.isEmpty())
@@ -166,12 +166,12 @@ public class GeometryUtils
         path.closePath();
         return new Area(path);
     }
-
+    
     public static Area convertShapeToArea(RenderShape shape)
     {
         return convertPathStepsToArea(shape.getSteps());
     }
-
+    
     public static List<PathStep> polygon(double... xys)
     {
         List<PathStep> steps = new ArrayList<>();
@@ -188,9 +188,17 @@ public class GeometryUtils
         steps.add(new LinePathStep(previousX, previousY, xys[0], xys[1]));
         return steps;
     }
-
+    
     public static List<PathStep> rectangle(double x1, double y1, double x2, double y2)
     {
         return polygon(x1, y1, x2, y1, x2, y2, x1, y2);
+    }
+    
+    public static List<RenderContour> subtract(RenderContour first, RenderContour second)
+    {
+        Area area1 = convertContourToArea(first);
+        Area area2 = convertContourToArea(second);
+        area1.subtract(area2);
+        return convertAreaToContours(area1);
     }
 }

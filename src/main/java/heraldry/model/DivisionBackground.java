@@ -45,6 +45,10 @@ public class DivisionBackground extends Background
             default:
                 list.add(division.getLabel());
         }
+        if (line != Line.PLAIN)
+        {
+            list.add(line.getLabel().toLowerCase());
+        }
         for (int n = 0; n < parts.size(); ++n)
         {
             if (n > 0)
@@ -92,7 +96,7 @@ public class DivisionBackground extends Background
             Box bounds = contour.getBounds();
             return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1)));
         }
-        List<RenderContour> divisionContours = renderer.render(contour, painter);
+        List<RenderContour> divisionContours = renderer.render(contour, line, painter);
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < divisionContours.size(); ++n)
         {

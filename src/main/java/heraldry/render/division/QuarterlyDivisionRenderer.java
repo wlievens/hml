@@ -1,5 +1,6 @@
 package heraldry.render.division;
 
+import heraldry.model.Line;
 import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.Point;
@@ -11,10 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QuarterlyDivisionRenderer extends AbstractDivisionRenderer
+public class QuarterlyDivisionRenderer implements DivisionRenderer
 {
     @Override
-    public List<RenderContour> render(RenderContour contour, Painter painter)
+    public List<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();

@@ -1,18 +1,23 @@
 package heraldry.render.division;
 
+import heraldry.model.Line;
 import heraldry.render.Box;
+import heraldry.render.LinePathStep;
+import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.util.GeometryUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FessDivisionRenderer extends AbstractDivisionRenderer
+public class FessDivisionRenderer implements DivisionRenderer
 {
     @Override
-    public List<RenderContour> render(RenderContour contour, Painter painter)
+    public List<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
@@ -21,9 +26,18 @@ public class FessDivisionRenderer extends AbstractDivisionRenderer
         double y1 = bounds.getY1();
         double y2 = bounds.getY2();
         double cy = center.getY();
-        return Arrays.asList(
-                contour.clip(new RenderContour(GeometryUtils.rectangle(x1, y1, x2, cy))).get(0),
-                contour.clip(new RenderContour(GeometryUtils.rectangle(x1, cy, x2, y2))).get(0)
-        );
+        double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
+
+        List<PathStep> steps1 = new ArrayList<>();
+        steps1.add(new LinePathStep(x1, y1, x2, y1));
+        steps1.add(new LinePathStep(x2, y1, x2, cy));
+        LineRenderer.line(steps1, x2, cy, x1, cy, line, period, false, 1.0);
+        steps1.add(new LinePathStep(x1, cy, x1, y1));
+
+        RenderContour top = contour.clip(new RenderContour(steps1)).get(0);
+
+        RenderContour bottom = GeometryUtils.subtract(contour, top).get(0);
+
+        return Arrays.asList(top, bottom);
     }
 }
