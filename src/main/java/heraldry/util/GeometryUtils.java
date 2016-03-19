@@ -76,9 +76,12 @@ public class GeometryUtils
                 }
                 case PathIterator.SEG_LINETO:
                 {
-                    steps.add(new LinePathStep(previousX, previousY, xys[0], xys[1]));
-                    previousX = xys[0];
-                    previousY = xys[1];
+                    if (previousX != xys[0] || previousY != xys[1])
+                    {
+                        steps.add(new LinePathStep(previousX, previousY, xys[0], xys[1]));
+                        previousX = xys[0];
+                        previousY = xys[1];
+                    }
                     break;
                 }
                 case PathIterator.SEG_QUADTO:
