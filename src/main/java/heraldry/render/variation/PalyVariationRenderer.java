@@ -3,11 +3,12 @@ package heraldry.render.variation;
 import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
+import heraldry.render.LinePathStep;
+import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
-import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,13 +21,19 @@ public class PalyVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        double step = painter.getGridPatternSize();
-        boolean alternate = true;
-        for (double x1 = bounds.getX1(); x1 < bounds.getX2(); x1 += step)
+        list.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+        double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
+        double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
+        double y1 = bounds.getY1();
+        double y2 = bounds.getY2();
+        for (double x = bounds.getX1() + step; x < bounds.getX2(); x += step * 2)
         {
-            List<PathStep> rectangle = GeometryUtils.rectangle(x1, bounds.getY1(), x1 + step, bounds.getY2());
-            list.addAll(contour.clip(new RenderShape(rectangle, painter.getColor(alternate ? firstTincture : secondTincture), null)));
-            alternate = !alternate;
+            List<PathStep> steps = new ArrayList<>();
+            steps.add(new LinePathStep(x, y1, x + step, y1));
+            LineRenderer.line(steps, x + step, y1, x + step, y2, line, period, false, 1.0);
+            steps.add(new LinePathStep(x + step, y2, x, y2));
+            LineRenderer.line(steps, x, y2, x, y1, line, period, false, 1.0);
+            list.addAll(contour.clip(new RenderShape(steps, painter.getColor(secondTincture), null)));
         }
         return list;
     }

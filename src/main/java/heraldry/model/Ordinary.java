@@ -100,9 +100,6 @@ public enum Ordinary
             case CHEVRON_INVERTED:
             case CHEVRONEL:
             case CHEVRONEL_INVERTED:
-            case FLAUNCHES:
-            case SALTIRE:
-            case SALTIRE_FILLET:
                 return true;
             default:
                 return false;
@@ -115,6 +112,9 @@ public enum Ordinary
         {
             case CROSS:
             case CROSS_FILLET:
+            case FLAUNCHES:
+            case SALTIRE:
+            case SALTIRE_FILLET:
                 return false;
             default:
                 return true;
