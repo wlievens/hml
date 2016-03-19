@@ -33,36 +33,37 @@ public class PallOrdinaryRenderer implements OrdinaryRenderer
         double step = sizeRatio * painter.getOrdinaryThickness() * line.getScaleFactor() / 2;
         double stepDiagonal = step * Math.sqrt(2);
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
-        double midX = (x1 + x2) / 2;
-        double midY = y1 + width / 2;
+        double centerX = (x1 + x2) / 2;
+        double centerY = y1 + width / 2;
 
         List<PathStep> steps = new ArrayList<>();
 
         if (flipY)
         {
-            double endY = midY + x2 - midX;
-            steps.add(new LinePathStep(midX - step, y1, midX + step, y1));
-            LineRenderer.line(steps, midX + step, y1, midX + step, midY - stepDiagonal + step, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX + step, midY - stepDiagonal + step, x2, endY - stepDiagonal, line, period, false, sizeRatio);
+            double endY = centerY + x2 - centerX;
+            steps.add(new LinePathStep(centerX - step, y1, centerX + step, y1));
+            LineRenderer.line(steps, centerX + step, y1, centerX + step, centerY - stepDiagonal + step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX + step, centerY - stepDiagonal + step, x2, endY - stepDiagonal, line, period, false, sizeRatio);
             steps.add(new LinePathStep(x2, endY - stepDiagonal, x2, endY + stepDiagonal));
-            LineRenderer.line(steps, x2, endY + stepDiagonal, midX, midY + stepDiagonal, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX, midY + stepDiagonal, x1, endY + stepDiagonal, line, period, false, sizeRatio);
+            LineRenderer.line(steps, x2, endY + stepDiagonal, centerX, centerY + stepDiagonal, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX, centerY + stepDiagonal, x1, endY + stepDiagonal, line, period, false, sizeRatio);
             steps.add(new LinePathStep(x1, endY + stepDiagonal, x1, endY - stepDiagonal));
-            LineRenderer.line(steps, x1, endY - stepDiagonal, midX - step, midY - stepDiagonal + step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, x1, endY - stepDiagonal, centerX - step, centerY - stepDiagonal + step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX - step, centerY - stepDiagonal + step, centerX - step, y1, line, period, false, sizeRatio);
         }
         else
         {
             steps.add(new LinePathStep(x1, y1, x1 + stepDiagonal, y1));
-            LineRenderer.line(steps, x1 + stepDiagonal, y1, midX, midY - stepDiagonal, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX, midY - stepDiagonal, x2 - stepDiagonal, y1, line, period, false, sizeRatio);
+            LineRenderer.line(steps, x1 + stepDiagonal, y1, centerX, centerY - stepDiagonal, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX, centerY - stepDiagonal, x2 - stepDiagonal, y1, line, period, false, sizeRatio);
             steps.add(new LinePathStep(x2 - stepDiagonal, y1, x2, y1));
             steps.add(new LinePathStep(x2, y1, x2, y1 + stepDiagonal));
-            LineRenderer.line(steps, x2, y1 + stepDiagonal, midX + step, midY + stepDiagonal - step, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX + step, midY + stepDiagonal - step, midX + step, y2, line, period, false, sizeRatio);
-            steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
-            LineRenderer.line(steps, midX - step, y2, midX - step, y2, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX - step, y2, midX - step, midY + stepDiagonal - step, line, period, false, sizeRatio);
-            LineRenderer.line(steps, midX - step, midY + stepDiagonal - step, x1, y1 + stepDiagonal, line, period, false, sizeRatio);
+            LineRenderer.line(steps, x2, y1 + stepDiagonal, centerX + step, centerY + stepDiagonal - step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX + step, centerY + stepDiagonal - step, centerX + step, y2, line, period, false, sizeRatio);
+            steps.add(new LinePathStep(centerX + step, y2, centerX - step, y2));
+            LineRenderer.line(steps, centerX - step, y2, centerX - step, y2, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX - step, y2, centerX - step, centerY + stepDiagonal - step, line, period, false, sizeRatio);
+            LineRenderer.line(steps, centerX - step, centerY + stepDiagonal - step, x1, y1 + stepDiagonal, line, period, false, sizeRatio);
             steps.add(new LinePathStep(x1, y1 + stepDiagonal, x1, y1));
         }
 
