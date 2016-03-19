@@ -10,70 +10,69 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path d="M 0.0,0.0 L 0.0,12.5 L 12.5,12.5 L 12.5,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 12.5,0.0 L 12.5,12.5 L 25.0,12.5 L 25.0,0.0 L 12.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 25.0,0.0 L 25.0,12.5 L 37.5,12.5 L 37.5,0.0 L 25.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 37.5,0.0 L 37.5,12.5 L 50.0,12.5 L 50.0,0.0 L 37.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 50.0,0.0 L 50.0,12.5 L 62.5,12.5 L 62.5,0.0 L 50.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 62.5,0.0 L 62.5,12.5 L 75.0,12.5 L 75.0,0.0 L 62.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 75.0,0.0 L 75.0,12.5 L 87.5,12.5 L 87.5,0.0 L 75.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 87.5,0.0 L 87.5,12.5 L 100.0,12.5 L 100.0,0.0 L 87.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,12.5 L 0.0,25.0 L 12.5,25.0 L 12.5,12.5 L 0.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 12.5,12.5 L 12.5,25.0 L 25.0,25.0 L 25.0,12.5 L 12.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 25.0,12.5 L 25.0,25.0 L 37.5,25.0 L 37.5,12.5 L 25.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 37.5,12.5 L 37.5,25.0 L 50.0,25.0 L 50.0,12.5 L 37.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 50.0,12.5 L 50.0,25.0 L 62.5,25.0 L 62.5,12.5 L 50.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 62.5,12.5 L 62.5,25.0 L 75.0,25.0 L 75.0,12.5 L 62.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 75.0,12.5 L 75.0,25.0 L 87.5,25.0 L 87.5,12.5 L 75.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 87.5,12.5 L 87.5,25.0 L 100.0,25.0 L 100.0,12.5 L 87.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,25.0 L 0.0,37.5 L 12.5,37.5 L 12.5,25.0 L 0.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 12.5,25.0 L 12.5,37.5 L 25.0,37.5 L 25.0,25.0 L 12.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 25.0,25.0 L 25.0,37.5 L 37.5,37.5 L 37.5,25.0 L 25.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 37.5,25.0 L 37.5,37.5 L 50.0,37.5 L 50.0,25.0 L 37.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 50.0,25.0 L 50.0,37.5 L 62.5,37.5 L 62.5,25.0 L 50.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 62.5,25.0 L 62.5,37.5 L 75.0,37.5 L 75.0,25.0 L 62.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 75.0,25.0 L 75.0,37.5 L 87.5,37.5 L 87.5,25.0 L 75.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 87.5,25.0 L 87.5,37.5 L 100.0,37.5 L 100.0,25.0 L 87.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,37.5 L 0.0,50.0 L 12.5,50.0 L 12.5,37.5 L 0.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 12.5,37.5 L 12.5,50.0 L 25.0,50.0 L 25.0,37.5 L 12.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 25.0,37.5 L 25.0,50.0 L 37.5,50.0 L 37.5,37.5 L 25.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 37.5,37.5 L 37.5,50.0 L 50.0,50.0 L 50.0,37.5 L 37.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 50.0,37.5 L 50.0,50.0 L 62.5,50.0 L 62.5,37.5 L 50.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 62.5,37.5 L 62.5,50.0 L 75.0,50.0 L 75.0,37.5 L 62.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 75.0,37.5 L 75.0,50.0 L 87.5,50.0 L 87.5,37.5 L 75.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 87.5,37.5 L 87.5,50.0 L 100.0,50.0 L 100.0,37.5 L 87.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 100.0,50.0 L 100.0,62.5 L 112.5,62.5 L 112.5,50.0 L 100.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 112.5,50.0 L 112.5,62.5 L 125.0,62.5 L 125.0,50.0 L 112.5,50.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 125.0,50.0 L 125.0,62.5 L 137.5,62.5 L 137.5,50.0 L 125.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 137.5,50.0 L 137.5,62.5 L 150.0,62.5 L 150.0,50.0 L 137.5,50.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 150.0,50.0 L 150.0,62.5 L 162.5,62.5 L 162.5,53.125 L 160.0,50.0 L 150.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 162.5,53.125 L 162.5,62.5 L 170.0,62.5 L 162.5,53.125 L 162.5,53.125 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 100.0,62.5 L 100.0,75.0 L 112.5,75.0 L 112.5,62.5 L 100.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 112.5,62.5 L 112.5,75.0 L 125.0,75.0 L 125.0,62.5 L 112.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 125.0,62.5 L 125.0,75.0 L 137.5,75.0 L 137.5,62.5 L 125.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 137.5,62.5 L 137.5,75.0 L 150.0,75.0 L 150.0,62.5 L 137.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 150.0,62.5 L 150.0,75.0 L 162.5,75.0 L 162.5,62.5 L 150.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 162.5,62.5 L 162.5,75.0 L 175.0,75.0 L 175.0,68.75 L 170.0,62.5 L 162.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 175.0,68.75 L 175.0,75.0 L 180.0,75.0 L 175.0,68.75 L 175.0,68.75 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 100.0,75.0 L 100.0,87.5 L 112.5,87.5 L 112.5,75.0 L 100.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 112.5,75.0 L 112.5,87.5 L 125.0,87.5 L 125.0,75.0 L 112.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 125.0,75.0 L 125.0,87.5 L 137.5,87.5 L 137.5,75.0 L 125.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 137.5,75.0 L 137.5,87.5 L 150.0,87.5 L 150.0,75.0 L 137.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 150.0,75.0 L 150.0,87.5 L 162.5,87.5 L 162.5,75.0 L 150.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 162.5,75.0 L 162.5,87.5 L 175.0,87.5 L 175.0,75.0 L 162.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 175.0,75.0 L 175.0,87.5 L 187.5,87.5 L 187.5,84.375 L 180.0,75.0 L 175.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 187.5,84.375 L 187.5,87.5 L 190.0,87.5 L 187.5,84.375 L 187.5,84.375 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 100.0,87.5 L 100.0,100.0 L 112.5,100.0 L 112.5,87.5 L 100.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 112.5,87.5 L 112.5,100.0 L 125.0,100.0 L 125.0,87.5 L 112.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 125.0,87.5 L 125.0,100.0 L 137.5,100.0 L 137.5,87.5 L 125.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 137.5,87.5 L 137.5,100.0 L 150.0,100.0 L 150.0,87.5 L 137.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 150.0,87.5 L 150.0,100.0 L 162.5,100.0 L 162.5,87.5 L 150.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 162.5,87.5 L 162.5,100.0 L 175.0,100.0 L 175.0,87.5 L 162.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 175.0,87.5 L 175.0,100.0 L 187.5,100.0 L 187.5,87.5 L 175.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 187.5,87.5 L 187.5,100.0 L 200.0,100.0 L 190.0,87.5 L 187.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
-<path d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<path clip-path="url(#contour)" d="M 0.0,0.0 L 0.0,12.5 L 12.5,12.5 L 12.5,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 12.5,0.0 L 12.5,12.5 L 25.0,12.5 L 25.0,0.0 L 12.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 25.0,0.0 L 25.0,12.5 L 37.5,12.5 L 37.5,0.0 L 25.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 37.5,0.0 L 37.5,12.5 L 50.0,12.5 L 50.0,0.0 L 37.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 50.0,0.0 L 50.0,12.5 L 62.5,12.5 L 62.5,0.0 L 50.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 62.5,0.0 L 62.5,12.5 L 75.0,12.5 L 75.0,0.0 L 62.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 75.0,0.0 L 75.0,12.5 L 87.5,12.5 L 87.5,0.0 L 75.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 87.5,0.0 L 87.5,12.5 L 100.0,12.5 L 100.0,0.0 L 87.5,0.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 0.0,12.5 L 0.0,25.0 L 12.5,25.0 L 12.5,12.5 L 0.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 12.5,12.5 L 12.5,25.0 L 25.0,25.0 L 25.0,12.5 L 12.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 25.0,12.5 L 25.0,25.0 L 37.5,25.0 L 37.5,12.5 L 25.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 37.5,12.5 L 37.5,25.0 L 50.0,25.0 L 50.0,12.5 L 37.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 50.0,12.5 L 50.0,25.0 L 62.5,25.0 L 62.5,12.5 L 50.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 62.5,12.5 L 62.5,25.0 L 75.0,25.0 L 75.0,12.5 L 62.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 75.0,12.5 L 75.0,25.0 L 87.5,25.0 L 87.5,12.5 L 75.0,12.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 87.5,12.5 L 87.5,25.0 L 100.0,25.0 L 100.0,12.5 L 87.5,12.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 0.0,25.0 L 0.0,37.5 L 12.5,37.5 L 12.5,25.0 L 0.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 12.5,25.0 L 12.5,37.5 L 25.0,37.5 L 25.0,25.0 L 12.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 25.0,25.0 L 25.0,37.5 L 37.5,37.5 L 37.5,25.0 L 25.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 37.5,25.0 L 37.5,37.5 L 50.0,37.5 L 50.0,25.0 L 37.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 50.0,25.0 L 50.0,37.5 L 62.5,37.5 L 62.5,25.0 L 50.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 62.5,25.0 L 62.5,37.5 L 75.0,37.5 L 75.0,25.0 L 62.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 75.0,25.0 L 75.0,37.5 L 87.5,37.5 L 87.5,25.0 L 75.0,25.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 87.5,25.0 L 87.5,37.5 L 100.0,37.5 L 100.0,25.0 L 87.5,25.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 0.0,37.5 L 0.0,50.0 L 12.5,50.0 L 12.5,37.5 L 0.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 12.5,37.5 L 12.5,50.0 L 25.0,50.0 L 25.0,37.5 L 12.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 25.0,37.5 L 25.0,50.0 L 37.5,50.0 L 37.5,37.5 L 25.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 37.5,37.5 L 37.5,50.0 L 50.0,50.0 L 50.0,37.5 L 37.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 50.0,37.5 L 50.0,50.0 L 62.5,50.0 L 62.5,37.5 L 50.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 62.5,37.5 L 62.5,50.0 L 75.0,50.0 L 75.0,37.5 L 62.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 75.0,37.5 L 75.0,50.0 L 87.5,50.0 L 87.5,37.5 L 75.0,37.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 87.5,37.5 L 87.5,50.0 L 100.0,50.0 L 100.0,37.5 L 87.5,37.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 100.0,50.0 L 100.0,62.5 L 112.5,62.5 L 112.5,50.0 L 100.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 112.5,50.0 L 112.5,62.5 L 125.0,62.5 L 125.0,50.0 L 112.5,50.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 125.0,50.0 L 125.0,62.5 L 137.5,62.5 L 137.5,50.0 L 125.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 137.5,50.0 L 137.5,62.5 L 150.0,62.5 L 150.0,50.0 L 137.5,50.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 150.0,50.0 L 150.0,62.5 L 162.5,62.5 L 162.5,53.125 L 160.0,50.0 L 150.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 162.5,53.125 L 162.5,62.5 L 170.0,62.5 L 162.5,53.125 L 162.5,53.125 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 100.0,62.5 L 100.0,75.0 L 112.5,75.0 L 112.5,62.5 L 100.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 112.5,62.5 L 112.5,75.0 L 125.0,75.0 L 125.0,62.5 L 112.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 125.0,62.5 L 125.0,75.0 L 137.5,75.0 L 137.5,62.5 L 125.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 137.5,62.5 L 137.5,75.0 L 150.0,75.0 L 150.0,62.5 L 137.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 150.0,62.5 L 150.0,75.0 L 162.5,75.0 L 162.5,62.5 L 150.0,62.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 162.5,62.5 L 162.5,75.0 L 175.0,75.0 L 175.0,68.75 L 170.0,62.5 L 162.5,62.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 175.0,68.75 L 175.0,75.0 L 180.0,75.0 L 175.0,68.75 L 175.0,68.75 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 100.0,75.0 L 100.0,87.5 L 112.5,87.5 L 112.5,75.0 L 100.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 112.5,75.0 L 112.5,87.5 L 125.0,87.5 L 125.0,75.0 L 112.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 125.0,75.0 L 125.0,87.5 L 137.5,87.5 L 137.5,75.0 L 125.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 137.5,75.0 L 137.5,87.5 L 150.0,87.5 L 150.0,75.0 L 137.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 150.0,75.0 L 150.0,87.5 L 162.5,87.5 L 162.5,75.0 L 150.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 162.5,75.0 L 162.5,87.5 L 175.0,87.5 L 175.0,75.0 L 162.5,75.0 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 175.0,75.0 L 175.0,87.5 L 187.5,87.5 L 187.5,84.375 L 180.0,75.0 L 175.0,75.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 187.5,84.375 L 187.5,87.5 L 190.0,87.5 L 187.5,84.375 L 187.5,84.375 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 100.0,87.5 L 100.0,100.0 L 112.5,100.0 L 112.5,87.5 L 100.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 112.5,87.5 L 112.5,100.0 L 125.0,100.0 L 125.0,87.5 L 112.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 125.0,87.5 L 125.0,100.0 L 137.5,100.0 L 137.5,87.5 L 125.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 137.5,87.5 L 137.5,100.0 L 150.0,100.0 L 150.0,87.5 L 137.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 150.0,87.5 L 150.0,100.0 L 162.5,100.0 L 162.5,87.5 L 150.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 162.5,87.5 L 162.5,100.0 L 175.0,100.0 L 175.0,87.5 L 162.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 175.0,87.5 L 175.0,100.0 L 187.5,100.0 L 187.5,87.5 L 175.0,87.5 Z" style="fill: rgb(38, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 187.5,87.5 L 187.5,100.0 L 200.0,100.0 L 190.0,87.5 L 187.5,87.5 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill: rgb(217, 38, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
-<rect clip-path="url(#contour)" fill="url(#lighting)" height="116.0" width="216.0" x="0.0" y="0.0"/>
 </svg>
