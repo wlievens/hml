@@ -52,13 +52,13 @@ public class CoatOfArms
     public Rendering render()
     {
         SVGDiagram shieldDiagram = SvgUtils.loadSvg(String.format("/shapes/%s.svg", shape));
-        RenderContour contour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)shieldDiagram.getElement("contour")));
+        RenderContour shieldContour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)shieldDiagram.getElement("contour")));
         Painter painter = new Painter()
         {
             @Override
             public double getOrdinaryThickness()
             {
-                return 0.15 * contour.getBounds().getWidth();
+                return 0.15 * shieldContour.getBounds().getWidth();
             }
 
             @Override
@@ -102,25 +102,25 @@ public class CoatOfArms
             @Override
             public double getGridPatternSize()
             {
-                return contour.getBounds().getHeight() / 8;
+                return shieldContour.getBounds().getHeight() / 8;
             }
 
             @Override
             public double getFrettyPatternSize()
             {
-                return 0.25 * contour.getBounds().getWidth();
+                return 0.25 * shieldContour.getBounds().getWidth();
             }
 
             @Override
             public double getFretMargin()
             {
-                return 0.005 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+                return 0.005 * Math.min(shieldContour.getBounds().getWidth(), shieldContour.getBounds().getHeight());
             }
 
             @Override
             public double getFretSizeStep()
             {
-                return 0.05 * Math.min(contour.getBounds().getWidth(), contour.getBounds().getHeight());
+                return 0.05 * Math.min(shieldContour.getBounds().getWidth(), shieldContour.getBounds().getHeight());
             }
 
             @Override
@@ -132,61 +132,61 @@ public class CoatOfArms
             @Override
             public double getChiefHeight()
             {
-                return contour.getBounds().getHeight() / 4;
+                return shieldContour.getBounds().getHeight() / 4;
             }
         };
         List<RenderShape> paths = new ArrayList<>();
-        paths.addAll(model.render(contour, painter));
-        paths.add(new RenderShape(contour.getSteps(), null, painter.getOuterBorderColor()));
+        paths.addAll(model.render(shieldContour, painter));
+        paths.add(new RenderShape(shieldContour.getSteps(), null, painter.getOuterBorderColor()));
         // Process all patterned shapes
         paths = paths.stream()
                 .map(shape -> {
                     if (shape.getFillPaint() instanceof Pattern)
                     {
                         Tincture tincture = ((Pattern)shape.getFillPaint()).getTincture();
-                        if (tincture.isFur())
+                        SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", tincture.name().toLowerCase()));
+                        float diagramWidth = patternDiagram.getWidth();
+                        List<RenderShape> list = new ArrayList<>();
+                        AffineTransform transform = new AffineTransform();
+                        RenderContour shapeContour = new RenderContour(shape.getSteps());
+                        Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
+                        double x1 = bounds.getX1();
+                        double y1 = bounds.getY1();
+                        double x2 = bounds.getX2();
+                        double y2 = bounds.getY2();
+                        int columns = 9;
+                        double scale = bounds.getWidth() / (2 * columns * diagramWidth);
+                        transform.scale(scale, scale);
+                        list.add(new RenderShape(shapeContour.getSteps(), painter.getPaint(Tincture.ARGENT), null));
+                        double stepX = bounds.getWidth() / columns;
+                        double stepY = stepX * 1.25;
+                        int row = 0;
+                        List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
+                        for (double y = y1; y <= y2 + stepY; y += stepY)
                         {
-                            SVGDiagram furDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", tincture.name().toLowerCase()));
-                            float diagramWidth = furDiagram.getWidth();
-                            List<RenderShape> list = new ArrayList<>();
-                            AffineTransform transform = new AffineTransform();
-                            RenderContour shapeContour = new RenderContour(shape.getSteps());
-                            Box bounds = shapeContour.getBounds();
-                            double x1 = bounds.getX1();
-                            double y1 = bounds.getY1();
-                            double x2 = bounds.getX2();
-                            double y2 = bounds.getY2();
-                            int columns = 9;
-                            double scale = bounds.getWidth() / (2 * columns * diagramWidth);
-                            transform.scale(scale, scale);
-                            list.add(new RenderShape(shapeContour.getSteps(), painter.getPaint(Tincture.ARGENT), null));
-                            double stepX = bounds.getWidth() / columns;
-                            double stepY = stepX * 1.25;
-                            int row = 0;
-                            for (double y = y1; y <= y2 + stepY; y += stepY)
+                            for (double x = x1; x <= x2 + stepX; x += stepX)
                             {
-                                for (double x = x1; x <= x2 + stepX; x += stepX)
+                                double patternX = x + (row % 2 - 0.5) * stepX / 2;
+                                double patternY = y - stepY / 2;
+                                List<List<PathStep>> transformedPaths = SvgUtils.collect(patternDiagram, transform).stream()
+                                        .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
+                                        .collect(Collectors.toList());
+                                for (List<PathStep> path : transformedPaths)
                                 {
-                                    double ox = x + (row % 2 - 0.5) * stepX / 2;
-                                    double oy = y - stepY / 2;
-                                    for (List<PathStep> c1 : SvgUtils.collect(furDiagram, transform))
+                                    for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
                                     {
-                                        for (List<PathStep> c2 : GeometryUtils.clip(c1, shapeContour))
-                                        {
-                                            list.addAll(shapeContour.clip(new RenderShape(c2.stream().map(s -> s.offset(ox, oy)).collect(Collectors.toList()), painter.getPaint(Tincture.SABLE), null)));
-                                        }
+                                        list.addAll(shapeContour.clip(new RenderShape(clipped, painter.getPaint(Tincture.SABLE), null)));
                                     }
                                 }
-                                ++row;
                             }
-                            return list;
+                            ++row;
                         }
-                        throw new IllegalStateException();
+                        return list;
                     }
                     return Collections.singleton(shape);
                 })
                 .flatMap(s -> s.stream())
                 .collect(toList());
-        return new Rendering(contour, paths);
+        return new Rendering(shieldContour, paths);
     }
 }
