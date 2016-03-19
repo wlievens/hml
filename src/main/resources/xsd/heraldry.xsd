@@ -36,7 +36,6 @@
             <xs:enumeration value="chaussé"/>
             <xs:enumeration value="chevron"/>
             <xs:enumeration value="chevron-inverted"/>
-            <xs:enumeration value="cross"/>
             <xs:enumeration value="fess"/>
             <xs:enumeration value="pale"/>
             <xs:enumeration value="pall"/>

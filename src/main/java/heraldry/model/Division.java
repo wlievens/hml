@@ -18,7 +18,6 @@ public enum Division
     CHAUSSÉ(null),
     CHEVRON(new ChevronDivisionRenderer(false)),
     CHEVRON_INVERTED(new ChevronDivisionRenderer(true)),
-    CROSS(null),
     FESS(new FessDivisionRenderer()),
     PALE(new PaleDivisionRenderer()),
     PALL(null),
