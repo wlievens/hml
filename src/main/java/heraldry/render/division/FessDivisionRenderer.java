@@ -24,7 +24,6 @@ public class FessDivisionRenderer implements DivisionRenderer
         double x1 = bounds.getX1();
         double x2 = bounds.getX2();
         double y1 = bounds.getY1();
-        double y2 = bounds.getY2();
         double cy = center.getY();
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
 
