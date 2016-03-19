@@ -23,7 +23,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
         int columns = 4;
         double spacingX = width / columns;
         double spacingY = spacingX / 2;
@@ -55,7 +55,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
                 steps.add(new LinePathStep(x4, y1, x5, y1));
                 steps.add(new CubicPathStep(x5, y1, x5, y1 + control2, x3 + control2, y3, x3, y3));
                 steps.add(new CubicPathStep(x3, y3, x3 - control2, y3, x1, y1 + control2, x1, y1));
-                list.add(new RenderShape(steps, painter.getColor(secondTincture), null));
+                list.add(new RenderShape(steps, painter.getPaint(secondTincture), null));
             }
         }
         return contour.clipShapes(list);

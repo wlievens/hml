@@ -19,7 +19,7 @@ public class FrettyVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
         double spacing = painter.getFrettyPatternSize();
         double step = painter.getFretSizeStep();
         double margin = painter.getFretMargin();
@@ -33,14 +33,14 @@ public class FrettyVariationRenderer implements VariationRenderer
                         x + spacing - margin, y + spacing - step - margin,
                         x + spacing - step - margin, y + spacing - margin,
                         x + margin, y + step + margin
-                ), painter.getColor(secondTincture), null));
+                ), painter.getPaint(secondTincture), null));
 
                 list.add(new RenderShape(GeometryUtils.polygon(
                         x - spacing / 2 + margin, y + spacing / 2 - step - margin,
                         x - spacing / 2 + step + margin, y + spacing / 2 - margin,
                         x + spacing / 2 - margin, y - spacing / 2 + step + margin,
                         x + spacing / 2 - step - margin, y - spacing / 2 + margin
-                ), painter.getColor(secondTincture), null));
+                ), painter.getPaint(secondTincture), null));
             }
         }
 

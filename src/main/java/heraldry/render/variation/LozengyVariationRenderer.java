@@ -21,7 +21,7 @@ public class LozengyVariationRenderer implements VariationRenderer
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
         double step = painter.getGridPatternSize() * Math.sqrt(2);
-        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getColor(secondTincture), null)));
+        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getPaint(secondTincture), null)));
         for (double y1 = bounds.getY1(); y1 < bounds.getY2(); y1 += step)
         {
             for (double x1 = bounds.getX1(); x1 < bounds.getX2(); x1 += step)
@@ -31,7 +31,7 @@ public class LozengyVariationRenderer implements VariationRenderer
                 double mx = (x1 + x2) / 2;
                 double my = (y1 + y2) / 2;
                 List<PathStep> shape = GeometryUtils.polygon(mx, y1, x2, my, mx, y2, x1, my);
-                list.addAll(contour.clip(new RenderShape(shape, painter.getColor(firstTincture), null)));
+                list.addAll(contour.clip(new RenderShape(shape, painter.getPaint(firstTincture), null)));
             }
         }
         return list;

@@ -27,12 +27,12 @@ public class GyronnyVariationRenderer implements VariationRenderer
         double x2 = bounds.getX2();
         double y2 = midY * 2 - y1;
         List<RenderShape> list = new ArrayList<>();
-        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getColor(secondTincture), null)));
-        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x1, y1, midX, y1), painter.getColor(firstTincture), null)));
-        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y1, x2, midY), painter.getColor(firstTincture), null)));
-        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y2, midX, y2), painter.getColor(firstTincture), null)));
-        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x1, y2, x1, midY), painter.getColor(firstTincture), null)));
-        list.addAll(contour.clip(new RenderShape(GeometryUtils.rectangle(midX, y2, x2, bounds.getY2()), painter.getColor(firstTincture), null)));
+        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getPaint(secondTincture), null)));
+        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x1, y1, midX, y1), painter.getPaint(firstTincture), null)));
+        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y1, x2, midY), painter.getPaint(firstTincture), null)));
+        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y2, midX, y2), painter.getPaint(firstTincture), null)));
+        list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x1, y2, x1, midY), painter.getPaint(firstTincture), null)));
+        list.addAll(contour.clip(new RenderShape(GeometryUtils.rectangle(midX, y2, x2, bounds.getY2()), painter.getPaint(firstTincture), null)));
         return list;
     }
 }

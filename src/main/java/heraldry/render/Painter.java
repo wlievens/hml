@@ -22,5 +22,5 @@ public interface Painter
 
     double getOrdinaryThickness();
 
-    Paint getColor(Tincture tincture);
+    Paint getPaint(Tincture tincture);
 }

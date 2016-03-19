@@ -60,7 +60,7 @@ public class VariationBackground extends Background
         if (renderer == null)
         {
             log.warn("No renderer implemented for variation '{}'", variation);
-            return Collections.singleton(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+            return Collections.singleton(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
         }
         return renderer.render(contour, firstTincture, secondTincture, line, number, painter);
     }

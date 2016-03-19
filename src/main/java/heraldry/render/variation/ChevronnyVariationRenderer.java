@@ -36,7 +36,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
         double midX = (x1 + x2) / 2;
 
         List<RenderShape> shapes = new ArrayList<>();
-        shapes.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+        shapes.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
 
         for (double y = y1 - width / 2; y <= y2 + width / 2; y += spacing)
         {
@@ -62,7 +62,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
                 LineRenderer.line(steps, midX, midY + step, x1, y + step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x1, y + step, x1, y));
             }
-            shapes.addAll(contour.clip(new RenderShape(steps, painter.getColor(secondTincture), null)));
+            shapes.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null)));
         }
 
         return shapes;

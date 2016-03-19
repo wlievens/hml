@@ -62,7 +62,7 @@ public class CoatOfArms
             }
 
             @Override
-            public Paint getColor(Tincture tincture)
+            public Paint getPaint(Tincture tincture)
             {
                 switch (tincture)
                 {
@@ -146,8 +146,8 @@ public class CoatOfArms
                         Tincture tincture = ((Pattern)shape.getFillPaint()).getTincture();
                         if (tincture.isFur())
                         {
-                            SVGDiagram diagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", tincture.name().toLowerCase()));
-                            float diagramWidth = diagram.getWidth();
+                            SVGDiagram furDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", tincture.name().toLowerCase()));
+                            float diagramWidth = furDiagram.getWidth();
                             List<RenderShape> list = new ArrayList<>();
                             AffineTransform transform = new AffineTransform();
                             RenderContour shapeContour = new RenderContour(shape.getSteps());
@@ -159,7 +159,7 @@ public class CoatOfArms
                             int columns = 9;
                             double scale = bounds.getWidth() / (2 * columns * diagramWidth);
                             transform.scale(scale, scale);
-                            list.add(new RenderShape(shapeContour.getSteps(), painter.getColor(Tincture.ARGENT), null));
+                            list.add(new RenderShape(shapeContour.getSteps(), painter.getPaint(Tincture.ARGENT), null));
                             double stepX = bounds.getWidth() / columns;
                             double stepY = stepX * 1.25;
                             int row = 0;
@@ -169,11 +169,11 @@ public class CoatOfArms
                                 {
                                     double ox = x + (row % 2 - 0.5) * stepX / 2;
                                     double oy = y - stepY / 2;
-                                    for (List<PathStep> c1 : SvgUtils.collect(diagram, transform))
+                                    for (List<PathStep> c1 : SvgUtils.collect(furDiagram, transform))
                                     {
                                         for (List<PathStep> c2 : GeometryUtils.clip(c1, shapeContour))
                                         {
-                                            list.addAll(shapeContour.clip(new RenderShape(c2.stream().map(s -> s.offset(ox, oy)).collect(Collectors.toList()), painter.getColor(Tincture.SABLE), null)));
+                                            list.addAll(shapeContour.clip(new RenderShape(c2.stream().map(s -> s.offset(ox, oy)).collect(Collectors.toList()), painter.getPaint(Tincture.SABLE), null)));
                                         }
                                     }
                                 }

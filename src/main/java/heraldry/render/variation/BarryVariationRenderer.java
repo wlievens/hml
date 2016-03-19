@@ -21,7 +21,7 @@ public class BarryVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getColor(firstTincture), null));
+        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
         double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
         for (double y = bounds.getY1() + step; y < bounds.getY2(); y += step * 2)
@@ -31,7 +31,7 @@ public class BarryVariationRenderer implements VariationRenderer
             steps.add(new LinePathStep(bounds.getX2(), y, bounds.getX2(), y + step));
             LineRenderer.line(steps, bounds.getX2(), y + step, bounds.getX1(), y + step, line, period, true, 1.0);
             steps.add(new LinePathStep(bounds.getX1(), y + step, bounds.getX1(), y));
-            list.addAll(contour.clip(new RenderShape(steps, painter.getColor(secondTincture), null)));
+            list.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null)));
         }
         return list;
     }
