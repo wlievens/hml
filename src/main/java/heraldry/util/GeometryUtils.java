@@ -103,8 +103,8 @@ public class GeometryUtils
                     if (previousX != firstX || previousY != firstY)
                     {
                         steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
-                        list.add(steps);
                     }
+                    list.add(steps);
                     steps = new ArrayList<>();
                     break;
                 }
