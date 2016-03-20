@@ -6,6 +6,7 @@ import heraldry.render.division.DivisionRenderer;
 import heraldry.render.division.FessDivisionRenderer;
 import heraldry.render.division.PaleDivisionRenderer;
 import heraldry.render.division.QuarterlyDivisionRenderer;
+import heraldry.render.division.SaltireDivisionRenderer;
 import heraldry.util.EnumUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public enum Division
     PALL(null),
     PALL_INVERTED(null),
     QUARTERLY(new QuarterlyDivisionRenderer()),
-    SALTIRE(null);
+    SALTIRE(new SaltireDivisionRenderer());
 
     @Getter
     private final DivisionRenderer renderer;
@@ -32,6 +33,7 @@ public enum Division
     {
         switch (this)
         {
+            case SALTIRE:
             case QUARTERLY:
             {
                 return 4;
