@@ -8,6 +8,7 @@ import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
@@ -37,15 +38,15 @@ public class SaltireDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(x1, y1, x2, y1));
         LineRenderer.line(steps, x2, y1, cx, cy, line, period, false, 1.0);
         LineRenderer.line(steps, cx, cy, x1, y1, line, period, false, 1.0);
-        RenderContour top = remainder.clip(new RenderContour(steps)).get(0);
-        remainder = GeometryUtils.subtract(remainder, top).get(0);
+        RenderContour top = CollectionUtils.single(remainder.clip(new RenderContour(steps)));
+        remainder = CollectionUtils.single(GeometryUtils.subtract(remainder, top));
 
         steps = new ArrayList<>();
         steps.add(new LinePathStep(x2, y1, x2, cy + size));
         LineRenderer.line(steps, x2, cy + size, cx, cy, line, period, false, 1.0);
         LineRenderer.line(steps, cx, cy, x2, y1, line, period, false, 1.0);
-        RenderContour right = remainder.clip(new RenderContour(steps)).get(0);
-        remainder = GeometryUtils.subtract(remainder, right).get(0);
+        RenderContour right = CollectionUtils.single(remainder.clip(new RenderContour(steps)));
+        remainder = CollectionUtils.single(GeometryUtils.subtract(remainder, right));
 
         steps = new ArrayList<>();
         LineRenderer.line(steps, cx, cy, x2, cy + size, line, period, false, 1.0);
@@ -57,8 +58,8 @@ public class SaltireDivisionRenderer implements DivisionRenderer
             steps.add(new LinePathStep(x1, y2, x1, cy + size));
         }
         LineRenderer.line(steps, x1, cy + size, cx, cy, line, period, false, 1.0);
-        RenderContour bottom = remainder.clip(new RenderContour(steps)).get(0);
-        remainder = GeometryUtils.subtract(remainder, bottom).get(0);
+        RenderContour bottom = CollectionUtils.single(remainder.clip(new RenderContour(steps)));
+        remainder = CollectionUtils.single(GeometryUtils.subtract(remainder, bottom));
 
         RenderContour left = remainder;
 

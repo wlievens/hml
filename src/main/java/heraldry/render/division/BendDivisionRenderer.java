@@ -7,6 +7,7 @@ import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.RenderContour;
+import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -37,8 +38,8 @@ public class BendDivisionRenderer implements DivisionRenderer
             steps.add(new LinePathStep(x2, y1 + size, x2 - size, y1 + size));
             LineRenderer.line(steps, x2 - size, y1 + size, x2, y1, line, period, false, 1.0);
 
-            RenderContour left = contour.clip(new RenderContour(steps)).get(0);
-            RenderContour right = GeometryUtils.subtract(contour, left).get(0);
+            RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(steps)));
+            RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
             return Arrays.asList(left, right);
         }
 
@@ -46,8 +47,8 @@ public class BendDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(x1 + size, y1 + size, x1, y1 + size));
         steps.add(new LinePathStep(x1, y1 + size, x1, y1));
 
-        RenderContour left = contour.clip(new RenderContour(steps)).get(0);
-        RenderContour right = GeometryUtils.subtract(contour, left).get(0);
+        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(steps)));
+        RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
         return Arrays.asList(right, left);
     }
 }

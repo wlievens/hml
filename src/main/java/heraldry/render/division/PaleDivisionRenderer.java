@@ -8,6 +8,7 @@ import heraldry.render.Painter;
 import heraldry.render.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class PaleDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx, y2, x1, y2));
         steps.add(new LinePathStep(x1, y2, x1, y1));
 
-        RenderContour left = contour.clip(new RenderContour(steps)).get(0);
-        RenderContour right = GeometryUtils.subtract(contour, left).get(0);
+        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(steps)));
+        RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
 
         return Arrays.asList(left, right);
     }

@@ -6,6 +6,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.ordinary.OrdinaryRenderer;
+import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import lombok.Getter;
@@ -98,7 +99,7 @@ public class OrdinaryCharge extends Charge
         for (Charge charge : charges)
         {
             // TODO Use the first shape as contour for now
-            list.addAll(charge.render(new RenderContour(contours.get(0).getSteps()), painter));
+            list.addAll(charge.render(new RenderContour(CollectionUtils.single(contours).getSteps()), painter));
         }
         return list;
     }

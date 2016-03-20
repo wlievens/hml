@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
 import java.awt.geom.Area;
@@ -39,8 +40,9 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
                     {
                         throw new IllegalStateException();
                     }
-                    return list.get(0);
+                    return CollectionUtils.single(list);
                 })
                 .collect(Collectors.toList());
     }
+
 }
