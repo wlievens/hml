@@ -100,8 +100,11 @@ public class GeometryUtils
                 }
                 case PathIterator.SEG_CLOSE:
                 {
-                    steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
-                    list.add(steps);
+                    if (previousX != firstX || previousY != firstY)
+                    {
+                        steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
+                        list.add(steps);
+                    }
                     steps = new ArrayList<>();
                     break;
                 }
