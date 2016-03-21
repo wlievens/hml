@@ -4,6 +4,7 @@ import heraldry.model.Background;
 import heraldry.model.Charge;
 import heraldry.model.ChargedBackgroundModel;
 import heraldry.model.CoatOfArms;
+import heraldry.model.CounterchangedBackground;
 import heraldry.model.Division;
 import heraldry.model.DivisionBackground;
 import heraldry.model.DivisionPart;
@@ -222,6 +223,8 @@ public class CoatOfArmsReader
                 Element childElement = (Element)child;
                 switch (tag)
                 {
+                    case "counterchanged":
+                        return readCounterchangedBackground(childElement);
                     case "division":
                         return readDivisionBackground(childElement);
                     case "field":
@@ -256,6 +259,11 @@ public class CoatOfArmsReader
     private List<Integer> readIntegerList(String text)
     {
         return Arrays.stream(text.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+    }
+
+    private CounterchangedBackground readCounterchangedBackground(Element element)
+    {
+        return new CounterchangedBackground();
     }
 
     private FieldBackground readFieldBackground(Element element)

@@ -1,5 +1,11 @@
 package heraldry.render;
 
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
+import heraldry.render.path.QuadraticPathStep;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;

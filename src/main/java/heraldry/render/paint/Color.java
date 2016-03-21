@@ -1,5 +1,6 @@
-package heraldry.render;
+package heraldry.render.paint;
 
+import heraldry.render.paint.Paint;
 import lombok.Value;
 
 @Value

@@ -2,9 +2,9 @@ package heraldry.model;
 
 import com.kitfox.svg.SVGDiagram;
 import heraldry.render.Box;
-import heraldry.render.Color;
+import heraldry.render.paint.Color;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;

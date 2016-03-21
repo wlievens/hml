@@ -2,11 +2,12 @@ package heraldry.model;
 
 import com.kitfox.svg.SVGDiagram;
 import heraldry.render.Box;
-import heraldry.render.Color;
-import heraldry.render.Paint;
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
-import heraldry.render.Pattern;
+import heraldry.render.paint.SpecialPaint;
+import heraldry.render.path.PathStep;
+import heraldry.render.paint.Pattern;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Rendering;
@@ -41,6 +42,8 @@ public class CoatOfArms
     private static final Pattern PATTERN_ERMINES = new Pattern("ermine", COLOR_SABLE, COLOR_ARGENT);
     private static final Pattern PATTERN_ERMINOIS = new Pattern("ermine", COLOR_SABLE, COLOR_OR);
     private static final Pattern PATTERN_PEAN = new Pattern("ermine", COLOR_OR, COLOR_SABLE);
+
+    private static final SpecialPaint PAINT_COUNTERCHANGED = new SpecialPaint();
 
     private String title;
     private String blazon;
@@ -94,6 +97,12 @@ public class CoatOfArms
                     default:
                         throw new IllegalStateException("Unmapped tincture " + tincture);
                 }
+            }
+
+            @Override
+            public Paint getCounterchangedPaint()
+            {
+                return PAINT_COUNTERCHANGED;
             }
 
             @Override

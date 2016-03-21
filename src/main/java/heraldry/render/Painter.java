@@ -1,6 +1,8 @@
 package heraldry.render;
 
 import heraldry.model.Tincture;
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
 
 public interface Painter
 {
@@ -23,4 +25,6 @@ public interface Painter
     double getOrdinaryThickness();
 
     Paint getPaint(Tincture tincture);
+
+    Paint getCounterchangedPaint();
 }

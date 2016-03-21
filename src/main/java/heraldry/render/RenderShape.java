@@ -1,5 +1,8 @@
 package heraldry.render;
 
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
+import heraldry.render.path.PathStep;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

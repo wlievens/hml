@@ -144,6 +144,7 @@
 
     <xs:complexType name="BackgroundContainer">
         <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element type="CounterchangedBackground" name="counterchanged"/>
             <xs:element type="DivisionBackground" name="division"/>
             <xs:element type="FieldBackground" name="field"/>
             <xs:element type="SemyBackground" name="semy"/>
@@ -156,6 +157,12 @@
         <xs:complexContent>
             <xs:extension base="Background">
                 <xs:attribute type="Tincture" name="tincture" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="CounterchangedBackground">
+        <xs:complexContent>
+            <xs:extension base="Background">
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

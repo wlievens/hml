@@ -1,7 +1,7 @@
 package heraldry.model;
 
 import heraldry.render.Box;
-import heraldry.render.Color;
+import heraldry.render.paint.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
