@@ -18,9 +18,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -156,55 +160,90 @@ public class CoatOfArms
         List<RenderShape> paths = new ArrayList<>();
         paths.addAll(model.render(shieldContour, painter));
         paths.add(new RenderShape(shieldContour.getSteps(), null, painter.getOuterBorderColor()));
+
+        // Process counterchanged paint
+        Map<Paint, Area> paintedAreas = new HashMap<>();
+        for (int n = 0; n < paths.size(); ++n)
+        {
+            RenderShape path = paths.get(n);
+            Paint paint = path.getFillPaint();
+            if (paint == null)
+            {
+                continue;
+            }
+            if (paint == PAINT_COUNTERCHANGED)
+            {
+                
+                continue;
+            }
+            Area area = GeometryUtils.convertShapeToArea(path);
+            Area existing = paintedAreas.get(paint);
+            if (existing == null)
+            {
+                paintedAreas.put(paint, area);
+            }
+            else
+            {
+                existing.add(area);
+            }
+        }
+
         // Process all patterned shapes
         paths = paths.stream()
             .map(shape -> {
                 if (shape.getFillPaint() instanceof Pattern)
                 {
-                    Pattern pattern = (Pattern)shape.getFillPaint();
-                    SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", pattern.getFigure()));
-                    float diagramWidth = patternDiagram.getWidth();
-                    List<RenderShape> list = new ArrayList<>();
-                    AffineTransform transform = new AffineTransform();
-                    RenderContour shapeContour = new RenderContour(shape.getSteps());
-                    Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
-                    double x1 = bounds.getX1();
-                    double y1 = bounds.getY1();
-                    double x2 = bounds.getX2();
-                    double y2 = bounds.getY2();
-                    int columns = 9;
-                    double scale = bounds.getWidth() / (2 * columns * diagramWidth);
-                    transform.scale(scale, scale);
-                    list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null));
-                    double stepX = bounds.getWidth() / columns;
-                    double stepY = stepX * 1.25;
-                    int row = 0;
-                    List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
-                    for (double y = y1; y <= y2 + stepY; y += stepY)
-                    {
-                        for (double x = x1; x <= x2 + stepX; x += stepX)
-                        {
-                            double patternX = x + (row % 2 - 0.5) * stepX / 2;
-                            double patternY = y - stepY / 2;
-                            List<List<PathStep>> transformedPaths = patternPaths.stream()
-                                .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
-                                .collect(Collectors.toList());
-                            for (List<PathStep> path : transformedPaths)
-                            {
-                                for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
-                                {
-                                    list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null)));
-                                }
-                            }
-                        }
-                        ++row;
-                    }
-                    return list;
+                    return processPatternPaint(shieldContour, shape);
                 }
                 return Collections.singleton(shape);
             })
             .flatMap(s -> s.stream())
             .collect(toList());
+
+        // Return as rendering
         return new Rendering(shieldContour, paths);
+    }
+
+    private Collection<RenderShape> processPatternPaint(RenderContour shieldContour, RenderShape shape)
+    {
+        Pattern pattern = (Pattern)shape.getFillPaint();
+        SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", pattern.getFigure()));
+        float diagramWidth = patternDiagram.getWidth();
+        List<RenderShape> list = new ArrayList<>();
+        AffineTransform transform = new AffineTransform();
+        RenderContour shapeContour = new RenderContour(shape.getSteps());
+        Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
+        double x1 = bounds.getX1();
+        double y1 = bounds.getY1();
+        double x2 = bounds.getX2();
+        double y2 = bounds.getY2();
+        int columns = 9;
+        double scale = bounds.getWidth() / (2 * columns * diagramWidth);
+        transform.scale(scale, scale);
+        list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null));
+        double stepX = bounds.getWidth() / columns;
+        double stepY = stepX * 1.25;
+        int row = 0;
+        List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
+        for (double y = y1; y <= y2 + stepY; y += stepY)
+        {
+            for (double x = x1; x <= x2 + stepX; x += stepX)
+            {
+                double patternX = x + (row % 2 - 0.5) * stepX / 2;
+                double patternY = y - stepY / 2;
+                List<List<PathStep>> transformedPaths = patternPaths.stream()
+                    .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
+                    .collect(Collectors.toList());
+                for (List<PathStep> path : transformedPaths)
+                {
+                    for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
+                    {
+                        list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null)));
+                    }
+                }
+            }
+            ++row;
+        }
+        return list;
     }
 }

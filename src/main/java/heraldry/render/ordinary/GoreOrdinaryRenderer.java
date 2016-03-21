@@ -2,6 +2,9 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.*;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;

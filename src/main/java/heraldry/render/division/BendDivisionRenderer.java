@@ -2,10 +2,10 @@ package heraldry.render.division;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.LinePathStep;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;

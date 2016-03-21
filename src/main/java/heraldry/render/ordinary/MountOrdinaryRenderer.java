@@ -2,8 +2,8 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.CubicPathStep;
-import heraldry.render.LinePathStep;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;

@@ -1,10 +1,10 @@
 package heraldry.util;
 
 import heraldry.render.Box;
-import heraldry.render.CubicPathStep;
-import heraldry.render.LinePathStep;
-import heraldry.render.PathStep;
-import heraldry.render.QuadraticPathStep;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
+import heraldry.render.path.QuadraticPathStep;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 

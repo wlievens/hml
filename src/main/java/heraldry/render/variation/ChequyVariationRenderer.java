@@ -4,7 +4,7 @@ import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.util.GeometryUtils;

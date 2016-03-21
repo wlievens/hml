@@ -1,4 +1,4 @@
-package heraldry.render;
+package heraldry.render.path;
 
 import lombok.Value;
 

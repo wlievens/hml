@@ -3,10 +3,10 @@ package heraldry.render.variation;
 import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
-import heraldry.render.CubicPathStep;
-import heraldry.render.LinePathStep;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 

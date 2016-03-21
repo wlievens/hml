@@ -1,5 +1,6 @@
 package heraldry.render;
 
+import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import lombok.ToString;

@@ -2,7 +2,7 @@ package heraldry.util;
 
 import com.kitfox.svg.SVGCache;
 import com.kitfox.svg.SVGDiagram;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import lombok.NonNull;
 
 import java.awt.Shape;

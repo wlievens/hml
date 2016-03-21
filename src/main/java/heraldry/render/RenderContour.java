@@ -1,5 +1,7 @@
 package heraldry.render;
 
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.ToString;
@@ -7,7 +9,6 @@ import lombok.ToString;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;

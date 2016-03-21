@@ -1,6 +1,10 @@
 package heraldry.render;
 
 import heraldry.model.Line;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
+import heraldry.render.path.QuadraticPathStep;
 import heraldry.util.MathUtils;
 
 import java.util.List;

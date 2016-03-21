@@ -4,7 +4,7 @@ import heraldry.model.Line;
 import heraldry.render.Box;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.PathStep;
+import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
