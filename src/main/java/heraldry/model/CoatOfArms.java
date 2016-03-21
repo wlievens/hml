@@ -30,12 +30,12 @@ import static java.util.stream.Collectors.toList;
 public class CoatOfArms
 {
     private static final Color COLOR_ARGENT = new Color(0.90, 0.90, 0.90);
-    private static final Color COLOR_AZURE = new Color(0.05, 0.15, 0.85);
+    private static final Color COLOR_AZURE = new Color(0.15, 0.25, 0.80);
+    private static final Color COLOR_GULES = new Color(0.70, 0.15, 0.10);
     private static final Color COLOR_OR = new Color(0.85, 0.85, 0.15);
+    private static final Color COLOR_PURPURE = new Color(0.50, 0.25, 0.50);
     private static final Color COLOR_SABLE = new Color(0.15, 0.15, 0.15);
-    private static final Color COLOR_GULES = new Color(0.85, 0.15, 0.15);
-    private static final Color COLOR_VERT = new Color(0.15, 0.85, 0.15);
-    private static final Color COLOR_PURPURE = new Color(0.65, 0.25, 0.65);
+    private static final Color COLOR_VERT = new Color(0.20, 0.60, 0.20);
 
     private static final Pattern PATTERN_ERMINE = new Pattern("ermine", COLOR_ARGENT, COLOR_SABLE);
     private static final Pattern PATTERN_ERMINES = new Pattern("ermine", COLOR_SABLE, COLOR_ARGENT);
@@ -71,26 +71,26 @@ public class CoatOfArms
                 {
                     case ARGENT:
                         return COLOR_ARGENT;
-                    case OR:
-                        return COLOR_OR;
-                    case SABLE:
-                        return COLOR_SABLE;
                     case AZURE:
                         return COLOR_AZURE;
-                    case GULES:
-                        return COLOR_GULES;
-                    case VERT:
-                        return COLOR_VERT;
-                    case PURPURE:
-                        return COLOR_PURPURE;
                     case ERMINE:
                         return PATTERN_ERMINE;
                     case ERMINES:
                         return PATTERN_ERMINES;
                     case ERMINOIS:
                         return PATTERN_ERMINOIS;
+                    case GULES:
+                        return COLOR_GULES;
+                    case OR:
+                        return COLOR_OR;
                     case PEAN:
                         return PATTERN_PEAN;
+                    case PURPURE:
+                        return COLOR_PURPURE;
+                    case SABLE:
+                        return COLOR_SABLE;
+                    case VERT:
+                        return COLOR_VERT;
                     default:
                         throw new IllegalStateException("Unmapped tincture " + tincture);
                 }
@@ -149,53 +149,53 @@ public class CoatOfArms
         paths.add(new RenderShape(shieldContour.getSteps(), null, painter.getOuterBorderColor()));
         // Process all patterned shapes
         paths = paths.stream()
-                .map(shape -> {
-                    if (shape.getFillPaint() instanceof Pattern)
+            .map(shape -> {
+                if (shape.getFillPaint() instanceof Pattern)
+                {
+                    Pattern pattern = (Pattern)shape.getFillPaint();
+                    SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", pattern.getFigure()));
+                    float diagramWidth = patternDiagram.getWidth();
+                    List<RenderShape> list = new ArrayList<>();
+                    AffineTransform transform = new AffineTransform();
+                    RenderContour shapeContour = new RenderContour(shape.getSteps());
+                    Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
+                    double x1 = bounds.getX1();
+                    double y1 = bounds.getY1();
+                    double x2 = bounds.getX2();
+                    double y2 = bounds.getY2();
+                    int columns = 9;
+                    double scale = bounds.getWidth() / (2 * columns * diagramWidth);
+                    transform.scale(scale, scale);
+                    list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null));
+                    double stepX = bounds.getWidth() / columns;
+                    double stepY = stepX * 1.25;
+                    int row = 0;
+                    List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
+                    for (double y = y1; y <= y2 + stepY; y += stepY)
                     {
-                        Pattern pattern = (Pattern)shape.getFillPaint();
-                        SVGDiagram patternDiagram = SvgUtils.loadSvg(String.format("/furs/%s.svg", pattern.getFigure()));
-                        float diagramWidth = patternDiagram.getWidth();
-                        List<RenderShape> list = new ArrayList<>();
-                        AffineTransform transform = new AffineTransform();
-                        RenderContour shapeContour = new RenderContour(shape.getSteps());
-                        Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
-                        double x1 = bounds.getX1();
-                        double y1 = bounds.getY1();
-                        double x2 = bounds.getX2();
-                        double y2 = bounds.getY2();
-                        int columns = 9;
-                        double scale = bounds.getWidth() / (2 * columns * diagramWidth);
-                        transform.scale(scale, scale);
-                        list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null));
-                        double stepX = bounds.getWidth() / columns;
-                        double stepY = stepX * 1.25;
-                        int row = 0;
-                        List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
-                        for (double y = y1; y <= y2 + stepY; y += stepY)
+                        for (double x = x1; x <= x2 + stepX; x += stepX)
                         {
-                            for (double x = x1; x <= x2 + stepX; x += stepX)
+                            double patternX = x + (row % 2 - 0.5) * stepX / 2;
+                            double patternY = y - stepY / 2;
+                            List<List<PathStep>> transformedPaths = patternPaths.stream()
+                                .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
+                                .collect(Collectors.toList());
+                            for (List<PathStep> path : transformedPaths)
                             {
-                                double patternX = x + (row % 2 - 0.5) * stepX / 2;
-                                double patternY = y - stepY / 2;
-                                List<List<PathStep>> transformedPaths = patternPaths.stream()
-                                        .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
-                                        .collect(Collectors.toList());
-                                for (List<PathStep> path : transformedPaths)
+                                for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
                                 {
-                                    for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
-                                    {
-                                        list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null)));
-                                    }
+                                    list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null)));
                                 }
                             }
-                            ++row;
                         }
-                        return list;
+                        ++row;
                     }
-                    return Collections.singleton(shape);
-                })
-                .flatMap(s -> s.stream())
-                .collect(toList());
+                    return list;
+                }
+                return Collections.singleton(shape);
+            })
+            .flatMap(s -> s.stream())
+            .collect(toList());
         return new Rendering(shieldContour, paths);
     }
 }
