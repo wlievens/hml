@@ -157,7 +157,7 @@ public class ExhaustiveGenerator
 
         int columns = Math.min(7, coats.size());
         int rows = (coats.size() + columns - 1) / columns;
-        int margin = 10;
+        int margin = 25 ;
         int spacingX = 20;
         int spacingY = 45;
 
