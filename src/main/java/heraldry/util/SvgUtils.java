@@ -5,10 +5,11 @@ import com.kitfox.svg.SVGDiagram;
 import heraldry.render.path.PathStep;
 import lombok.NonNull;
 
-import java.awt.Shape;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 public class SvgUtils
@@ -39,10 +40,15 @@ public class SvgUtils
     {
         try
         {
-            SVGDiagram diagram = SVGCache.getSVGUniverse().getDiagram(SvgUtils.class.getResource(resource).toURI());
+            URL url = SvgUtils.class.getResource(resource);
+            if (url == null)
+            {
+                throw new IllegalArgumentException(String.format("Could not find resource '%s' at URL %s", resource, url));
+            }
+            SVGDiagram diagram = SVGCache.getSVGUniverse().getDiagram(url.toURI());
             if (diagram == null)
             {
-                throw new IllegalArgumentException(String.format("Could not find resource '%s'", resource));
+                throw new IllegalArgumentException(String.format("Could not find resource '%s' at URL %s", resource, url));
             }
             return diagram;
         }

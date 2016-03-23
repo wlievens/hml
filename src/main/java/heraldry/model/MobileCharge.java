@@ -2,12 +2,12 @@ package heraldry.model;
 
 import com.kitfox.svg.SVGDiagram;
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
 import heraldry.render.Painter;
-import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.paint.Color;
+import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import heraldry.util.SvgUtils;
@@ -20,6 +20,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -84,7 +85,9 @@ public class MobileCharge extends Charge
         {
             for (List<PathStep> c2 : GeometryUtils.clip(c1, contour))
             {
-                list.addAll(background.render(new RenderContour(c2), painter));
+                list.addAll(background.render(new RenderContour(c2), painter).stream()
+                    .map(shape -> new RenderShape(shape.getSteps(), shape.getFillPaint(), painter.getMobileBorderColor()))
+                    .collect(Collectors.toList()));
             }
         }
         if (DEBUG)

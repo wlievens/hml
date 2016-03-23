@@ -108,7 +108,7 @@ public final class Rendering
                 {
                     xmlClipPath.setAttribute("id", SVG_ID_CONTOUR);
                     Element xmlPath = document.createElement("path");
-                    xmlPath.setAttribute("d", buildPath(this.contour.getSteps(), margin, margin));
+                    xmlPath.setAttribute("d", buildPath(this.contour.getSteps(), 0, 0));
                     xmlClipPath.appendChild(xmlPath);
                     xmlDefs.appendChild(xmlClipPath);
                 }

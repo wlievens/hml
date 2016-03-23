@@ -2,15 +2,15 @@ package heraldry.model;
 
 import com.kitfox.svg.SVGDiagram;
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
-import heraldry.render.paint.Paint;
 import heraldry.render.Painter;
-import heraldry.render.paint.SpecialPaint;
-import heraldry.render.path.PathStep;
-import heraldry.render.paint.Pattern;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Rendering;
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
+import heraldry.render.paint.Pattern;
+import heraldry.render.paint.SpecialPaint;
+import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.SvgUtils;
 import lombok.Getter;
@@ -110,6 +110,12 @@ public class CoatOfArms
             }
 
             @Override
+            public Color getMobileBorderColor()
+            {
+                return COLOR_SABLE;
+            }
+
+            @Override
             public Color getOrdinaryBorderColor()
             {
                 return new Color(0, 0, 0);
@@ -173,7 +179,7 @@ public class CoatOfArms
             }
             if (paint == PAINT_COUNTERCHANGED)
             {
-                
+
                 continue;
             }
             Area area = GeometryUtils.convertShapeToArea(path);
