@@ -179,7 +179,25 @@ public class CoatOfArms
             }
             if (paint == PAINT_COUNTERCHANGED)
             {
-
+                List<Paint> colors = new ArrayList<>(paintedAreas.keySet());
+                if (colors.size() != 2)
+                {
+                    throw new IllegalStateException("Cannot counterchange with " + colors.size() + " color(s)!");
+                }
+                paths.remove(n);
+                for (int c = 0; c < colors.size(); ++c)
+                {
+                    Paint color = colors.get(c);
+                    Paint counter = colors.get(1 - c);
+                    Area shapeArea = GeometryUtils.convertShapeToArea(path);
+                    shapeArea.intersect(paintedAreas.get(color));
+                    List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(shapeArea);
+                    for (int i = 0; i < intersectionContours.size(); ++i)
+                    {
+                        paths.add(n + i, new RenderShape(intersectionContours.get(i).getSteps(), counter, null));
+                    }
+                }
+                n--;
                 continue;
             }
             Area area = GeometryUtils.convertShapeToArea(path);
@@ -196,15 +214,15 @@ public class CoatOfArms
 
         // Process all patterned shapes
         paths = paths.stream()
-            .map(shape -> {
-                if (shape.getFillPaint() instanceof Pattern)
-                {
-                    return processPatternPaint(shieldContour, shape);
-                }
-                return Collections.singleton(shape);
-            })
-            .flatMap(s -> s.stream())
-            .collect(toList());
+                .map(shape -> {
+                    if (shape.getFillPaint() instanceof Pattern)
+                    {
+                        return processPatternPaint(shieldContour, shape);
+                    }
+                    return Collections.singleton(shape);
+                })
+                .flatMap(s -> s.stream())
+                .collect(toList());
 
         // Return as rendering
         return new Rendering(shieldContour, paths);
@@ -238,8 +256,8 @@ public class CoatOfArms
                 double patternX = x + (row % 2 - 0.5) * stepX / 2;
                 double patternY = y - stepY / 2;
                 List<List<PathStep>> transformedPaths = patternPaths.stream()
-                    .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
-                    .collect(Collectors.toList());
+                        .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
+                        .collect(Collectors.toList());
                 for (List<PathStep> path : transformedPaths)
                 {
                     for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
