@@ -6,6 +6,7 @@ import heraldry.render.path.PathStep;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Wither;
 
 import java.util.List;
 
@@ -15,8 +16,14 @@ public final class RenderShape
 {
     @NonNull
     private final List<PathStep> steps;
+
+    @Wither
     private final Paint fillPaint;
+
+    @Wither
     private final Color borderColor;
+
+    @Wither
     private final String label;
 
     @Override

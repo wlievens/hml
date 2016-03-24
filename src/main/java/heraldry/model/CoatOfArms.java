@@ -170,7 +170,7 @@ public class CoatOfArms
         // Process counterchanged paint
 
         System.out.println("BEFORE:");
-        for (RenderShape p: paths)
+        for (RenderShape p : paths)
         {
             System.out.println("\t" + p);
         }
@@ -186,14 +186,21 @@ public class CoatOfArms
             }
             if (paint == PAINT_COUNTERCHANGED)
             {
+                paths.remove(n);
                 Area shapeArea = GeometryUtils.convertShapeToArea(path);
+                if (shapeArea.isEmpty())
+                {
+                    --n;
+                    continue;
+                }
                 Map<Paint, Area> intersectedAreas = intersectAreaMap(paintedAreas, shapeArea);
                 List<Paint> colors = new ArrayList<>(intersectedAreas.keySet());
                 if (colors.size() != 2)
                 {
-                    throw new IllegalStateException("Cannot counterchange with " + colors.size() + " color(s)!");
+                    --n;
+                    continue;
+                    // throw new IllegalStateException("Cannot counterchange with " + colors.size() + " color(s)!");
                 }
-                paths.remove(n);
                 for (int c = 0; c < colors.size(); ++c)
                 {
                     Paint color = colors.get(c);
@@ -203,12 +210,11 @@ public class CoatOfArms
                     List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
                     for (int i = 0; i < intersectionContours.size(); ++i)
                     {
-                        paths.add(n + i, new RenderShape(intersectionContours.get(i).getSteps(), counter, null, String.format("counterchanged intersection %d of %s color c %s counter %s", i, path.getLabel(), color, counter)));
+                        paths.add(n + i, new RenderShape(intersectionContours.get(i).getSteps(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
                     }
-                    paintedAreas.get(counter).add(partShapeArea);
                 }
                 System.out.println("COUNTERCHANGED:");
-                for (RenderShape p: paths)
+                for (RenderShape p : paths)
                 {
                     System.out.println("\t" + p);
                 }
@@ -217,6 +223,13 @@ public class CoatOfArms
                 continue;
             }
             Area area = GeometryUtils.convertShapeToArea(path);
+            for (Map.Entry<Paint, Area> entry : paintedAreas.entrySet())
+            {
+                if (entry.getKey() != paint)
+                {
+                    entry.getValue().subtract(area);
+                }
+            }
             Area existing = paintedAreas.get(paint);
             if (existing == null)
             {

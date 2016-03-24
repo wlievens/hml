@@ -53,6 +53,11 @@ public final class Box
         return x >= x1 && y >= y1 && x <= x2 && y <= y2;
     }
 
+    public boolean contains(double x1, double y1, double x2, double y2)
+    {
+        return contains(x1, y1) && contains(x2, y2);
+    }
+
     public List<PathStep> toPath()
     {
         return GeometryUtils.rectangle(x1, y1, x2, y2);

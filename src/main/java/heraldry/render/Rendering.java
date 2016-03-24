@@ -2,6 +2,7 @@ package heraldry.render;
 
 import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
+import heraldry.render.paint.SpecialPaint;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.PathStep;

@@ -1,11 +1,11 @@
 package heraldry.model;
 
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.ordinary.OrdinaryRenderer;
+import heraldry.render.paint.Color;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
@@ -95,7 +96,8 @@ public class OrdinaryCharge extends Charge
         }
         List<RenderContour> contours = contour.clipContours(renderer.render(contour, line, painter));
         List<RenderShape> list = new ArrayList<>(contours.size());
-        contours.forEach(child -> list.addAll(background.render(child, painter)));
+        contours.forEach(child -> list.addAll(background.render(child, painter).stream()
+            .map(shape -> shape.withLabel(ordinary.getLabel() + " " + shape.getLabel())).collect(Collectors.toList())));
         for (Charge charge : charges)
         {
             // TODO Use the first shape as contour for now

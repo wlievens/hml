@@ -1,12 +1,12 @@
 package heraldry.util;
 
 import heraldry.render.Box;
+import heraldry.render.RenderContour;
+import heraldry.render.RenderShape;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
-import heraldry.render.RenderContour;
-import heraldry.render.RenderShape;
 
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
@@ -30,24 +30,24 @@ public class GeometryUtils
         area.intersect(convertContourToArea(contour));
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream().collect(toList());
     }
-    
+
     public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+            .map(RenderContour::new)
+            .collect(toList());
     }
-    
+
     public static Area convertBoxToArea(Box box)
     {
         return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
     }
-    
+
     public static Area convertContourToArea(RenderContour contour)
     {
         return convertPathStepsToArea(contour.getSteps());
     }
-    
+
     public static List<List<PathStep>> convertPathIteratorToPathSteps(PathIterator it)
     {
         float[] xys = new float[6];
@@ -93,9 +93,18 @@ public class GeometryUtils
                 }
                 case PathIterator.SEG_CUBICTO:
                 {
-                    steps.add(new CubicPathStep(previousX, previousY, xys[0], xys[1], xys[2], xys[3], xys[4], xys[5]));
-                    previousX = xys[4];
-                    previousY = xys[5];
+                    float x2 = xys[0];
+                    float y2 = xys[1];
+                    float x3 = xys[2];
+                    float y3 = xys[3];
+                    float x4 = xys[4];
+                    float y4 = xys[5];
+                    if (!(previousX == x2 && previousX == x3 && previousX == x4 && previousY == y2 && previousY == y3 && previousY == y4))
+                    {
+                        steps.add(new CubicPathStep(previousX, previousY, x2, y2, x3, y3, x4, y4));
+                        previousX = x4;
+                        previousY = y4;
+                    }
                     break;
                 }
                 case PathIterator.SEG_CLOSE:
@@ -123,12 +132,12 @@ public class GeometryUtils
         }
         return list;
     }
-    
+
     public static Area convertPathStepsToArea(List<PathStep> steps)
     {
         if (steps.isEmpty())
         {
-            throw new IllegalArgumentException();
+            return new Area();
         }
         Path2D path = new Path2D.Double();
         for (int index = 0; index < steps.size(); index++)
@@ -169,12 +178,12 @@ public class GeometryUtils
         path.closePath();
         return new Area(path);
     }
-    
+
     public static Area convertShapeToArea(RenderShape shape)
     {
         return convertPathStepsToArea(shape.getSteps());
     }
-    
+
     public static List<PathStep> polygon(double... xys)
     {
         List<PathStep> steps = new ArrayList<>();
@@ -191,12 +200,12 @@ public class GeometryUtils
         steps.add(new LinePathStep(previousX, previousY, xys[0], xys[1]));
         return steps;
     }
-    
+
     public static List<PathStep> rectangle(double x1, double y1, double x2, double y2)
     {
         return polygon(x1, y1, x2, y1, x2, y2, x1, y2);
     }
-    
+
     public static List<RenderContour> subtract(RenderContour first, RenderContour second)
     {
         Area area1 = convertContourToArea(first);
