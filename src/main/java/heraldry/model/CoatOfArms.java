@@ -179,7 +179,9 @@ public class CoatOfArms
             }
             if (paint == PAINT_COUNTERCHANGED)
             {
-                List<Paint> colors = new ArrayList<>(paintedAreas.keySet());
+                Area shapeArea = GeometryUtils.convertShapeToArea(path);
+                Map<Paint, Area> intersectedAreas = intersectAreaMap(paintedAreas, shapeArea);
+                List<Paint> colors = new ArrayList<>(intersectedAreas.keySet());
                 if (colors.size() != 2)
                 {
                     throw new IllegalStateException("Cannot counterchange with " + colors.size() + " color(s)!");
@@ -189,13 +191,14 @@ public class CoatOfArms
                 {
                     Paint color = colors.get(c);
                     Paint counter = colors.get(1 - c);
-                    Area shapeArea = GeometryUtils.convertShapeToArea(path);
-                    shapeArea.intersect(paintedAreas.get(color));
-                    List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(shapeArea);
+                    Area partShapeArea = new Area(shapeArea);
+                    partShapeArea.intersect(intersectedAreas.get(color));
+                    List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
                     for (int i = 0; i < intersectionContours.size(); ++i)
                     {
                         paths.add(n + i, new RenderShape(intersectionContours.get(i).getSteps(), counter, null));
                     }
+                    paintedAreas.get(counter).add(partShapeArea);
                 }
                 n--;
                 continue;
@@ -214,18 +217,33 @@ public class CoatOfArms
 
         // Process all patterned shapes
         paths = paths.stream()
-                .map(shape -> {
-                    if (shape.getFillPaint() instanceof Pattern)
-                    {
-                        return processPatternPaint(shieldContour, shape);
-                    }
-                    return Collections.singleton(shape);
-                })
-                .flatMap(s -> s.stream())
-                .collect(toList());
+            .map(shape -> {
+                if (shape.getFillPaint() instanceof Pattern)
+                {
+                    return processPatternPaint(shieldContour, shape);
+                }
+                return Collections.singleton(shape);
+            })
+            .flatMap(s -> s.stream())
+            .collect(toList());
 
         // Return as rendering
         return new Rendering(shieldContour, paths);
+    }
+
+    private Map<Paint, Area> intersectAreaMap(Map<Paint, Area> areas, Area intersector)
+    {
+        Map<Paint, Area> intersectedAreas = new HashMap<>();
+        for (Map.Entry<Paint, Area> entry : areas.entrySet())
+        {
+            Area area = new Area(entry.getValue());
+            area.intersect(intersector);
+            if (!area.isEmpty())
+            {
+                intersectedAreas.put(entry.getKey(), area);
+            }
+        }
+        return intersectedAreas;
     }
 
     private Collection<RenderShape> processPatternPaint(RenderContour shieldContour, RenderShape shape)
@@ -256,8 +274,8 @@ public class CoatOfArms
                 double patternX = x + (row % 2 - 0.5) * stepX / 2;
                 double patternY = y - stepY / 2;
                 List<List<PathStep>> transformedPaths = patternPaths.stream()
-                        .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
-                        .collect(Collectors.toList());
+                    .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
+                    .collect(Collectors.toList());
                 for (List<PathStep> path : transformedPaths)
                 {
                     for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
