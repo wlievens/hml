@@ -5,6 +5,7 @@ import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.paint.Color;
 import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import heraldry.util.StringUtils;
@@ -26,6 +27,8 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class RepeatCharge extends Charge
 {
+    private final boolean debug = true;
+
     private final int number;
     private final Charge charge;
 
@@ -110,6 +113,10 @@ public class RepeatCharge extends Charge
             double y2 = points.get(n).getY() + 25;
             RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
             list.addAll(charge.render(child, painter));
+            if (debug)
+            {
+                list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1), "debug repeat reticle"));
+            }
         }
         return list;
     }

@@ -100,7 +100,7 @@ public class DivisionBackground extends Background
         {
             log.warn("No renderer implemented for division '{}'", division);
             Box bounds = contour.getBounds();
-            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1)));
+            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1), "fall-back background for missing division"));
         }
         List<RenderContour> divisionContours = renderer.render(contour, line, painter);
         List<RenderShape> list = new ArrayList<>();

@@ -65,7 +65,7 @@ public class MobileCharge extends Charge
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        // TODO consider positioning the mobile in the larger possible inscribed rectangle?
+        // TODO consider positioning the mobile in the largest possible inscribed rectangle?
         Box bounds = contour.getBounds();
         double margin = 0.15;
         double x1 = bounds.getX1() + bounds.getWidth() * margin;
@@ -86,13 +86,13 @@ public class MobileCharge extends Charge
             for (List<PathStep> c2 : GeometryUtils.clip(c1, contour))
             {
                 list.addAll(background.render(new RenderContour(c2), painter).stream()
-                    .map(shape -> new RenderShape(shape.getSteps(), shape.getFillPaint(), painter.getMobileBorderColor()))
+                    .map(shape -> new RenderShape(shape.getSteps(), shape.getFillPaint(), painter.getMobileBorderColor(), "mobile shape component"))
                     .collect(Collectors.toList()));
             }
         }
         if (DEBUG)
         {
-            list.add(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1)));
+            list.add(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1), "mobile debug reticle"));
         }
         return list;
     }

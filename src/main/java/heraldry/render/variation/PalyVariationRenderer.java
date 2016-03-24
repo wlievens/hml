@@ -3,12 +3,12 @@ package heraldry.render.variation;
 import heraldry.model.Line;
 import heraldry.model.Tincture;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.PathStep;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +21,7 @@ public class PalyVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null));
+        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
         double y1 = bounds.getY1();
@@ -33,7 +33,7 @@ public class PalyVariationRenderer implements VariationRenderer
             LineRenderer.line(steps, x + step, y1, x + step, y2, line, period, false, 1.0);
             steps.add(new LinePathStep(x + step, y2, x, y2));
             LineRenderer.line(steps, x, y2, x, y1, line, period, false, 1.0);
-            list.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null)));
+            list.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null, "paly " + x)));
         }
         return list;
     }

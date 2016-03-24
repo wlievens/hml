@@ -166,6 +166,7 @@ public final class Rendering
             svgPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
             svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(path.getFillPaint()), getSvgColor(path.getBorderColor())));
             svgPath.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
+            svgPath.setAttribute("comment", path.getLabel());
             svgGroup.appendChild(svgPath);
         }
         return svgGroup;

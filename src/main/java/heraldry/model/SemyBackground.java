@@ -1,10 +1,10 @@
 package heraldry.model;
 
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.paint.Color;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.NonNull;
@@ -63,7 +63,7 @@ public class SemyBackground extends Background
                 list.addAll(contour.clipShapes(charge.render(child, painter)));
                 if (DEBUG)
                 {
-                    list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1)));
+                    list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1), "semy debug reticle"));
                 }
             }
         }
