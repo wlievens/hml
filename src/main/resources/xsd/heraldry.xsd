@@ -163,6 +163,8 @@
     <xs:complexType name="CounterchangedBackground">
         <xs:complexContent>
             <xs:extension base="Background">
+                <xs:attribute type="Tincture" name="firstTincture" use="required"/>
+                <xs:attribute type="Tincture" name="secondTincture" use="required"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

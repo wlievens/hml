@@ -119,8 +119,8 @@ public class CoatOfArmsReader
     private List<Charge> readCharges(Element element)
     {
         return getChildElements(element).stream()
-                .map(this::readCharge)
-                .collect(Collectors.toList());
+            .map(this::readCharge)
+            .collect(Collectors.toList());
     }
 
     private Charge readCharge(Element element)
@@ -244,8 +244,8 @@ public class CoatOfArmsReader
     private DivisionBackground readDivisionBackground(Element element)
     {
         List<DivisionPart> parts = getChildElements(element).stream()
-                .map(this::readDivisionPart)
-                .collect(Collectors.toList());
+            .map(this::readDivisionPart)
+            .collect(Collectors.toList());
         return new DivisionBackground(readDivision(element.getAttribute("type")), readLine(element.getAttribute("line")), parts);
     }
 
@@ -263,7 +263,9 @@ public class CoatOfArmsReader
 
     private CounterchangedBackground readCounterchangedBackground(Element element)
     {
-        return new CounterchangedBackground();
+        Tincture tincture1 = readTincture(element.getAttribute("firstTincture"));
+        Tincture tincture2 = readTincture(element.getAttribute("secondTincture"));
+        return new CounterchangedBackground(tincture1, tincture2);
     }
 
     private FieldBackground readFieldBackground(Element element)
@@ -305,11 +307,11 @@ public class CoatOfArmsReader
         try
         {
             return (T)Arrays.stream(type.getDeclaredMethods())
-                    .filter(method -> method.getName().equals("valueOf"))
-                    .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
-                    .findAny()
-                    .get()
-                    .invoke(null, name.toUpperCase().replace("-", "_"));
+                .filter(method -> method.getName().equals("valueOf"))
+                .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                .findAny()
+                .get()
+                .invoke(null, name.toUpperCase().replace("-", "_"));
         }
         catch (IllegalAccessException e)
         {

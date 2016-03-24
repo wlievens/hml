@@ -17,10 +17,26 @@
         </division>
     </background>
     <charges>
-        <ordinary type="chevron">
+        <!--
+        <mobile figure="fleur-de-lis">
             <background>
                 <counterchanged/>
             </background>
+        </mobile>
+        -->
+        <ordinary type="chevron">
+            <background>
+                <counterchanged firstTincture="azure" secondTincture="or"/>
+            </background>
+            <charges>
+                <repeat number="2">
+                    <mobile figure="fleur-de-lis">
+                        <background>
+                            <counterchanged firstTincture="azure" secondTincture="or"/>
+                        </background>
+                    </mobile>
+                </repeat>
+            </charges>
         </ordinary>
     </charges>
 </coatOfArms>

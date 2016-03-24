@@ -20,6 +20,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MobileCharge extends Charge
 {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     /**
      * The symbolic name of the figure.
@@ -81,7 +82,7 @@ public class MobileCharge extends Charge
                 {
                     double width = bounds.getWidth() * (wstep + 1) / steps;
                     double height = bounds.getHeight() * (hstep + 1) / steps;
-                    double centerY = bounds.getHeight() * (ystep + 1) / steps;
+                    double centerY = bounds.lerpY((double)(ystep + 1) / steps);
                     double x1 = centerX - width / 2;
                     double y1 = centerY - height / 2;
                     double x2 = centerX + width / 2;
@@ -106,6 +107,10 @@ public class MobileCharge extends Charge
                     }
                 }
             }
+        }
+        if (largestRectangle == null)
+        {
+            return Collections.emptyList();
         }
 
         double margin = 0.05;

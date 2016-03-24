@@ -17,6 +17,9 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CounterchangedBackground extends Background
 {
+    private final Tincture firstTincture;
+    private final Tincture secondTincture;
+
     @Override
     public String generateBlazon(BlazonContext context)
     {
@@ -26,6 +29,6 @@ public class CounterchangedBackground extends Background
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        return Collections.singleton(new RenderShape(contour.getSteps(), painter.getCounterchangedPaint(), null, getClass().getSimpleName()));
+        return Collections.singleton(new RenderShape(contour.getSteps(), painter.getCounterchangedPaint(firstTincture, secondTincture), null, getClass().getSimpleName()));
     }
 }

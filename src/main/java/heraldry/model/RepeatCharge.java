@@ -107,12 +107,13 @@ public class RepeatCharge extends Charge
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < number; ++n)
         {
-            double x1 = points.get(n).getX() - 25;
-            double y1 = points.get(n).getY() - 25;
-            double x2 = points.get(n).getX() + 25;
-            double y2 = points.get(n).getY() + 25;
+            // TODO fit a rectangle, then resize all the rectangles to the smallest
+            double x1 = points.get(n).getX() - 15;
+            double y1 = points.get(n).getY() - 15;
+            double x2 = points.get(n).getX() + 15;
+            double y2 = points.get(n).getY() + 15;
             RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
-            list.addAll(charge.render(child, painter));
+            list.addAll(contour.clipShapes(charge.render(child, painter)));
             if (debug)
             {
                 list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1), "debug repeat reticle"));

@@ -7,9 +7,9 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Rendering;
 import heraldry.render.paint.Color;
+import heraldry.render.paint.CounterchangedPaint;
 import heraldry.render.paint.Paint;
 import heraldry.render.paint.Pattern;
-import heraldry.render.paint.SpecialPaint;
 import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.SvgUtils;
@@ -20,6 +20,7 @@ import lombok.ToString;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,8 +47,6 @@ public class CoatOfArms
     private static final Pattern PATTERN_ERMINES = new Pattern("ermine", COLOR_SABLE, COLOR_ARGENT);
     private static final Pattern PATTERN_ERMINOIS = new Pattern("ermine", COLOR_SABLE, COLOR_OR);
     private static final Pattern PATTERN_PEAN = new Pattern("ermine", COLOR_OR, COLOR_SABLE);
-
-    private static final SpecialPaint PAINT_COUNTERCHANGED = new SpecialPaint();
 
     private String title;
     private String blazon;
@@ -104,9 +103,9 @@ public class CoatOfArms
             }
 
             @Override
-            public Paint getCounterchangedPaint()
+            public Paint getCounterchangedPaint(Tincture firstTincture, Tincture secondTincture)
             {
-                return PAINT_COUNTERCHANGED;
+                return new CounterchangedPaint(firstTincture, secondTincture);
             }
 
             @Override
@@ -184,8 +183,10 @@ public class CoatOfArms
             {
                 continue;
             }
-            if (paint == PAINT_COUNTERCHANGED)
+            if (paint instanceof CounterchangedPaint)
             {
+                Tincture tincture1 = ((CounterchangedPaint)paint).getFirstTincture();
+                Tincture tincture2 = ((CounterchangedPaint)paint).getSecondTincture();
                 paths.remove(n);
                 Area shapeArea = GeometryUtils.convertShapeToArea(path);
                 if (shapeArea.isEmpty())
@@ -194,19 +195,17 @@ public class CoatOfArms
                     continue;
                 }
                 Map<Paint, Area> intersectedAreas = intersectAreaMap(paintedAreas, shapeArea);
-                List<Paint> colors = new ArrayList<>(intersectedAreas.keySet());
-                if (colors.size() != 2)
-                {
-                    --n;
-                    continue;
-                    // throw new IllegalStateException("Cannot counterchange with " + colors.size() + " color(s)!");
-                }
+                List<Paint> colors = Arrays.asList(painter.getPaint(tincture1), painter.getPaint(tincture2));
                 for (int c = 0; c < colors.size(); ++c)
                 {
                     Paint color = colors.get(c);
                     Paint counter = colors.get(1 - c);
                     Area partShapeArea = new Area(shapeArea);
-                    partShapeArea.intersect(intersectedAreas.get(color));
+                    Area intersectedArea = intersectedAreas.get(color);
+                    if (intersectedArea != null)
+                    {
+                        partShapeArea.intersect(intersectedArea);
+                    }
                     List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
                     for (int i = 0; i < intersectionContours.size(); ++i)
                     {

@@ -26,7 +26,7 @@ public interface Painter
 
     Paint getPaint(Tincture tincture);
 
-    Paint getCounterchangedPaint();
+    Paint getCounterchangedPaint(Tincture firstTincture, Tincture secondTincture);
 
     Color getMobileBorderColor();
 }
