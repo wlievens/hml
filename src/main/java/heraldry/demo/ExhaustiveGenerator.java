@@ -142,7 +142,7 @@ public class ExhaustiveGenerator
                     coat.setShape(shape);
                     ChargedBackgroundModel model = new ChargedBackgroundModel();
                     List<DivisionPart> parts = new ArrayList<>();
-                    Tincture[] tinctures = new Tincture[]{ Tincture.ARGENT, Tincture.GULES, Tincture.ERMINE, Tincture.PURPURE };
+                    Tincture[] tinctures = new Tincture[]{ Tincture.GULES, Tincture.ARGENT, Tincture.SABLE, Tincture.PURPURE };
                     for (int n = 0; n < division.getMaxPositions(); ++n)
                     {
                         parts.add(new DivisionPart(n + 1, tinctures[n]));
@@ -155,9 +155,9 @@ public class ExhaustiveGenerator
             }
         }
 
-        int columns = Math.min(7, coats.size());
+        int columns = Math.min(8, coats.size());
         int rows = (coats.size() + columns - 1) / columns;
-        int margin = 25 ;
+        int margin = 25;
         int spacingX = 20;
         int spacingY = 45;
 

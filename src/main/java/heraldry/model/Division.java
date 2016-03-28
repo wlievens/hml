@@ -5,6 +5,7 @@ import heraldry.render.division.ChevronDivisionRenderer;
 import heraldry.render.division.DivisionRenderer;
 import heraldry.render.division.FessDivisionRenderer;
 import heraldry.render.division.PaleDivisionRenderer;
+import heraldry.render.division.PallDivisionRenderer;
 import heraldry.render.division.QuarterlyDivisionRenderer;
 import heraldry.render.division.SaltireDivisionRenderer;
 import heraldry.util.EnumUtils;
@@ -21,7 +22,7 @@ public enum Division
     CHEVRON_INVERTED(new ChevronDivisionRenderer(true)),
     FESS(new FessDivisionRenderer()),
     PALE(new PaleDivisionRenderer()),
-    PALL(null),
+    PALL(new PallDivisionRenderer()),
     PALL_INVERTED(null),
     QUARTERLY(new QuarterlyDivisionRenderer()),
     SALTIRE(new SaltireDivisionRenderer());
