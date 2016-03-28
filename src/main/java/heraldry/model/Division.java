@@ -22,8 +22,8 @@ public enum Division
     CHEVRON_INVERTED(new ChevronDivisionRenderer(true)),
     FESS(new FessDivisionRenderer()),
     PALE(new PaleDivisionRenderer()),
-    PALL(new PallDivisionRenderer()),
-    PALL_INVERTED(null),
+    PALL(new PallDivisionRenderer(false)),
+    PALL_INVERTED(new PallDivisionRenderer(true)),
     QUARTERLY(new QuarterlyDivisionRenderer()),
     SALTIRE(new SaltireDivisionRenderer());
 
