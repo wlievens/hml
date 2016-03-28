@@ -29,7 +29,7 @@
                 <counterchanged firstTincture="azure" secondTincture="or"/>
             </background>
             <charges>
-                <repeat number="2">
+                <repeat number="4">
                     <mobile figure="fleur-de-lis">
                         <background>
                             <counterchanged firstTincture="azure" secondTincture="or"/>
