@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
@@ -58,7 +59,7 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
             steps2.add(new CubicPathStep(x3, y2, x3, y2 + control1, x2 + control1, y3, x2, y3));
             steps2.add(new CubicPathStep(x2, y3, x2 - control1, y3, x1, y2 + control1, x1, y2));
 
-            return Arrays.asList(new RenderContour(steps1), new RenderContour(steps2));
+            return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -67,6 +68,6 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new CubicPathStep(x3, y2, x3, y2 + control1, x2 + control1, y3, x2, y3));
         steps.add(new CubicPathStep(x2, y3, x2 - control1, y3, x1, y2 + control1, x1, y2));
 
-        return Collections.singleton(new RenderContour(steps));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,6 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps, midX, midY + step, x1, y2 + step, line, period, inverted, sizeRatio);
             steps.add(new LinePathStep(x1, y2 + step, x1, y2 - step));
         }
-        return Collections.singleton(new RenderContour(steps));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

@@ -10,7 +10,7 @@ import heraldry.render.paint.Color;
 import heraldry.render.paint.CounterchangedPaint;
 import heraldry.render.paint.Paint;
 import heraldry.render.paint.Pattern;
-import heraldry.render.path.PathStep;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import heraldry.util.SvgUtils;
 import lombok.Getter;
@@ -162,98 +162,100 @@ public class CoatOfArms
                 return shieldContour.getBounds().getHeight() / 4;
             }
         };
-        List<RenderShape> paths = new ArrayList<>();
-        paths.addAll(model.render(shieldContour, painter));
-        paths.add(new RenderShape(shieldContour.getSteps(), null, painter.getOuterBorderColor(), "outer shield shape border"));
+        List<RenderShape> renderShapes = new ArrayList<>();
+        renderShapes.addAll(model.render(shieldContour, painter));
+        renderShapes.add(new RenderShape(shieldContour.getPath(), null, painter.getOuterBorderColor(), "outer shield shape border"));
 
         // Process counterchanged paint
-
-        System.out.println("BEFORE:");
-        for (RenderShape p : paths)
+        if (renderShapes.stream().anyMatch(renderShape -> renderShape.getFillPaint() instanceof CounterchangedPaint))
         {
-            System.out.println("\t" + p);
-        }
-
-        Map<Paint, Area> paintedAreas = new HashMap<>();
-        for (int n = 0; n < paths.size(); ++n)
-        {
-            RenderShape path = paths.get(n);
-            Paint paint = path.getFillPaint();
-            if (paint == null)
+            System.out.println("BEFORE:");
+            for (RenderShape p : renderShapes)
             {
-                continue;
+                System.out.println("\t" + p);
             }
-            if (paint instanceof CounterchangedPaint)
+
+            Map<Paint, Area> paintedAreas = new HashMap<>();
+            for (int n = 0; n < renderShapes.size(); ++n)
             {
-                Tincture tincture1 = ((CounterchangedPaint)paint).getFirstTincture();
-                Tincture tincture2 = ((CounterchangedPaint)paint).getSecondTincture();
-                paths.remove(n);
-                Area shapeArea = GeometryUtils.convertShapeToArea(path);
-                if (shapeArea.isEmpty())
+                RenderShape path = renderShapes.get(n);
+                Paint paint = path.getFillPaint();
+                if (paint == null)
                 {
-                    --n;
                     continue;
                 }
-                Map<Paint, Area> intersectedAreas = intersectAreaMap(paintedAreas, shapeArea);
-                List<Paint> colors = Arrays.asList(painter.getPaint(tincture1), painter.getPaint(tincture2));
-                for (int c = 0; c < colors.size(); ++c)
+                if (paint instanceof CounterchangedPaint)
                 {
-                    Paint color = colors.get(c);
-                    Paint counter = colors.get(1 - c);
-                    Area partShapeArea = new Area(shapeArea);
-                    Area intersectedArea = intersectedAreas.get(color);
-                    if (intersectedArea != null)
+                    Tincture tincture1 = ((CounterchangedPaint)paint).getFirstTincture();
+                    Tincture tincture2 = ((CounterchangedPaint)paint).getSecondTincture();
+                    renderShapes.remove(n);
+                    Area shapeArea = GeometryUtils.convertShapeToArea(path);
+                    if (shapeArea.isEmpty())
                     {
-                        partShapeArea.intersect(intersectedArea);
+                        --n;
+                        continue;
                     }
-                    List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
-                    for (int i = 0; i < intersectionContours.size(); ++i)
+                    Map<Paint, Area> intersectedAreas = intersectAreaMap(paintedAreas, shapeArea);
+                    List<Paint> colors = Arrays.asList(painter.getPaint(tincture1), painter.getPaint(tincture2));
+                    for (int c = 0; c < colors.size(); ++c)
                     {
-                        paths.add(n + i, new RenderShape(intersectionContours.get(i).getSteps(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
+                        Paint color = colors.get(c);
+                        Paint counter = colors.get(1 - c);
+                        Area partShapeArea = new Area(shapeArea);
+                        Area intersectedArea = intersectedAreas.get(color);
+                        if (intersectedArea != null)
+                        {
+                            partShapeArea.intersect(intersectedArea);
+                        }
+                        List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
+                        for (int i = 0; i < intersectionContours.size(); ++i)
+                        {
+                            renderShapes.add(n + i, new RenderShape(intersectionContours.get(i).getPath(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
+                        }
+                    }
+                    System.out.println("COUNTERCHANGED:");
+                    for (RenderShape p : renderShapes)
+                    {
+                        System.out.println("\t" + p);
+                    }
+                    n--;
+                    System.out.println("n = " + n);
+                    continue;
+                }
+                Area area = GeometryUtils.convertShapeToArea(path);
+                for (Map.Entry<Paint, Area> entry : paintedAreas.entrySet())
+                {
+                    if (entry.getKey() != paint)
+                    {
+                        entry.getValue().subtract(area);
                     }
                 }
-                System.out.println("COUNTERCHANGED:");
-                for (RenderShape p : paths)
+                Area existing = paintedAreas.get(paint);
+                if (existing == null)
                 {
-                    System.out.println("\t" + p);
+                    paintedAreas.put(paint, area);
                 }
-                n--;
-                System.out.println("n = " + n);
-                continue;
-            }
-            Area area = GeometryUtils.convertShapeToArea(path);
-            for (Map.Entry<Paint, Area> entry : paintedAreas.entrySet())
-            {
-                if (entry.getKey() != paint)
+                else
                 {
-                    entry.getValue().subtract(area);
+                    existing.add(area);
                 }
-            }
-            Area existing = paintedAreas.get(paint);
-            if (existing == null)
-            {
-                paintedAreas.put(paint, area);
-            }
-            else
-            {
-                existing.add(area);
             }
         }
 
         // Process all patterned shapes
-        paths = paths.stream()
-            .map(shape -> {
-                if (shape.getFillPaint() instanceof Pattern)
-                {
-                    return processPatternPaint(shieldContour, shape);
-                }
-                return Collections.singleton(shape);
-            })
-            .flatMap(s -> s.stream())
-            .collect(toList());
+        renderShapes = renderShapes.stream()
+                .map(shape -> {
+                    if (shape.getFillPaint() instanceof Pattern)
+                    {
+                        return processPatternPaint(shieldContour, shape);
+                    }
+                    return Collections.singleton(shape);
+                })
+                .flatMap(s -> s.stream())
+                .collect(toList());
 
         // Return as rendering
-        return new Rendering(shieldContour, paths);
+        return new Rendering(shieldContour, renderShapes);
     }
 
     private Map<Paint, Area> intersectAreaMap(Map<Paint, Area> areas, Area intersector)
@@ -278,7 +280,7 @@ public class CoatOfArms
         float diagramWidth = patternDiagram.getWidth();
         List<RenderShape> list = new ArrayList<>();
         AffineTransform transform = new AffineTransform();
-        RenderContour shapeContour = new RenderContour(shape.getSteps());
+        RenderContour shapeContour = new RenderContour(shape.getPath());
         Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
@@ -287,23 +289,23 @@ public class CoatOfArms
         int columns = 9;
         double scale = bounds.getWidth() / (2 * columns * diagramWidth);
         transform.scale(scale, scale);
-        list.add(new RenderShape(shapeContour.getSteps(), pattern.getBackground(), null, "pattern background"));
+        list.add(new RenderShape(shapeContour.getPath(), pattern.getBackground(), null, "pattern background"));
         double stepX = bounds.getWidth() / columns;
         double stepY = stepX * 1.25;
         int row = 0;
-        List<List<PathStep>> patternPaths = SvgUtils.collect(patternDiagram, transform);
+        List<Path> patternPaths = SvgUtils.collect(patternDiagram, transform);
         for (double y = y1; y <= y2 + stepY; y += stepY)
         {
             for (double x = x1; x <= x2 + stepX; x += stepX)
             {
                 double patternX = x + (row % 2 - 0.5) * stepX / 2;
                 double patternY = y - stepY / 2;
-                List<List<PathStep>> transformedPaths = patternPaths.stream()
-                    .map(steps -> steps.stream().map(step -> step.offset(patternX, patternY)).collect(toList()))
-                    .collect(Collectors.toList());
-                for (List<PathStep> path : transformedPaths)
+                List<Path> transformedPaths = patternPaths.stream()
+                        .map(path -> new Path(path.getSteps().stream().map(step -> step.offset(patternX, patternY)).collect(toList())))
+                        .collect(Collectors.toList());
+                for (Path path : transformedPaths)
                 {
-                    for (List<PathStep> clipped : GeometryUtils.clip(path, shapeContour))
+                    for (Path clipped : GeometryUtils.clip(path, shapeContour))
                     {
                         list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
                     }

@@ -2,20 +2,18 @@ package heraldry.render;
 
 import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
-import heraldry.render.path.PathStep;
+import heraldry.render.path.Path;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Wither;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
 public final class RenderShape
 {
     @NonNull
-    private final List<PathStep> steps;
+    private final Path path;
 
     @Wither
     private final Paint fillPaint;
@@ -29,6 +27,6 @@ public final class RenderShape
     @Override
     public String toString()
     {
-        return String.format("Shape(%s %s)", label, steps);
+        return String.format("Shape(\"%s\" %s)", label, path);
     }
 }

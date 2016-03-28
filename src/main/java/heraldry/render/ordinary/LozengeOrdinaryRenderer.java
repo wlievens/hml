@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
@@ -66,7 +67,7 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps2, x3, y2, x2, y3, line, period, false, 1.0);
             LineRenderer.line(steps2, x2, y3, x1, y2, line, period, false, 1.0);
 
-            return Arrays.asList(new RenderContour(steps1), new RenderContour(steps2));
+            return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -74,6 +75,6 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, x2, y1, x3, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x3, y2, x2, y3, line, period, false, 1.0);
         LineRenderer.line(steps, x2, y3, x1, y2, line, period, false, 1.0);
-        return Collections.singleton(new RenderContour(steps));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

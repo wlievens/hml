@@ -4,6 +4,7 @@ import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
 import lombok.NonNull;
@@ -25,10 +26,11 @@ public final class Rendering
     private static final String SVG_ID_LIGHTING = "lighting";
 
     private final RenderContour contour;
-    private final Collection<RenderShape> paths;
+    private final Collection<RenderShape> renderShapes;
 
-    public static String buildPath(List<PathStep> steps, double offsetX, double offsetY)
+    public static String buildPath(Path path, double offsetX, double offsetY)
     {
+        List<PathStep> steps = path.getSteps();
         StringBuilder builder = new StringBuilder();
         for (PathStep step : steps)
         {
@@ -108,7 +110,7 @@ public final class Rendering
                 {
                     xmlClipPath.setAttribute("id", SVG_ID_CONTOUR);
                     Element xmlPath = document.createElement("path");
-                    xmlPath.setAttribute("d", buildPath(this.contour.getSteps(), 0, 0));
+                    xmlPath.setAttribute("d", buildPath(this.contour.getPath(), 0, 0));
                     xmlClipPath.appendChild(xmlPath);
                     xmlDefs.appendChild(xmlClipPath);
                 }
@@ -160,13 +162,13 @@ public final class Rendering
     public Element toSvgElement(Document document)
     {
         Element svgGroup = document.createElement("g");
-        for (RenderShape path : paths)
+        for (RenderShape renderShape : renderShapes)
         {
             Element svgPath = document.createElement("path");
-            svgPath.setAttribute("d", buildPath(path.getSteps(), 0, 0));
-            svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(path.getFillPaint()), getSvgColor(path.getBorderColor())));
+            svgPath.setAttribute("d", buildPath(renderShape.getPath(), 0, 0));
+            svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(renderShape.getFillPaint()), getSvgColor(renderShape.getBorderColor())));
             svgPath.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
-            svgPath.setAttribute("comment", path.getLabel());
+            svgPath.setAttribute("comment", renderShape.getLabel());
             svgGroup.appendChild(svgPath);
         }
         return svgGroup;

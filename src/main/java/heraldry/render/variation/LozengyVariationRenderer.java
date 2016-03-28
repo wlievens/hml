@@ -6,7 +6,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
-import heraldry.render.path.PathStep;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class LozengyVariationRenderer implements VariationRenderer
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
         double step = painter.getGridPatternSize() * Math.sqrt(2);
-        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
+        list.addAll(contour.clip(new RenderShape(contour.getPath(), painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
         for (double y1 = bounds.getY1(); y1 < bounds.getY2(); y1 += step)
         {
             for (double x1 = bounds.getX1(); x1 < bounds.getX2(); x1 += step)
@@ -30,8 +30,8 @@ public class LozengyVariationRenderer implements VariationRenderer
                 double y2 = y1 + step;
                 double mx = (x1 + x2) / 2;
                 double my = (y1 + y2) / 2;
-                List<PathStep> shape = GeometryUtils.polygon(mx, y1, x2, my, mx, y2, x1, my);
-                list.addAll(contour.clip(new RenderShape(shape, painter.getPaint(firstTincture), null, "lozengy " + x1 + "," + x2)));
+                Path path = GeometryUtils.polygon(mx, y1, x2, my, mx, y2, x1, my);
+                list.addAll(contour.clip(new RenderShape(path, painter.getPaint(firstTincture), null, "lozengy " + x1 + "," + x2)));
             }
         }
         return list;

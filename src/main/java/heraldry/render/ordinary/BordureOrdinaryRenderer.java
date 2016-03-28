@@ -2,13 +2,14 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
+import heraldry.render.Painter;
+import heraldry.render.Point;
+import heraldry.render.RenderContour;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
-import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.render.Point;
 import heraldry.render.path.QuadraticPathStep;
-import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -32,12 +33,12 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         double period = painter.getLinePeriodFactor() * size;
         double scale = 1.0 - painter.getOrdinaryThickness() / size;
 
-        int stepCount = contour.getSteps().size();
+        int stepCount = contour.getPath().getStepCount();
         int midIndex = stepCount / 2;
 
         List<PathStep> steps1 = createBordure(contour, centerX, centerY, scale, 0, midIndex - 1);
         List<PathStep> steps2 = createBordure(contour, centerX, centerY, scale, midIndex, stepCount - 1);
-        return Arrays.asList(new RenderContour(steps1), new RenderContour(steps2));
+        return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
     }
 
     private List<PathStep> createBordure(RenderContour contour, double centerX, double centerY, double scale, int start, int end)
@@ -45,7 +46,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         List<PathStep> steps = new ArrayList<>();
         for (int index = start; index <= end; ++index)
         {
-            steps.add(contour.getSteps().get(index));
+            steps.add(contour.getPath().getStep(index));
         }
         {
             PathStep last = steps.get(steps.size() - 1);
@@ -54,7 +55,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         }
         for (int index = end; index >= start; --index)
         {
-            steps.add(rescale(contour.getSteps().get(index), centerX, centerY, scale).inverse());
+            steps.add(rescale(contour.getPath().getStep(index), centerX, centerY, scale).inverse());
         }
         {
             PathStep last = steps.get(steps.size() - 1);

@@ -2,11 +2,12 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -37,6 +38,6 @@ public class PaleOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, midX + step, y1, midX + step, y2, line, period, false, sizeRatio);
         steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
         LineRenderer.line(steps, midX - step, y2, midX - step, y1, line, period, false, sizeRatio);
-        return Arrays.asList(new RenderContour(steps));
+        return Arrays.asList(new RenderContour(new Path(steps)));
     }
 }

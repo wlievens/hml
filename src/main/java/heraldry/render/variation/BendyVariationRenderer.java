@@ -8,6 +8,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +25,7 @@ public class BendyVariationRenderer implements VariationRenderer
     public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        list.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
         double x2 = bounds.getX2();
@@ -47,7 +48,7 @@ public class BendyVariationRenderer implements VariationRenderer
             LineRenderer.line(steps, endX, endY + step, startX, startY + step, line, period, flipX, 1.0);
             steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
 
-            list.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null, "bendy " + y)));
+            list.addAll(contour.clip(new RenderShape(new Path(steps), painter.getPaint(secondTincture), null, "bendy " + y)));
         }
 
         return list;

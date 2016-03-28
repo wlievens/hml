@@ -2,11 +2,12 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -49,6 +50,6 @@ public class SaltireOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, midX - step, midY, x1, y1 + step, line, period, false, sizeRatio);
         steps.add(new LinePathStep(x1, y1 + step, x1, y1));
 
-        return Collections.singleton(new RenderContour(steps));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

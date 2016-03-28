@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
@@ -34,7 +35,7 @@ public class FessDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, x2, cy, x1, cy, line, period, false, 1.0);
         steps.add(new LinePathStep(x1, cy, x1, y1));
 
-        RenderContour top = CollectionUtils.single(contour.clip(new RenderContour(steps)));
+        RenderContour top = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
         RenderContour bottom = CollectionUtils.single(GeometryUtils.subtract(contour, top));
 
         return Arrays.asList(top, bottom);

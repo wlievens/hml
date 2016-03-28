@@ -29,6 +29,6 @@ public class CounterchangedBackground extends Background
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        return Collections.singleton(new RenderShape(contour.getSteps(), painter.getCounterchangedPaint(firstTincture, secondTincture), null, getClass().getSimpleName()));
+        return Collections.singleton(new RenderShape(contour.getPath(), painter.getCounterchangedPaint(firstTincture, secondTincture), null, getClass().getSimpleName()));
     }
 }

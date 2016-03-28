@@ -87,7 +87,7 @@ public class SequenceCharge extends Charge
                     list.addAll(charge.render(child, painter));
                     if (DEBUG)
                     {
-                        list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1), "sequence debug reticle"));
+                        list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "sequence debug reticle"));
                     }
                 }
             }

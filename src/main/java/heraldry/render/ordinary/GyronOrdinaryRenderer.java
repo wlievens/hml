@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,6 @@ public class GyronOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, x1, y1, x2, y2, line, period, false, sizeRatio);
         LineRenderer.line(steps, x2, y2, x1, y2, line, period, false, sizeRatio);
         steps.add(new LinePathStep(x1, y2, x1, y1));
-        return Arrays.asList(new RenderContour(steps));
+        return Arrays.asList(new RenderContour(new Path(steps)));
     }
 }

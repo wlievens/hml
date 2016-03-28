@@ -7,6 +7,7 @@ import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.paint.Color;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
@@ -127,9 +128,9 @@ public class MobileCharge extends Charge
         transform.translate(center.getX() - 0.5 * scale * diagramWidth, center.getY() - 0.5 * scale * diagramHeight);
         transform.scale(scale, scale);
         List<RenderShape> list = new ArrayList<>();
-        for (List<PathStep> c1 : SvgUtils.collect(diagram, transform))
+        for (Path c1 : SvgUtils.collect(diagram, transform))
         {
-            for (List<PathStep> c2 : GeometryUtils.clip(c1, contour))
+            for (Path c2 : GeometryUtils.clip(c1, contour))
             {
                 list.addAll(background.render(new RenderContour(c2), painter).stream()
                     .map(shape -> shape.withBorderColor(painter.getMobileBorderColor()).withLabel(String.format("'%s' %s", figure, shape.getLabel())))

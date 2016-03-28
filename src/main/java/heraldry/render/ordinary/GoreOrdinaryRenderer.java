@@ -1,9 +1,13 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.render.*;
+import heraldry.render.Box;
+import heraldry.render.Painter;
+import heraldry.render.Point;
+import heraldry.render.RenderContour;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
@@ -52,6 +56,6 @@ public class GoreOrdinaryRenderer implements OrdinaryRenderer
             steps.add(new LinePathStep(centerX, y2, x1, y2));
             steps.add(new LinePathStep(x1, y2, x1, y1));
         }
-        return Collections.singleton(new RenderContour(steps));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

@@ -1,9 +1,12 @@
 package heraldry.render.ordinary;
 
 import heraldry.model.Line;
-import heraldry.render.*;
+import heraldry.render.Box;
+import heraldry.render.Painter;
+import heraldry.render.RenderContour;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +38,6 @@ public class FlaunchesOrdinaryRenderer implements OrdinaryRenderer
         steps2.add(new LinePathStep(x2, y1, x2, y2));
         steps2.add(new CubicPathStep(x2, y2, bounds.lerpX(1 - cx), bounds.lerpY(1 - cy), bounds.lerpX(1 - cx), bounds.lerpY(cy), x2, y1));
 
-        return Arrays.asList(new RenderContour(steps1), new RenderContour(steps2));
+        return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
     }
 }

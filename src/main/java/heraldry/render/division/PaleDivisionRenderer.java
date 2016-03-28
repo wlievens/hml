@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
@@ -34,7 +35,7 @@ public class PaleDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx, y2, x1, y2));
         steps.add(new LinePathStep(x1, y2, x1, y1));
 
-        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(steps)));
+        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
         RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
 
         return Arrays.asList(left, right);

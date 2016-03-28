@@ -4,9 +4,10 @@ import heraldry.model.Line;
 import heraldry.render.Box;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -36,6 +37,6 @@ public class BilletOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, x2, y1, x2, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x2, y2, x1, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x1, y2, x1, y1, line, period, false, 1.0);
-        return Arrays.asList(new RenderContour(steps));
+        return Arrays.asList(new RenderContour(new Path(steps)));
     }
 }

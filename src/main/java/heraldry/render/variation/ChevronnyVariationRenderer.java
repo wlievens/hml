@@ -8,6 +8,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
@@ -36,7 +37,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
         double midX = (x1 + x2) / 2;
 
         List<RenderShape> shapes = new ArrayList<>();
-        shapes.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        shapes.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
 
         for (double y = y1 - width / 2; y <= y2 + width / 2; y += spacing)
         {
@@ -62,7 +63,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
                 LineRenderer.line(steps, midX, midY + step, x1, y + step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x1, y + step, x1, y));
             }
-            shapes.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null, getClass().getSimpleName() + " element " + y)));
+            shapes.addAll(contour.clip(new RenderShape(new Path(steps), painter.getPaint(secondTincture), null, getClass().getSimpleName() + " element " + y)));
         }
 
         return shapes;

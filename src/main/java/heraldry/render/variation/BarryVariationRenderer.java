@@ -8,6 +8,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class BarryVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getSteps(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        list.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
         for (double y = bounds.getY1() + step; y < bounds.getY2(); y += step * 2)
@@ -31,7 +32,7 @@ public class BarryVariationRenderer implements VariationRenderer
             steps.add(new LinePathStep(bounds.getX2(), y, bounds.getX2(), y + step));
             LineRenderer.line(steps, bounds.getX2(), y + step, bounds.getX1(), y + step, line, period, true, 1.0);
             steps.add(new LinePathStep(bounds.getX1(), y + step, bounds.getX1(), y));
-            list.addAll(contour.clip(new RenderShape(steps, painter.getPaint(secondTincture), null, "barry " + y)));
+            list.addAll(contour.clip(new RenderShape(new Path(steps), painter.getPaint(secondTincture), null, "barry " + y)));
         }
         return list;
     }

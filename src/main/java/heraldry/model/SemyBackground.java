@@ -63,7 +63,7 @@ public class SemyBackground extends Background
                 list.addAll(contour.clipShapes(charge.render(child, painter)));
                 if (DEBUG)
                 {
-                    list.add(new RenderShape(child.getSteps(), null, new Color(1, 0, 1), "semy debug reticle"));
+                    list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "semy debug reticle"));
                 }
             }
         }

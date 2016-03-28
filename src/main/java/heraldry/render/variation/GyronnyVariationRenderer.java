@@ -27,7 +27,7 @@ public class GyronnyVariationRenderer implements VariationRenderer
         double x2 = bounds.getX2();
         double y2 = midY * 2 - y1;
         List<RenderShape> list = new ArrayList<>();
-        list.addAll(contour.clip(new RenderShape(contour.getSteps(), painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
+        list.addAll(contour.clip(new RenderShape(contour.getPath(), painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
         list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x1, y1, midX, y1), painter.getPaint(firstTincture), null, "gyron 1")));
         list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y1, x2, midY), painter.getPaint(firstTincture), null, "gyron 2")));
         list.addAll(contour.clip(new RenderShape(GeometryUtils.polygon(midX, midY, x2, y2, midX, y2), painter.getPaint(firstTincture), null, "gyron 3")));

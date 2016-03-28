@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,6 @@ public class BatonOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps, x2 - step, y2 + step, x1 - step, y1 + step, line, period, flipX, 1.0);
             steps.add(new LinePathStep(x1 - step, y1 + step, x1 + step, y1 - step));
         }
-        return Arrays.asList(new RenderContour(steps));
+        return Arrays.asList(new RenderContour(new Path(steps)));
     }
 }

@@ -2,10 +2,10 @@ package heraldry.util;
 
 import com.kitfox.svg.SVGCache;
 import com.kitfox.svg.SVGDiagram;
-import heraldry.render.path.PathStep;
+import heraldry.render.path.Path;
 import lombok.NonNull;
 
-import java.awt.*;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.net.URISyntaxException;
@@ -14,26 +14,22 @@ import java.util.List;
 
 public class SvgUtils
 {
-    public static List<List<PathStep>> collect(SVGDiagram diagram, AffineTransform transform)
+    public static List<Path> collect(SVGDiagram diagram, AffineTransform transform)
     {
-        return GeometryUtils.convertPathIteratorToPathSteps(diagram.getRoot().getShape().getPathIterator(transform));
+        return GeometryUtils.convertPathIteratorToPaths(diagram.getRoot().getShape().getPathIterator(transform));
     }
 
-    public static List<PathStep> convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath)
+    public static Path convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath)
     {
         return convertSvgElementToPath(svgPath, null);
     }
 
-    public static List<PathStep> convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath, AffineTransform transform)
+    public static Path convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath, AffineTransform transform)
     {
         Shape path2d = svgPath.getShape();
         PathIterator it = path2d.getPathIterator(transform);
-        List<List<PathStep>> paths = GeometryUtils.convertPathIteratorToPathSteps(it);
-        if (paths.size() == 1)
-        {
-            return paths.get(0);
-        }
-        throw new IllegalStateException();
+        List<Path> paths = GeometryUtils.convertPathIteratorToPaths(it);
+        return CollectionUtils.single(paths);
     }
 
     public static SVGDiagram loadSvg(@NonNull String resource)

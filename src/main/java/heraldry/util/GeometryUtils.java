@@ -5,6 +5,7 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
 
@@ -20,22 +21,22 @@ import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static List<List<PathStep>> clip(List<PathStep> steps, RenderContour contour)
+    public static List<Path> clip(Path path, RenderContour contour)
     {
         if (false)
         {
-            return Arrays.asList(steps);
+            return Arrays.asList(path);
         }
-        Area area = convertPathStepsToArea(steps);
+        Area area = convertPathToArea(path);
         area.intersect(convertContourToArea(contour));
-        return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream().collect(toList());
+        return convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
     }
 
     public static List<RenderContour> convertAreaToContours(Area area)
     {
-        return convertPathIteratorToPathSteps(area.getPathIterator(null)).stream()
-            .map(RenderContour::new)
-            .collect(toList());
+        return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
+                .map(RenderContour::new)
+                .collect(toList());
     }
 
     public static Area convertBoxToArea(Box box)
@@ -45,13 +46,13 @@ public class GeometryUtils
 
     public static Area convertContourToArea(RenderContour contour)
     {
-        return convertPathStepsToArea(contour.getSteps());
+        return convertPathToArea(contour.getPath());
     }
 
-    public static List<List<PathStep>> convertPathIteratorToPathSteps(PathIterator it)
+    public static List<Path> convertPathIteratorToPaths(PathIterator it)
     {
         float[] xys = new float[6];
-        List<List<PathStep>> list = new ArrayList<>();
+        List<Path> list = new ArrayList<>();
         List<PathStep> steps = new ArrayList<>();
         double previousX = 0;
         double previousY = 0;
@@ -113,7 +114,7 @@ public class GeometryUtils
                     {
                         steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
                     }
-                    list.add(steps);
+                    list.add(new Path(steps));
                     steps = new ArrayList<>();
                     break;
                 }
@@ -133,13 +134,14 @@ public class GeometryUtils
         return list;
     }
 
-    public static Area convertPathStepsToArea(List<PathStep> steps)
+    public static Area convertPathToArea(Path path)
     {
-        if (steps.isEmpty())
+        if (path.getSteps().isEmpty())
         {
             return new Area();
         }
-        Path2D path = new Path2D.Double();
+        List<PathStep> steps = path.getSteps();
+        Path2D path2D = new Path2D.Double();
         for (int index = 0; index < steps.size(); index++)
         {
             PathStep step = steps.get(index);
@@ -148,43 +150,43 @@ public class GeometryUtils
                 LinePathStep line = (LinePathStep)step;
                 if (index == 0)
                 {
-                    path.moveTo(line.getX1(), line.getY1());
+                    path2D.moveTo(line.getX1(), line.getY1());
                 }
-                path.lineTo(line.getX2(), line.getY2());
+                path2D.lineTo(line.getX2(), line.getY2());
             }
             else if (step instanceof QuadraticPathStep)
             {
                 QuadraticPathStep quadratic = (QuadraticPathStep)step;
                 if (index == 0)
                 {
-                    path.moveTo(quadratic.getX1(), quadratic.getY1());
+                    path2D.moveTo(quadratic.getX1(), quadratic.getY1());
                 }
-                path.quadTo(quadratic.getX2(), quadratic.getY2(), quadratic.getX3(), quadratic.getY3());
+                path2D.quadTo(quadratic.getX2(), quadratic.getY2(), quadratic.getX3(), quadratic.getY3());
             }
             else if (step instanceof CubicPathStep)
             {
                 CubicPathStep cubic = (CubicPathStep)step;
                 if (index == 0)
                 {
-                    path.moveTo(cubic.getX1(), cubic.getY1());
+                    path2D.moveTo(cubic.getX1(), cubic.getY1());
                 }
-                path.curveTo(cubic.getX2(), cubic.getY2(), cubic.getX3(), cubic.getY3(), cubic.getX4(), cubic.getY4());
+                path2D.curveTo(cubic.getX2(), cubic.getY2(), cubic.getX3(), cubic.getY3(), cubic.getX4(), cubic.getY4());
             }
             else
             {
                 throw new IllegalStateException();
             }
         }
-        path.closePath();
-        return new Area(path);
+        path2D.closePath();
+        return new Area(path2D);
     }
 
     public static Area convertShapeToArea(RenderShape shape)
     {
-        return convertPathStepsToArea(shape.getSteps());
+        return convertPathToArea(shape.getPath());
     }
 
-    public static List<PathStep> polygon(double... xys)
+    public static Path polygon(double... xys)
     {
         List<PathStep> steps = new ArrayList<>();
         double previousX = xys[0];
@@ -198,10 +200,10 @@ public class GeometryUtils
             previousY = y;
         }
         steps.add(new LinePathStep(previousX, previousY, xys[0], xys[1]));
-        return steps;
+        return new Path(steps);
     }
 
-    public static List<PathStep> rectangle(double x1, double y1, double x2, double y2)
+    public static Path rectangle(double x1, double y1, double x2, double y2)
     {
         return polygon(x1, y1, x2, y1, x2, y2, x1, y2);
     }

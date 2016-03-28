@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,6 @@ public class BendOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(endX, endY - step, endX, endY + step));
         LineRenderer.line(steps, endX, endY + step, startX, startY + step, line, period, flipX, sizeRatio);
         steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
-        return Arrays.asList(new RenderContour(steps));
+        return Arrays.asList(new RenderContour(new Path(steps)));
     }
 }

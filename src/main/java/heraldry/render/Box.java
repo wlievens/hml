@@ -1,12 +1,10 @@
 package heraldry.render;
 
-import heraldry.render.path.PathStep;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import lombok.ToString;
 import lombok.Value;
-
-import java.util.List;
 
 @Value
 @ToString
@@ -58,7 +56,7 @@ public final class Box
         return contains(x1, y1) && contains(x2, y2);
     }
 
-    public List<PathStep> toPath()
+    public Path toPath()
     {
         return GeometryUtils.rectangle(x1, y1, x2, y2);
     }

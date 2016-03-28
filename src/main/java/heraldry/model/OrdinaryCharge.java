@@ -97,11 +97,11 @@ public class OrdinaryCharge extends Charge
         List<RenderContour> contours = contour.clipContours(renderer.render(contour, line, painter));
         List<RenderShape> list = new ArrayList<>(contours.size());
         contours.forEach(child -> list.addAll(background.render(child, painter).stream()
-            .map(shape -> shape.withLabel(ordinary.getLabel() + " " + shape.getLabel())).collect(Collectors.toList())));
+                .map(shape -> shape.withLabel(ordinary.getLabel() + " " + shape.getLabel())).collect(Collectors.toList())));
         for (Charge charge : charges)
         {
             // TODO Use the first shape as contour for now
-            list.addAll(charge.render(new RenderContour(CollectionUtils.single(contours).getSteps()), painter));
+            list.addAll(charge.render(new RenderContour(CollectionUtils.single(contours).getPath()), painter));
         }
         return list;
     }
