@@ -134,6 +134,10 @@ public class GeometryUtils
             }
             it.next();
         }
+        if (steps.size() > 0)
+        {
+            throw new IllegalStateException();
+        }
         return list;
     }
 
