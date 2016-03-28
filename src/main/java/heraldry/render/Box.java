@@ -60,4 +60,14 @@ public final class Box
     {
         return GeometryUtils.rectangle(x1, y1, x2, y2);
     }
+
+    public double prelX(double x)
+    {
+        return (x - x1) / (x2 - x1);
+    }
+
+    public double prelY(double y)
+    {
+        return (y - y1) / (y2 - y1);
+    }
 }
