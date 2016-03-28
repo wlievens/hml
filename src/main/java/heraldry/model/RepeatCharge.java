@@ -14,8 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
@@ -99,10 +105,10 @@ public class RepeatCharge extends Charge
         // Use a rasterized Voronoi approach with Lloyd's algorithm for approaching optimal distribution
         // https://en.wikipedia.org/wiki/Voronoi_diagram
         // https://en.wikipedia.org/wiki/Lloyd%27s_algorithm
-        int resolution = 100;
+        int resolution = 500;
         BitSet inclusion = sampleInclusionMatrix(area, bounds, resolution);
         List<Point> points = generatePoints(area, bounds);
-        relaxPoints(bounds, inclusion, resolution, points);
+        relaxPoints(area, bounds, inclusion, resolution, points);
 
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < number; ++n)
@@ -122,12 +128,19 @@ public class RepeatCharge extends Charge
         return list;
     }
 
-    private void relaxPoints(Box bounds, BitSet inclusion, int resolution, List<Point> points)
+    private void relaxPoints(Area area, Box bounds, BitSet inclusion, int resolution, List<Point> points)
     {
+        int totalArea = inclusion.cardinality();
+        double[] weights = new double[points.size()];
+        int iteration = 0;
         while (true)
         {
             double totalChange = 0;
+
+            System.out.println("weights: " + Arrays.toString(weights));
+
             int[] matrix = new int[resolution * resolution];
+            Arrays.fill(matrix, -1);
             for (int y = 0; y < resolution; ++y)
             {
                 for (int x = 0; x < resolution; ++x)
@@ -139,13 +152,17 @@ public class RepeatCharge extends Charge
                         double cy = bounds.lerpY(y / (double)resolution);
                         int nearest = 0;
                         double nearestDistance = 0;
-                        for (int n = 0; n < number; ++n)
+                        for (int pointIndex = 0; pointIndex < number; ++pointIndex)
                         {
-                            Point point = points.get(n);
+                            Point point = points.get(pointIndex);
                             double distance = MathUtils.distance(cx, cy, point.getX(), point.getY());
-                            if (n == 0 || distance < nearestDistance)
+                            if (weights[pointIndex] > 0)
                             {
-                                nearest = n;
+                                distance = distance * (1 + weights[pointIndex]);
+                            }
+                            if (pointIndex == 0 || distance < nearestDistance)
+                            {
+                                nearest = pointIndex;
                                 nearestDistance = distance;
                             }
                         }
@@ -153,38 +170,118 @@ public class RepeatCharge extends Charge
                     }
                 }
             }
-            for (int n = 0; n < number; ++n)
+
             {
-                double sumX = 0;
-                double sumY = 0;
+                BufferedImage image = generateDebugImage(bounds, resolution, points, matrix);
+                File file = new File(String.format("temp/iteration%03d.png", iteration));
+                file.getParentFile().mkdirs();
+                try
+                {
+                    ImageIO.write(image, "png", file);
+                }
+                catch (IOException e)
+                {
+                    throw new IllegalStateException(e);
+                }
+            }
+
+            for (int pointIndex = 0; pointIndex < number; ++pointIndex)
+            {
+                double centerX = 0;
+                double centerY = 0;
                 int samples = 0;
                 for (int y = 0; y < resolution; ++y)
                 {
                     for (int x = 0; x < resolution; ++x)
                     {
                         int index = x + y * resolution;
-                        if (matrix[index] == n)
+                        if (inclusion.get(index) && matrix[index] == pointIndex)
                         {
                             double cx = bounds.lerpX(x / (double)resolution);
                             double cy = bounds.lerpY(y / (double)resolution);
                             ++samples;
-                            sumX += cx;
-                            sumY += cy;
+                            centerX += cx;
+                            centerY += cy;
                         }
                     }
                 }
-                sumX /= samples;
-                sumY /= samples;
-                Point point = points.get(n);
-                totalChange += MathUtils.distance(sumX, sumY, point.getX(), point.getY());
-                points.set(n, new Point(sumX, sumY));
+                if (samples == 0)
+                {
+                    throw new IllegalStateException();
+                }
+                centerX /= samples;
+                centerY /= samples;
+                weights[pointIndex] = samples / (double)totalArea;
+                Point point = points.get(pointIndex);
+                if (!area.contains(point.getX(), point.getY()))
+                {
+                    // pick a random point inside the marked area
+                    List<Integer> locations = new ArrayList<>();
+                    for (int i = 0; i < resolution * resolution; ++i)
+                    {
+                        if (matrix[i] == pointIndex)
+                        {
+                            locations.add(i);
+                        }
+                    }
+                    if (locations.size() == 0)
+                    {
+                        throw new IllegalStateException();
+                    }
+                    int pick = locations.get(new Random(1).nextInt(locations.size()));
+                    int pickX = pick % resolution;
+                    int pickY = pick / resolution;
+                    point = new Point(bounds.lerpX(pickX / (double)resolution), bounds.lerpY(pickY / (double)resolution));
+                }
+                totalChange += MathUtils.distance(centerX, centerY, point.getX(), point.getY());
+                points.set(pointIndex, new Point(centerX, centerY));
             }
+
+            ++iteration;
+
             // Arbitrary threshold
-            if (totalChange < 0.5)
+            if (totalChange < 0.1)
             {
                 break;
             }
         }
+    }
+
+    private BufferedImage generateDebugImage(Box bounds, int resolution, List<Point> points, int[] matrix)
+    {
+        BufferedImage image = new BufferedImage(resolution, resolution, BufferedImage.TYPE_INT_RGB);
+        List<Integer> colors = new ArrayList<>();
+        for (int n = 0; n < number; ++n)
+        {
+            Random random = new Random(n * 134321651);
+            float hue = random.nextFloat();
+            colors.add(java.awt.Color.HSBtoRGB(hue, 0.8f, 0.6f));
+        }
+        for (int y = 0; y < resolution; ++y)
+        {
+            for (int x = 0; x < resolution; ++x)
+            {
+                int index = x + y * resolution;
+                int value = matrix[index];
+                if (value >= 0)
+                {
+                    image.setRGB(x, y, colors.get(value));
+                }
+            }
+        }
+
+        {
+            Graphics2D gfx = (Graphics2D)image.getGraphics();
+            gfx.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            for (int n = 0; n < points.size(); ++n)
+            {
+                int r = resolution / 100;
+                gfx.setColor(java.awt.Color.ORANGE);
+                gfx.fillOval((int)Math.round(bounds.prelX(points.get(n).getX()) * resolution) - r, (int)Math.round(bounds.prelY(points.get(n).getY()) * resolution) - r, r * 2, r * 2);
+            }
+            gfx.dispose();
+        }
+        return image;
     }
 
     private List<Point> generatePoints(Area area, Box bounds)
@@ -193,20 +290,25 @@ public class RepeatCharge extends Charge
         Random random = new Random(1);
         for (int n = 0; n < number; ++n)
         {
-            double x;
-            double y;
-            while (true)
-            {
-                x = bounds.lerpX(random.nextDouble());
-                y = bounds.lerpY(random.nextDouble());
-                if (area.contains(x, y))
-                {
-                    break;
-                }
-            }
-            points.add(new Point(x, y));
+            points.add(generatePoint(area, bounds, random));
         }
         return points;
+    }
+
+    private Point generatePoint(Area area, Box bounds, Random random)
+    {
+        double x;
+        double y;
+        while (true)
+        {
+            x = bounds.lerpX(random.nextDouble());
+            y = bounds.lerpY(random.nextDouble());
+            if (area.contains(x, y))
+            {
+                break;
+            }
+        }
+        return new Point(x, y);
     }
 
     private BitSet sampleInclusionMatrix(Area area, Box bounds, int resolution)
