@@ -5,14 +5,14 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public final class Path extends AbstractPath
+public final class PathString extends AbstractPath
 {
-    public Path(PathStep... steps)
+    public PathString(PathStep... steps)
     {
         super(steps);
     }
 
-    public Path(List<PathStep> steps)
+    public PathString(List<PathStep> steps)
     {
         super(steps);
     }

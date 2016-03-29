@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MobileCharge extends Charge
 {
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     /**
      * The symbolic name of the figure.

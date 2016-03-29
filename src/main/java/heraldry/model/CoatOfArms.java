@@ -169,12 +169,6 @@ public class CoatOfArms
         // Process counterchanged paint
         if (renderShapes.stream().anyMatch(renderShape -> renderShape.getFillPaint() instanceof CounterchangedPaint))
         {
-            System.out.println("BEFORE:");
-            for (RenderShape p : renderShapes)
-            {
-                System.out.println("\t" + p);
-            }
-
             Map<Paint, Area> paintedAreas = new HashMap<>();
             for (int n = 0; n < renderShapes.size(); ++n)
             {
@@ -213,13 +207,7 @@ public class CoatOfArms
                             renderShapes.add(n + i, new RenderShape(intersectionContours.get(i).getPath(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
                         }
                     }
-                    System.out.println("COUNTERCHANGED:");
-                    for (RenderShape p : renderShapes)
-                    {
-                        System.out.println("\t" + p);
-                    }
                     n--;
-                    System.out.println("n = " + n);
                     continue;
                 }
                 Area area = GeometryUtils.convertShapeToArea(path);

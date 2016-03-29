@@ -8,6 +8,7 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
+import heraldry.render.path.PathString;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChevronOrdinaryRenderer implements OrdinaryRenderer
 {
-    private final boolean inverted;
+    private final boolean flipY;
     private final double sizeRatio;
 
     @Override
@@ -30,30 +31,41 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         double y1 = bounds.getY1();
-        double midX = (x1 + x2) / 2;
-        double midY = width < height ? (y1 + width / 2) : bounds.lerpY(0.5);
-        double y2 = midY + midX - x1;
+        double cx = (x1 + x2) / 2;
+        double cy = width < height ? (y1 + width / 2) : bounds.lerpY(0.5);
+        double y2 = cy + cx - x1;
         double step = sizeRatio * painter.getOrdinaryThickness() / Math.sqrt(2) * line.getScaleFactor();
         double period = painter.getLinePeriodFactor() * Math.min(width, height);
-        List<PathStep> steps = new ArrayList<>();
-        if (inverted)
+
+        if (flipY)
         {
-            LineRenderer.line(steps, x1, y1 - step, midX, midY - step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY - step, x2, y1 - step, line, period, inverted, sizeRatio);
+            List<PathStep> steps = new ArrayList<>();
+            LineRenderer.line(steps, x1, y1 - step, cx, cy - step, line, period, flipY, sizeRatio);
+            LineRenderer.line(steps, cx, cy - step, x2, y1 - step, line, period, flipY, sizeRatio);
             steps.add(new LinePathStep(x2, y1 - step, x2, y1 + step));
-            LineRenderer.line(steps, x2, y1 + step, midX, midY + step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY + step, x1, y1 + step, line, period, inverted, sizeRatio);
+            LineRenderer.line(steps, x2, y1 + step, cx, cy + step, line, period, flipY, sizeRatio);
+            LineRenderer.line(steps, cx, cy + step, x1, y1 + step, line, period, flipY, sizeRatio);
             steps.add(new LinePathStep(x1, y1 + step, x1, y1 - step));
+
+            List<PathStep> spine = new ArrayList<>();
+            spine.add(new LinePathStep(x1, y1, cx, cy));
+            spine.add(new LinePathStep(cx, cy, x2, y1));
+
+            return Collections.singleton(new RenderContour(new Path(steps), new PathString(spine)));
         }
-        else
-        {
-            LineRenderer.line(steps, x1, y2 - step, midX, midY - step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY - step, x2, y2 - step, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x2, y2 - step, x2, y2 + step));
-            LineRenderer.line(steps, x2, y2 + step, midX, midY + step, line, period, inverted, sizeRatio);
-            LineRenderer.line(steps, midX, midY + step, x1, y2 + step, line, period, inverted, sizeRatio);
-            steps.add(new LinePathStep(x1, y2 + step, x1, y2 - step));
-        }
-        return Collections.singleton(new RenderContour(new Path(steps)));
+
+        List<PathStep> steps = new ArrayList<>();
+        LineRenderer.line(steps, x1, y2 - step, cx, cy - step, line, period, flipY, sizeRatio);
+        LineRenderer.line(steps, cx, cy - step, x2, y2 - step, line, period, flipY, sizeRatio);
+        steps.add(new LinePathStep(x2, y2 - step, x2, y2 + step));
+        LineRenderer.line(steps, x2, y2 + step, cx, cy + step, line, period, flipY, sizeRatio);
+        LineRenderer.line(steps, cx, cy + step, x1, y2 + step, line, period, flipY, sizeRatio);
+        steps.add(new LinePathStep(x1, y2 + step, x1, y2 - step));
+
+        List<PathStep> spine = new ArrayList<>();
+        spine.add(new LinePathStep(x1, y2, cx, cy));
+        spine.add(new LinePathStep(cx, cy, x2, y2));
+
+        return Collections.singleton(new RenderContour(new Path(steps), new PathString(spine)));
     }
 }

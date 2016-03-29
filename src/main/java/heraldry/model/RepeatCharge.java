@@ -6,6 +6,9 @@ import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.paint.Color;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
+import heraldry.render.path.PathString;
 import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import heraldry.util.StringUtils;
@@ -15,7 +18,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -64,6 +68,32 @@ public class RepeatCharge extends Charge
         if (!charge.isRepeatSupported())
         {
             return charge.render(contour, painter);
+        }
+
+        PathString spine = contour.getSpine();
+        if (spine != null)
+        {
+            List<RenderShape> list = new ArrayList<>();
+            double length = spine.getLength();
+            for (int n = 0; n < number; ++n)
+            {
+                double pos = length * (n + 1.0) / (number + 1.0);
+                double accumulator = 0;
+                for (PathStep step : spine.getSteps())
+                {
+                    double stepLength = step.getLength();
+                    if (pos < accumulator + stepLength)
+                    {
+                        double ratio = (pos - accumulator) / stepLength;
+                        Point sample = step.sample(ratio);
+                        RenderContour child = new RenderContour(GeometryUtils.rectangle(sample.getX() - 20, sample.getY() - 20, sample.getX() + 20, sample.getY() + 20));
+                        list.addAll(contour.clipShapes(charge.render(child, painter)));
+                        break;
+                    }
+                    accumulator += stepLength;
+                }
+            }
+            return list;
         }
 
         if (charge instanceof OrdinaryCharge)
@@ -136,8 +166,6 @@ public class RepeatCharge extends Charge
         while (true)
         {
             double totalChange = 0;
-
-            System.out.println("weights: " + Arrays.toString(weights));
 
             int[] matrix = new int[resolution * resolution];
             Arrays.fill(matrix, -1);

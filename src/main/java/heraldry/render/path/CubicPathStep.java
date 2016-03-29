@@ -1,9 +1,16 @@
 package heraldry.render.path;
 
-import lombok.Value;
+import heraldry.render.Point;
+import heraldry.util.BezierCurve;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Value
-public final class CubicPathStep implements PathStep
+@Getter
+@ToString
+@RequiredArgsConstructor
+public final class CubicPathStep extends AbstractBezierPathStep
 {
     private final double x1;
     private final double y1;
@@ -72,5 +79,11 @@ public final class CubicPathStep implements PathStep
     public CubicPathStep inverse()
     {
         return new CubicPathStep(x4, y4, x3, y3, x2, y2, x1, y1);
+    }
+
+    @Override
+    public Point sample(double ratio)
+    {
+        return BezierCurve.sampleXY(x1, y1, x2, y2, x3, y3, x4, y4, ratio);
     }
 }

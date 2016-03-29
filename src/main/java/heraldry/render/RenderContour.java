@@ -1,14 +1,16 @@
 package heraldry.render;
 
+import heraldry.render.path.AbstractPath;
 import heraldry.render.path.Path;
+import heraldry.render.path.PathString;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -18,6 +20,13 @@ import static java.util.stream.Collectors.toList;
 public final class RenderContour
 {
     private final Path path;
+
+    private final PathString spine;
+
+    public RenderContour(Path path)
+    {
+        this(path, null);
+    }
 
     public Point getFessPoint()
     {
@@ -31,22 +40,23 @@ public final class RenderContour
 
     public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
     {
-        List<RenderShape> list = new ArrayList<>();
-        for (RenderShape shape : shapes)
-        {
-            list.addAll(clip(shape));
-        }
-        return list;
+        return shapes.stream()
+                .map(this::clip)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     public List<RenderContour> clipContours(Collection<RenderContour> contours)
     {
-        List<RenderContour> list = new ArrayList<>();
-        for (RenderContour contour : contours)
-        {
-            list.addAll(clip(contour));
-        }
-        return list;
+        return contours.stream()
+                .map(this::clip)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    public <T extends AbstractPath> List<T> clip(T path)
+    {
+        return GeometryUtils.clip(path, this);
     }
 
     public List<RenderShape> clip(RenderShape shape)

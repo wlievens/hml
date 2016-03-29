@@ -6,6 +6,8 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.paint.Color;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathString;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Getter
@@ -94,14 +95,20 @@ public class OrdinaryCharge extends Charge
             log.warn("No renderer implemented for ordinary '{}'", ordinary);
             return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1), "fall-back for missing ordinary renderer"));
         }
-        List<RenderContour> contours = contour.clipContours(renderer.render(contour, line, painter));
-        List<RenderShape> list = new ArrayList<>(contours.size());
-        contours.forEach(child -> list.addAll(background.render(child, painter).stream()
-                .map(shape -> shape.withLabel(ordinary.getLabel() + " " + shape.getLabel())).collect(Collectors.toList())));
-        for (Charge charge : charges)
+        Collection<RenderContour> chargeContours = renderer.render(contour, line, painter);
+        List<RenderShape> list = new ArrayList<>();
+        for (RenderContour chargeContour : chargeContours)
         {
-            // TODO Use the first shape as contour for now
-            list.addAll(charge.render(new RenderContour(CollectionUtils.single(contours).getPath()), painter));
+            Path clippedPath = CollectionUtils.single(contour.clip(chargeContour.getPath()));
+            PathString spine = CollectionUtils.single(contour.clip(chargeContour.getSpine()));
+            System.out.println(spine);
+
+            RenderContour clippedContour = new RenderContour(clippedPath, spine);
+            list.addAll(background.render(clippedContour, painter));
+            for (Charge charge : charges)
+            {
+                list.addAll(charge.render(clippedContour, painter));
+            }
         }
         return list;
     }

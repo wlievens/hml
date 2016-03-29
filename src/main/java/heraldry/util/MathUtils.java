@@ -7,6 +7,11 @@ public class MathUtils
         return a + (b - a) * x;
     }
 
+    public static double prel(double x, double a, double b)
+    {
+        return (a - x) / (b - a);
+    }
+
     public static double distance(double x1, double y1, double x2, double y2)
     {
         double dx = x1 - x2;

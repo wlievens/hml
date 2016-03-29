@@ -1,6 +1,10 @@
 package heraldry.render.path;
 
+import heraldry.render.Point;
+import heraldry.util.MathUtils;
 import lombok.Value;
+
+import static heraldry.util.MathUtils.lerp;
 
 @Value
 public final class LinePathStep implements PathStep
@@ -68,5 +72,17 @@ public final class LinePathStep implements PathStep
     public LinePathStep inverse()
     {
         return new LinePathStep(x2, y2, x1, y1);
+    }
+
+    @Override
+    public double getLength()
+    {
+        return MathUtils.distance(x1, y1, x2, y2);
+    }
+
+    @Override
+    public Point sample(double ratio)
+    {
+        return new Point(lerp(ratio, x1, x2), lerp(ratio, y1, y2));
     }
 }

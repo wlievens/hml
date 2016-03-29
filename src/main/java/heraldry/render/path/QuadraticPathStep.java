@@ -1,9 +1,15 @@
 package heraldry.render.path;
 
-import lombok.Value;
+import heraldry.render.Point;
+import heraldry.util.BezierCurve;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
-@Value
-public final class QuadraticPathStep implements PathStep
+@Getter
+@ToString
+@RequiredArgsConstructor
+public final class QuadraticPathStep extends AbstractBezierPathStep
 {
     private final double x1;
     private final double y1;
@@ -70,5 +76,11 @@ public final class QuadraticPathStep implements PathStep
     public QuadraticPathStep inverse()
     {
         return new QuadraticPathStep(x3, y3, x2, y2, x1, y1);
+    }
+
+    @Override
+    public Point sample(double ratio)
+    {
+        return BezierCurve.sampleXY(x1, y1, x2, y2, x2, y2, x3, y3, ratio);
     }
 }

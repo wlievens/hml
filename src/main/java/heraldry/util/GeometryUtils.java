@@ -3,6 +3,7 @@ package heraldry.util;
 import heraldry.render.Box;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.path.AbstractPath;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
@@ -21,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static List<Path> clip(Path path, RenderContour contour)
+    public static <T extends AbstractPath> List<T> clip(T path, RenderContour contour)
     {
         if (false)
         {
@@ -29,7 +30,7 @@ public class GeometryUtils
         }
         Area area = convertPathToArea(path);
         area.intersect(convertContourToArea(contour));
-        return convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
+        return (List)convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
     }
 
     public static List<RenderContour> convertAreaToContours(Area area)
@@ -141,7 +142,7 @@ public class GeometryUtils
         return list;
     }
 
-    public static Area convertPathToArea(Path path)
+    public static Area convertPathToArea(AbstractPath path)
     {
         if (path.getSteps().isEmpty())
         {
@@ -184,7 +185,10 @@ public class GeometryUtils
                 throw new IllegalStateException();
             }
         }
-        path2D.closePath();
+        if (path.isClosed())
+        {
+            path2D.closePath();
+        }
         return new Area(path2D);
     }
 
