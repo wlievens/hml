@@ -1,13 +1,12 @@
 package heraldry.render;
 
-import heraldry.render.path.AbstractPath;
 import heraldry.render.path.Path;
-import heraldry.render.path.PathString;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.awt.geom.Area;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public final class RenderContour
 {
     private final Path path;
 
-    private final PathString spine;
+    private final Path spine;
 
     public RenderContour(Path path)
     {
@@ -41,20 +40,20 @@ public final class RenderContour
     public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
     {
         return shapes.stream()
-                .map(this::clip)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+            .map(this::clip)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
     }
 
     public List<RenderContour> clipContours(Collection<RenderContour> contours)
     {
         return contours.stream()
-                .map(this::clip)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+            .map(this::clip)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
     }
 
-    public <T extends AbstractPath> List<T> clip(T path)
+    public List<Path> clip(Path path)
     {
         return GeometryUtils.clip(path, this);
     }
@@ -62,19 +61,57 @@ public final class RenderContour
     public List<RenderShape> clip(RenderShape shape)
     {
         return GeometryUtils.clip(shape.getPath(), this).stream()
-                .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
-                .collect(toList());
+            .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
+            .collect(toList());
     }
 
     public List<RenderContour> clip(RenderContour contour)
     {
         return GeometryUtils.clip(contour.getPath(), this).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+            .map(RenderContour::new)
+            .collect(toList());
     }
 
     public boolean isRectangle()
     {
         return path.isRectangle();
+    }
+
+    public Box fitBox(Point center)
+    {
+        double centerX = center.getX();
+        double centerY = center.getY();
+        Area area = GeometryUtils.convertContourToArea(this);
+        Box bounds = getBounds();
+        int steps = 50;
+        double largestArea = 0;
+        Box largestRectangle = null;
+        for (int wstep = steps - 1; wstep >= 0; wstep--)
+        {
+            for (int hstep = steps - 1; hstep >= 0; hstep--)
+            {
+                double width = bounds.getWidth() * (wstep + 1) / steps;
+                double height = bounds.getHeight() * (hstep + 1) / steps;
+                double x1 = centerX - width / 2;
+                double y1 = centerY - height / 2;
+                double x2 = centerX + width / 2;
+                double y2 = centerY + height / 2;
+                if (!bounds.contains(x1, y1, x2, y2))
+                {
+                    continue;
+                }
+                double surface = width * height;
+                if (surface < largestArea)
+                {
+                    continue;
+                }
+                if (area.contains(x1, y1, width, height))
+                {
+                    largestArea = surface;
+                    largestRectangle = new Box(x1, y1, x2, y2);
+                }
+            }
+        }
+        return largestRectangle;
     }
 }

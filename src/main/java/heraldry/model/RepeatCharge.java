@@ -7,8 +7,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.paint.Color;
 import heraldry.render.path.Path;
-import heraldry.render.path.PathStep;
-import heraldry.render.path.PathString;
 import heraldry.util.GeometryUtils;
 import heraldry.util.MathUtils;
 import heraldry.util.StringUtils;
@@ -18,8 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,6 +27,9 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @Setter
@@ -70,28 +70,27 @@ public class RepeatCharge extends Charge
             return charge.render(contour, painter);
         }
 
-        PathString spine = contour.getSpine();
+        Path spine = contour.getSpine();
         if (spine != null)
         {
+            List<Point> positions = IntStream.range(0, number)
+                .mapToDouble(n -> (n + 0.5) / number)
+                .mapToObj(spine::sample)
+                .collect(toList());
+
             List<RenderShape> list = new ArrayList<>();
-            double length = spine.getLength();
-            for (int n = 0; n < number; ++n)
+            double minWidth = Double.MAX_VALUE;
+            double minHeight = Double.MAX_VALUE;
+            for (Point position : positions)
             {
-                double pos = length * (n + 1.0) / (number + 1.0);
-                double accumulator = 0;
-                for (PathStep step : spine.getSteps())
-                {
-                    double stepLength = step.getLength();
-                    if (pos < accumulator + stepLength)
-                    {
-                        double ratio = (pos - accumulator) / stepLength;
-                        Point sample = step.sample(ratio);
-                        RenderContour child = new RenderContour(GeometryUtils.rectangle(sample.getX() - 20, sample.getY() - 20, sample.getX() + 20, sample.getY() + 20));
-                        list.addAll(contour.clipShapes(charge.render(child, painter)));
-                        break;
-                    }
-                    accumulator += stepLength;
-                }
+                Box box = contour.fitBox(position);
+                minWidth = Math.min(minWidth, box.getWidth());
+                minHeight = Math.min(minHeight, box.getHeight());
+            }
+            for (Point position : positions)
+            {
+                RenderContour child = new RenderContour(GeometryUtils.rectangle(position.getX() - minWidth / 2, position.getY() - minHeight / 2, position.getX() + minWidth / 2, position.getY() + minHeight / 2));
+                list.addAll(contour.clipShapes(charge.render(child, painter)));
             }
             return list;
         }

@@ -1,9 +1,9 @@
 package heraldry.util;
 
 import heraldry.render.Box;
+import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
-import heraldry.render.path.AbstractPath;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
@@ -16,28 +16,47 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static <T extends AbstractPath> List<T> clip(T path, RenderContour contour)
+    public static List<Path> clip(Path path, RenderContour contour)
     {
         if (false)
         {
             return Arrays.asList(path);
         }
-        Area area = convertPathToArea(path);
-        area.intersect(convertContourToArea(contour));
-        return (List)convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
+        Area contourArea = convertContourToArea(contour);
+        if (path.isClosed())
+        {
+            Area area = convertPathToArea(path);
+            area.intersect(contourArea);
+            return (List)convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
+        }
+        int samples = 100;
+        List<Point> points = IntStream.range(0, samples)
+            .mapToDouble(n -> n / (double)samples)
+            .mapToObj(path::sample)
+            .filter(sample -> contourArea.contains(sample.getX(), sample.getY()))
+            .collect(Collectors.toList());
+        List<PathStep> steps = new ArrayList<>();
+        for (int n = 0; n < points.size() - 1; ++n)
+        {
+            steps.add(new LinePathStep(points.get(n), points.get(n + 1)));
+        }
+        return Collections.singletonList(new Path(steps, false));
     }
 
     public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+            .map(RenderContour::new)
+            .collect(toList());
     }
 
     public static Area convertBoxToArea(Box box)
@@ -142,54 +161,25 @@ public class GeometryUtils
         return list;
     }
 
-    public static Area convertPathToArea(AbstractPath path)
+    public static Area convertPathToArea(Path path)
     {
         if (path.getSteps().isEmpty())
         {
             return new Area();
         }
+        return new Area(convertPathToPath2D(path));
+    }
+
+    public static Path2D convertPathToPath2D(Path path)
+    {
         List<PathStep> steps = path.getSteps();
         Path2D path2D = new Path2D.Double();
-        for (int index = 0; index < steps.size(); index++)
-        {
-            PathStep step = steps.get(index);
-            if (step instanceof LinePathStep)
-            {
-                LinePathStep line = (LinePathStep)step;
-                if (index == 0)
-                {
-                    path2D.moveTo(line.getX1(), line.getY1());
-                }
-                path2D.lineTo(line.getX2(), line.getY2());
-            }
-            else if (step instanceof QuadraticPathStep)
-            {
-                QuadraticPathStep quadratic = (QuadraticPathStep)step;
-                if (index == 0)
-                {
-                    path2D.moveTo(quadratic.getX1(), quadratic.getY1());
-                }
-                path2D.quadTo(quadratic.getX2(), quadratic.getY2(), quadratic.getX3(), quadratic.getY3());
-            }
-            else if (step instanceof CubicPathStep)
-            {
-                CubicPathStep cubic = (CubicPathStep)step;
-                if (index == 0)
-                {
-                    path2D.moveTo(cubic.getX1(), cubic.getY1());
-                }
-                path2D.curveTo(cubic.getX2(), cubic.getY2(), cubic.getX3(), cubic.getY3(), cubic.getX4(), cubic.getY4());
-            }
-            else
-            {
-                throw new IllegalStateException();
-            }
-        }
+        convertPathSteps(path2D, steps);
         if (path.isClosed())
         {
             path2D.closePath();
         }
-        return new Area(path2D);
+        return path2D;
     }
 
     public static Area convertShapeToArea(RenderShape shape)
@@ -225,5 +215,44 @@ public class GeometryUtils
         Area area2 = convertContourToArea(second);
         area1.subtract(area2);
         return convertAreaToContours(area1);
+    }
+
+    private static void convertPathSteps(Path2D path2D, List<PathStep> steps)
+    {
+        for (int index = 0; index < steps.size(); index++)
+        {
+            PathStep step = steps.get(index);
+            if (step instanceof LinePathStep)
+            {
+                LinePathStep line = (LinePathStep)step;
+                if (index == 0)
+                {
+                    path2D.moveTo(line.getX1(), line.getY1());
+                }
+                path2D.lineTo(line.getX2(), line.getY2());
+            }
+            else if (step instanceof QuadraticPathStep)
+            {
+                QuadraticPathStep quadratic = (QuadraticPathStep)step;
+                if (index == 0)
+                {
+                    path2D.moveTo(quadratic.getX1(), quadratic.getY1());
+                }
+                path2D.quadTo(quadratic.getX2(), quadratic.getY2(), quadratic.getX3(), quadratic.getY3());
+            }
+            else if (step instanceof CubicPathStep)
+            {
+                CubicPathStep cubic = (CubicPathStep)step;
+                if (index == 0)
+                {
+                    path2D.moveTo(cubic.getX1(), cubic.getY1());
+                }
+                path2D.curveTo(cubic.getX2(), cubic.getY2(), cubic.getX3(), cubic.getY3(), cubic.getX4(), cubic.getY4());
+            }
+            else
+            {
+                throw new IllegalStateException();
+            }
+        }
     }
 }

@@ -7,7 +7,6 @@ import heraldry.render.RenderShape;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.paint.Color;
 import heraldry.render.path.Path;
-import heraldry.render.path.PathString;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
@@ -100,7 +99,7 @@ public class OrdinaryCharge extends Charge
         for (RenderContour chargeContour : chargeContours)
         {
             Path clippedPath = CollectionUtils.single(contour.clip(chargeContour.getPath()));
-            PathString spine = CollectionUtils.single(contour.clip(chargeContour.getSpine()));
+            Path spine = CollectionUtils.single(contour.clip(chargeContour.getSpine()));
             System.out.println(spine);
 
             RenderContour clippedContour = new RenderContour(clippedPath, spine);

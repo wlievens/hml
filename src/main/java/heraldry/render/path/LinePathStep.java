@@ -2,17 +2,24 @@ package heraldry.render.path;
 
 import heraldry.render.Point;
 import heraldry.util.MathUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import static heraldry.util.MathUtils.lerp;
 
 @Value
+@RequiredArgsConstructor
 public final class LinePathStep implements PathStep
 {
     private final double x1;
     private final double y1;
     private final double x2;
     private final double y2;
+
+    public LinePathStep(Point p1, Point p2)
+    {
+        this(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
 
     @Override
     public double getMinX()

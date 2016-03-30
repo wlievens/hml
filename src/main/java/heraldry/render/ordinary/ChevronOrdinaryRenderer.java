@@ -8,7 +8,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.render.path.PathString;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
             spine.add(new LinePathStep(x1, y1, cx, cy));
             spine.add(new LinePathStep(cx, cy, x2, y1));
 
-            return Collections.singleton(new RenderContour(new Path(steps), new PathString(spine)));
+            return Collections.singleton(new RenderContour(new Path(steps), new Path(spine, false)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -66,6 +65,6 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         spine.add(new LinePathStep(x1, y2, cx, cy));
         spine.add(new LinePathStep(cx, cy, x2, y2));
 
-        return Collections.singleton(new RenderContour(new Path(steps), new PathString(spine)));
+        return Collections.singleton(new RenderContour(new Path(steps), new Path(spine, false)));
     }
 }
