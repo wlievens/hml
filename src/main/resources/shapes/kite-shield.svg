@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="270">
+    <path id="contour"
+          d="M  20, 50
+             C  40,  0  160,  0  180, 50
+             C 200,100  160,210  100,270
+             C  40,210    0,100   20, 50
+             Z"
+          style="fill:none;stroke-width:1px;stroke:#000"/>
+</svg>

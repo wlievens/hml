@@ -43,7 +43,7 @@ public class ExhaustiveGenerator
 
         List<CoatOfArms> coats = new ArrayList<>();
         //for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
-        for (String shape : new String[]{ "heater-shield" })
+        for (String shape : new String[]{ "kite-shield", "heater-shield" })
         {
             // Hand-defined examples
             {
@@ -162,7 +162,7 @@ public class ExhaustiveGenerator
         int spacingY = 45;
 
         int shieldWidth = 200;
-        int shieldHeight = 230;
+        int shieldHeight = 270;
 
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         Element svg = document.createElement("svg");

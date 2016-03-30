@@ -110,6 +110,7 @@
     <xs:simpleType name="Shape">
         <xs:restriction base="xs:string">
             <xs:enumeration value="heater-shield"/>
+            <xs:enumeration value="kite-shield"/>
             <xs:enumeration value="horizontal-banner"/>
             <xs:enumeration value="vertical-banner"/>
         </xs:restriction>
