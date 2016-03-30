@@ -3,7 +3,7 @@
             xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
     <shape>heater-shield</shape>
     <background>
-        <division type="pale">
+        <division type="bend-sinister">
             <part position="1">
                 <background>
                     <field tincture="or"/>
@@ -11,32 +11,23 @@
             </part>
             <part position="2">
                 <background>
-                    <field tincture="azure"/>
+                    <field tincture="vert"/>
                 </background>
             </part>
         </division>
     </background>
     <charges>
-        <!--
-        <mobile figure="fleur-de-lis">
+        <repeat number="2">
+            <mobile figure="fleur-de-lis">
+                <background>
+                    <counterchanged firstTincture="vert" secondTincture="or"/>
+                </background>
+            </mobile>
+        </repeat>
+        <ordinary type="bordure">
             <background>
-                <counterchanged/>
+                <counterchanged firstTincture="vert" secondTincture="or"/>
             </background>
-        </mobile>
-        -->
-        <ordinary type="chevron">
-            <background>
-                <counterchanged firstTincture="azure" secondTincture="or"/>
-            </background>
-            <charges>
-                <repeat number="5">
-                    <mobile figure="fleur-de-lis">
-                        <background>
-                            <counterchanged firstTincture="azure" secondTincture="or"/>
-                        </background>
-                    </mobile>
-                </repeat>
-            </charges>
         </ordinary>
     </charges>
 </coatOfArms>
