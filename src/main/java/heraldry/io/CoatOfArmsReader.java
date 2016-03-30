@@ -119,8 +119,8 @@ public class CoatOfArmsReader
     private List<Charge> readCharges(Element element)
     {
         return getChildElements(element).stream()
-            .map(this::readCharge)
-            .collect(Collectors.toList());
+                .map(this::readCharge)
+                .collect(Collectors.toList());
     }
 
     private Charge readCharge(Element element)
@@ -244,8 +244,8 @@ public class CoatOfArmsReader
     private DivisionBackground readDivisionBackground(Element element)
     {
         List<DivisionPart> parts = getChildElements(element).stream()
-            .map(this::readDivisionPart)
-            .collect(Collectors.toList());
+                .map(this::readDivisionPart)
+                .collect(Collectors.toList());
         return new DivisionBackground(readDivision(element.getAttribute("type")), readLine(element.getAttribute("line")), parts);
     }
 
@@ -307,11 +307,11 @@ public class CoatOfArmsReader
         try
         {
             return (T)Arrays.stream(type.getDeclaredMethods())
-                .filter(method -> method.getName().equals("valueOf"))
-                .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
-                .findAny()
-                .get()
-                .invoke(null, name.toUpperCase().replace("-", "_"));
+                    .filter(method -> method.getName().equals("valueOf"))
+                    .filter(method -> Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()))
+                    .findAny()
+                    .get()
+                    .invoke(null, name.toUpperCase().replace("-", "_"));
         }
         catch (IllegalAccessException e)
         {
@@ -329,14 +329,7 @@ public class CoatOfArmsReader
 
     private Division readDivision(String name)
     {
-        try
-        {
-            return Division.valueOf(name.toUpperCase());
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new IllegalStateException(String.format("Invalid Division value '%s'", name));
-        }
+        return readEnumValue(Division.class, name);
     }
 
     private Tincture readTincture(String name)

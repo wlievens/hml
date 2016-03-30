@@ -9,6 +9,7 @@ import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
+import lombok.NonNull;
 
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
@@ -25,7 +26,7 @@ import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static List<Path> clip(Path path, RenderContour contour)
+    public static List<Path> clip(@NonNull Path path, @NonNull RenderContour contour)
     {
         if (false)
         {
@@ -40,10 +41,10 @@ public class GeometryUtils
         }
         int samples = 100;
         List<Point> points = IntStream.range(0, samples)
-            .mapToDouble(n -> n / (double)samples)
-            .mapToObj(path::sample)
-            .filter(sample -> contourArea.contains(sample.getX(), sample.getY()))
-            .collect(Collectors.toList());
+                .mapToDouble(n -> n / (double)samples)
+                .mapToObj(path::sample)
+                .filter(sample -> contourArea.contains(sample.getX(), sample.getY()))
+                .collect(Collectors.toList());
         List<PathStep> steps = new ArrayList<>();
         for (int n = 0; n < points.size() - 1; ++n)
         {
@@ -55,8 +56,8 @@ public class GeometryUtils
     public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
-            .map(RenderContour::new)
-            .collect(toList());
+                .map(RenderContour::new)
+                .collect(toList());
     }
 
     public static Area convertBoxToArea(Box box)

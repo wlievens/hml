@@ -8,7 +8,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.paint.Color;
 import heraldry.render.path.Path;
-import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import heraldry.util.SvgUtils;
@@ -56,7 +55,7 @@ public class MobileCharge extends Charge
         {
             return figureLabel + " proper";
         }
-        return (context.isPlural() ? "" : "a ") + figureLabel + " " + background.generateBlazon(context);
+        return (context.isPlural() ? "" : "a ") + figureLabel + " " + background.generateBlazon(context).toLowerCase();
     }
 
     @Override
@@ -70,41 +69,48 @@ public class MobileCharge extends Charge
     {
         // Place the mobile in the largest inscribed X-centered rectangle
         Box bounds = contour.getBounds();
-        Area contourArea = GeometryUtils.convertContourToArea(contour);
-        double centerX = bounds.lerpX(0.5);
-        int steps = 50;
-        double largestArea = 0;
         Box largestRectangle = null;
-        for (int ystep = 0; ystep < steps; ++ystep)
+        if (contour.isRectangle())
         {
-            for (int wstep = steps - 1; wstep >= 0; wstep--)
+            largestRectangle = bounds;
+        }
+        else
+        {
+            Area contourArea = GeometryUtils.convertContourToArea(contour);
+            double centerX = bounds.lerpX(0.5);
+            int steps = 50;
+            double largestArea = 0;
+            for (int ystep = 0; ystep < steps; ++ystep)
             {
-                for (int hstep = steps - 1; hstep >= 0; hstep--)
+                for (int wstep = steps - 1; wstep >= 0; wstep--)
                 {
-                    double width = bounds.getWidth() * (wstep + 1) / steps;
-                    double height = bounds.getHeight() * (hstep + 1) / steps;
-                    double centerY = bounds.lerpY((double)(ystep + 1) / steps);
-                    double x1 = centerX - width / 2;
-                    double y1 = centerY - height / 2;
-                    double x2 = centerX + width / 2;
-                    double y2 = centerY + height / 2;
-                    if (!bounds.contains(x1, y1, x2, y2))
+                    for (int hstep = steps - 1; hstep >= 0; hstep--)
                     {
-                        continue;
-                    }
-                    double area = width * height;
-                    if (area < largestArea)
-                    {
-                        continue;
-                    }
-                    if (contourArea.contains(x1, y1, width, height))
-                    {
-                        if (DEBUG)
+                        double width = bounds.getWidth() * (wstep + 1) / steps;
+                        double height = bounds.getHeight() * (hstep + 1) / steps;
+                        double centerY = bounds.lerpY((double)(ystep + 1) / steps);
+                        double x1 = centerX - width / 2;
+                        double y1 = centerY - height / 2;
+                        double x2 = centerX + width / 2;
+                        double y2 = centerY + height / 2;
+                        if (!bounds.contains(x1, y1, x2, y2))
                         {
-                            System.out.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f%n", x1, y1, x2, y2, area);
+                            continue;
                         }
-                        largestArea = area;
-                        largestRectangle = new Box(x1, y1, x2, y2);
+                        double area = width * height;
+                        if (area < largestArea)
+                        {
+                            continue;
+                        }
+                        if (contourArea.contains(x1, y1, width, height))
+                        {
+                            if (DEBUG)
+                            {
+                                System.out.printf("%.2f\t%.2f\t%.2f\t%.2f\t%.2f%n", x1, y1, x2, y2, area);
+                            }
+                            largestArea = area;
+                            largestRectangle = new Box(x1, y1, x2, y2);
+                        }
                     }
                 }
             }
@@ -133,8 +139,8 @@ public class MobileCharge extends Charge
             for (Path c2 : GeometryUtils.clip(c1, contour))
             {
                 list.addAll(background.render(new RenderContour(c2), painter).stream()
-                    .map(shape -> shape.withBorderColor(painter.getMobileBorderColor()).withLabel(String.format("'%s' %s", figure, shape.getLabel())))
-                    .collect(Collectors.toList()));
+                        .map(shape -> shape.withBorderColor(painter.getMobileBorderColor()).withLabel(String.format("'%s' %s", figure, shape.getLabel())))
+                        .collect(Collectors.toList()));
             }
         }
         if (DEBUG)

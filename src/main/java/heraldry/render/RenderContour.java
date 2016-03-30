@@ -3,6 +3,7 @@ package heraldry.render;
 import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -18,11 +19,12 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public final class RenderContour
 {
+    @NonNull
     private final Path path;
 
     private final Path spine;
 
-    public RenderContour(Path path)
+    public RenderContour(@NonNull Path path)
     {
         this(path, null);
     }
@@ -40,36 +42,36 @@ public final class RenderContour
     public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
     {
         return shapes.stream()
-            .map(this::clip)
-            .flatMap(Collection::stream)
-            .collect(Collectors.toList());
+                .map(this::clip)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
-    public List<RenderContour> clipContours(Collection<RenderContour> contours)
+    public List<RenderContour> clipContours(@NonNull Collection<RenderContour> contours)
     {
         return contours.stream()
-            .map(this::clip)
-            .flatMap(Collection::stream)
-            .collect(Collectors.toList());
+                .map(this::clip)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
-    public List<Path> clip(Path path)
+    public List<Path> clip(@NonNull Path path)
     {
         return GeometryUtils.clip(path, this);
     }
 
-    public List<RenderShape> clip(RenderShape shape)
+    public List<RenderShape> clip(@NonNull RenderShape shape)
     {
         return GeometryUtils.clip(shape.getPath(), this).stream()
-            .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
-            .collect(toList());
+                .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
+                .collect(toList());
     }
 
-    public List<RenderContour> clip(RenderContour contour)
+    public List<RenderContour> clip(@NonNull RenderContour contour)
     {
         return GeometryUtils.clip(contour.getPath(), this).stream()
-            .map(RenderContour::new)
-            .collect(toList());
+                .map(RenderContour::new)
+                .collect(toList());
     }
 
     public boolean isRectangle()
@@ -77,7 +79,7 @@ public final class RenderContour
         return path.isRectangle();
     }
 
-    public Box fitBox(Point center)
+    public Box fitBox(@NonNull Point center)
     {
         double centerX = center.getX();
         double centerY = center.getY();

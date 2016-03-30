@@ -200,11 +200,11 @@ public class CoatOfArms
                         if (intersectedArea != null)
                         {
                             partShapeArea.intersect(intersectedArea);
-                        }
-                        List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
-                        for (int i = 0; i < intersectionContours.size(); ++i)
-                        {
-                            renderShapes.add(n + i, new RenderShape(intersectionContours.get(i).getPath(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
+                            List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
+                            for (int i = 0; i < intersectionContours.size(); ++i)
+                            {
+                                renderShapes.add(n + i, new RenderShape(intersectionContours.get(i).getPath(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
+                            }
                         }
                     }
                     n--;
