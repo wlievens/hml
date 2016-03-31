@@ -14,7 +14,7 @@ public interface Painter
 
     double getFretMargin();
 
-    double getFretSizeStep();
+    double getFretThickness();
 
     double getFrettyPatternSize();
 

@@ -67,7 +67,7 @@ public class CoatOfArms
             @Override
             public double getOrdinaryThickness()
             {
-                return 0.15 * shieldContour.getBounds().getWidth();
+                return 0.20 * shieldContour.getBounds().getWidth();
             }
 
             @Override
@@ -145,9 +145,9 @@ public class CoatOfArms
             }
 
             @Override
-            public double getFretSizeStep()
+            public double getFretThickness()
             {
-                return 0.05 * Math.min(shieldContour.getBounds().getWidth(), shieldContour.getBounds().getHeight());
+                return getOrdinaryThickness() / 3;
             }
 
             @Override

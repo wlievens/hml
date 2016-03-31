@@ -41,6 +41,11 @@ public class MobileCharge extends Charge
 
     private final List<Charge> charges;
 
+    public MobileCharge(String figure, Tincture tincture)
+    {
+        this(figure, new FieldBackground(tincture), Collections.emptyList());
+    }
+
     @Override
     public boolean isRepeatSupported()
     {

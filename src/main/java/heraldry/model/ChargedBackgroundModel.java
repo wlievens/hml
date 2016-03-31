@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +23,21 @@ public class ChargedBackgroundModel implements Renderable
     @NonNull
     private Background background;
     private List<Charge> charges;
+
+    public ChargedBackgroundModel()
+    {
+    }
+
+    public ChargedBackgroundModel(Tincture background, Charge... charges)
+    {
+        this(new FieldBackground(background), charges);
+    }
+
+    public ChargedBackgroundModel(Background background, Charge... charges)
+    {
+        this.background = background;
+        this.charges = Arrays.asList(charges);
+    }
 
     public String generateBlazon(BlazonContext context)
     {

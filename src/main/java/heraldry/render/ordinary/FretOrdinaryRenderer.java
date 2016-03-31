@@ -22,7 +22,7 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
         Point center = bounds.getFessPoint();
         double width = bounds.getWidth();
         double height = bounds.getHeight();
-        double step = painter.getFretSizeStep();
+        double step = painter.getFretThickness() / Math.sqrt(2);
         double margin = painter.getFretMargin();
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();

@@ -77,7 +77,7 @@ public class RepeatCharge extends Charge
             List<Box> largestBoxes = null;
             double largestArea = 0.0;
             double marginStep = 0.05;
-            for (double marginFactor = 0.0; marginFactor <= 1.0; marginFactor += marginStep)
+            for (double marginFactor = 0.0; marginFactor <= number; marginFactor += marginStep)
             {
                 double mf = marginFactor;
                 List<Point> positions = IntStream.range(0, number)
@@ -173,20 +173,22 @@ public class RepeatCharge extends Charge
         // Use a rasterized Voronoi approach with Lloyd's algorithm for approaching optimal distribution
         // https://en.wikipedia.org/wiki/Voronoi_diagram
         // https://en.wikipedia.org/wiki/Lloyd%27s_algorithm
-        int resolution = 500;
+        int resolution = 100;
         BitSet inclusion = sampleInclusionMatrix(area, bounds, resolution);
         List<Point> points = generatePoints(area, bounds);
         relaxPoints(area, bounds, inclusion, resolution, points);
+
+        List<Box> boxes = points.stream().map(contour::fitBox).collect(toList());
+        double minWidth = boxes.stream().mapToDouble(Box::getWidth).min().getAsDouble();
+        double minHeight = boxes.stream().mapToDouble(Box::getHeight).min().getAsDouble();
+        boxes = boxes.stream().map(box -> Box.around(box.getCenterX(), box.getCenterY(), minWidth, minHeight)).collect(toList());
 
         List<RenderShape> list = new ArrayList<>();
         for (int n = 0; n < number; ++n)
         {
             // TODO fit a rectangle, then resize all the rectangles to the smallest
-            double x1 = points.get(n).getX() - 15;
-            double y1 = points.get(n).getY() - 15;
-            double x2 = points.get(n).getX() + 15;
-            double y2 = points.get(n).getY() + 15;
-            RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
+            Box box = boxes.get(n);
+            RenderContour child = new RenderContour(box.toPath());
             list.addAll(contour.clipShapes(charge.render(child, painter)));
             if (DEBUG)
             {
@@ -201,7 +203,7 @@ public class RepeatCharge extends Charge
         int totalArea = inclusion.cardinality();
         double[] weights = new double[points.size()];
         int iteration = 0;
-        while (true)
+        while (iteration < 100)
         {
             double totalChange = 0;
 

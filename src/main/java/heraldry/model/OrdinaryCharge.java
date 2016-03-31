@@ -17,6 +17,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +37,16 @@ public class OrdinaryCharge extends Charge
     public OrdinaryCharge(Ordinary ordinary, Tincture tincture)
     {
         this(ordinary, Line.PLAIN, new FieldBackground(tincture), new ArrayList<>());
+    }
+
+    public OrdinaryCharge(Ordinary ordinary, Line line, Tincture tincture, Charge... charges)
+    {
+        this(ordinary, line, new FieldBackground(tincture), Arrays.asList(charges));
+    }
+
+    public OrdinaryCharge(Ordinary ordinary, Tincture tincture, Charge... charges)
+    {
+        this(ordinary, Line.PLAIN, tincture, charges);
     }
 
     @Override
