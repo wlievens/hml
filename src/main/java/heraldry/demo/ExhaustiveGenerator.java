@@ -7,6 +7,7 @@ import heraldry.model.Division;
 import heraldry.model.DivisionBackground;
 import heraldry.model.DivisionPart;
 import heraldry.model.FieldBackground;
+import heraldry.model.InescutcheonCharge;
 import heraldry.model.Line;
 import heraldry.model.MobileCharge;
 import heraldry.model.Ordinary;
@@ -31,8 +32,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static heraldry.model.Tincture.*;
 
 public class ExhaustiveGenerator
 {
@@ -43,114 +45,175 @@ public class ExhaustiveGenerator
 
         List<CoatOfArms> coats = new ArrayList<>();
         //for (String shape : new String[]{ "heater-shield", "horizontal-banner", "vertical-banner" })
-        for (String shape : new String[]{ "kite-shield", "heater-shield" })
+        //for (String shape : new String[]{ "kite-shield", "heater-shield" })
+        for (String shape : new String[]{ "heater-shield" })
         {
             // Hand-defined examples
             {
                 CoatOfArms coat = new CoatOfArms();
                 coat.setShape(shape);
-                ChargedBackgroundModel model = new ChargedBackgroundModel();
-                model.setBackground(new FieldBackground(Tincture.GULES));
-                model.setCharges(Arrays.asList(new OrdinaryCharge(Ordinary.PALL_REVERSED, Tincture.ERMINE)));
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        GULES,
+                        new OrdinaryCharge(Ordinary.PALL_REVERSED, ERMINE)
+                );
                 coat.setModel(model);
                 coats.add(coat);
             }
             {
                 CoatOfArms coat = new CoatOfArms();
                 coat.setShape(shape);
-                ChargedBackgroundModel model = new ChargedBackgroundModel();
-                model.setBackground(new VariationBackground(Variation.LOZENGY, Tincture.ERMINE, Tincture.GULES));
-                model.setCharges(new ArrayList<>());
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        new VariationBackground(Variation.LOZENGY, ERMINE, GULES)
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        ARGENT,
+                        new OrdinaryCharge(Ordinary.CHEVRON, GULES), new OrdinaryCharge(Ordinary.BORDURE, SABLE)
+                );
+                //model.setCharges(Arrays.asList(new OrdinaryCharge(Ordinary.CHEVRON, Tincture.GULES), new OrdinaryCharge(Ordinary.BORDURE, Tincture.SABLE, new RepeatCharge(1, new OrdinaryCharge(Ordinary.ROUNDEL, Tincture.OR)))));
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        OR,
+                        new RepeatCharge(3, new OrdinaryCharge(Ordinary.FUSIL, AZURE))
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        ARGENT,
+                        new OrdinaryCharge(Ordinary.SALTIRE, SABLE, new RepeatCharge(5, new MobileCharge("fleur-de-lis", ARGENT)))
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        ARGENT,
+                        new OrdinaryCharge(Ordinary.SALTIRE, Line.ENGRAILED, SABLE, new InescutcheonCharge(new ChargedBackgroundModel(OR, new OrdinaryCharge(Ordinary.CROSS, GULES))))
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        ARGENT,
+                        new OrdinaryCharge(Ordinary.CROSS, GULES, new RepeatCharge(5, new OrdinaryCharge(Ordinary.FRET, OR)))
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(new DivisionBackground(Division.PALE, new DivisionPart(1, ARGENT, new OrdinaryCharge(Ordinary.BORDURE, GULES)), new DivisionPart(2, GULES, new OrdinaryCharge(Ordinary.BORDURE, ARGENT))));
                 coat.setModel(model);
                 coats.add(coat);
             }
 
-            for (Tincture tincture : Tincture.values())
+            if (true)
             {
-                CoatOfArms coat = new CoatOfArms();
-                coat.setShape(shape);
-                ChargedBackgroundModel model = new ChargedBackgroundModel();
-                model.setBackground(new FieldBackground(tincture));
-                model.setCharges(new ArrayList<>());
-                coat.setModel(model);
-                coats.add(coat);
-            }
-            for (Line line : new Line[]{ Line.PLAIN, Line.WAVY })
-            {
-                for (Variation variation : Variation.values())
+                for (Tincture tincture : Tincture.values())
                 {
                     CoatOfArms coat = new CoatOfArms();
                     coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new VariationBackground(variation, Tincture.ARGENT, Tincture.AZURE, line, 0));
-                    model.setCharges(new ArrayList<>());
+                    ChargedBackgroundModel model = new ChargedBackgroundModel(tincture);
                     coat.setModel(model);
                     coats.add(coat);
                 }
+                //for (Line line : new Line[]{ Line.PLAIN, Line.WAVY })
+                for (Line line : new Line[]{ Line.PLAIN })
                 {
-                    CoatOfArms coat = new CoatOfArms();
-                    coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new SemyBackground(new FieldBackground(Tincture.ARGENT), new OrdinaryCharge(Ordinary.LOZENGE, Tincture.AZURE)));
-                    ArrayList<Charge> charges = new ArrayList<>();
-                    model.setCharges(charges);
-                    coat.setModel(model);
-                    coats.add(coat);
-                }
-                for (Ordinary ordinary : Ordinary.values())
-                {
-                    CoatOfArms coat = new CoatOfArms();
-                    coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new FieldBackground(Tincture.ARGENT));
-                    ArrayList<Charge> charges = new ArrayList<>();
-                    charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                    charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                    charges.add(new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.GULES), new ArrayList<Charge>()));
-                    model.setCharges(charges);
-                    coat.setModel(model);
-                    coats.add(coat);
-                }
-                for (Ordinary ordinary : Ordinary.values())
-                {
-                    CoatOfArms coat = new CoatOfArms();
-                    coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new FieldBackground(Tincture.OR));
-                    ArrayList<Charge> charges = new ArrayList<>();
-                    charges.add(new RepeatCharge(3, new OrdinaryCharge(ordinary, line, new FieldBackground(Tincture.VERT), new ArrayList<Charge>())));
-                    model.setCharges(charges);
-                    coat.setModel(model);
-                    coats.add(coat);
-                }
-                {
-                    CoatOfArms coat = new CoatOfArms();
-                    coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    model.setBackground(new FieldBackground(Tincture.ARGENT));
-                    ArrayList<Charge> charges = new ArrayList<>();
-                    charges.add(new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                    charges.add(new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(Tincture.SABLE), new ArrayList<Charge>()));
-                    charges.add(new MobileCharge("fleur-de-lis", new FieldBackground(Tincture.GULES), new ArrayList<>()));
-                    model.setCharges(charges);
-                    coat.setModel(model);
-                    coats.add(coat);
-                }
-                for (Division division : Division.values())
-                {
-                    CoatOfArms coat = new CoatOfArms();
-                    coat.setShape(shape);
-                    ChargedBackgroundModel model = new ChargedBackgroundModel();
-                    List<DivisionPart> parts = new ArrayList<>();
-                    Tincture[] tinctures = new Tincture[]{ Tincture.GULES, Tincture.ARGENT, Tincture.SABLE, Tincture.PURPURE };
-                    for (int n = 0; n < division.getMaxPositions(); ++n)
+                    for (Variation variation : Variation.values())
                     {
-                        parts.add(new DivisionPart(n + 1, tinctures[n]));
+                        CoatOfArms coat = new CoatOfArms();
+                        coat.setShape(shape);
+                        ChargedBackgroundModel model = new ChargedBackgroundModel(
+                                new VariationBackground(variation, ARGENT, AZURE, line, 0)
+                        );
+                        coat.setModel(model);
+                        coats.add(coat);
                     }
-                    model.setBackground(new DivisionBackground(division, line, parts));
-                    model.setCharges(new ArrayList<>());
-                    coat.setModel(model);
-                    coats.add(coat);
+                    {
+                        CoatOfArms coat = new CoatOfArms();
+                        coat.setShape(shape);
+                        ChargedBackgroundModel model = new ChargedBackgroundModel(
+                                new SemyBackground(new FieldBackground(ARGENT), new OrdinaryCharge(Ordinary.LOZENGE, AZURE))
+                        );
+                        coat.setModel(model);
+                        coats.add(coat);
+                    }
+                    for (Ordinary ordinary : Ordinary.values())
+                    {
+                        CoatOfArms coat = new CoatOfArms();
+                        coat.setShape(shape);
+                        ChargedBackgroundModel model = new ChargedBackgroundModel(ARGENT,
+                                new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(ordinary, line, new FieldBackground(GULES), new ArrayList<Charge>())
+                        );
+                        coat.setModel(model);
+                        coats.add(coat);
+                    }
+                    if (false)
+                    {
+                        for (Ordinary ordinary : Ordinary.values())
+                        {
+                            CoatOfArms coat = new CoatOfArms();
+                            coat.setShape(shape);
+                            ChargedBackgroundModel model = new ChargedBackgroundModel(
+                                    OR,
+                                    new RepeatCharge(3, new OrdinaryCharge(ordinary, line, new FieldBackground(VERT), new ArrayList<Charge>()))
+                            );
+                            coat.setModel(model);
+                            coats.add(coat);
+                        }
+                    }
+                    {
+                        CoatOfArms coat = new CoatOfArms();
+                        coat.setShape(shape);
+                        ChargedBackgroundModel model = new ChargedBackgroundModel(
+                                ARGENT,
+                                new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new MobileCharge("fleur-de-lis", GULES)
+                        );
+                        coat.setModel(model);
+                        coats.add(coat);
+                    }
+                    for (Division division : Division.values())
+                    {
+                        CoatOfArms coat = new CoatOfArms();
+                        coat.setShape(shape);
+                        List<DivisionPart> parts = new ArrayList<>();
+                        Tincture[] tinctures = new Tincture[]{ GULES, ARGENT, SABLE, PURPURE };
+                        for (int n = 0; n < division.getMaxPositions(); ++n)
+                        {
+                            parts.add(new DivisionPart(n + 1, tinctures[n]));
+                        }
+                        ChargedBackgroundModel model = new ChargedBackgroundModel(
+                                new DivisionBackground(division, line, parts),
+                                new RepeatCharge(5, new MobileCharge("fleur-de-lis", VERT))
+                        );
+                        coat.setModel(model);
+                        coats.add(coat);
+                    }
                 }
             }
         }

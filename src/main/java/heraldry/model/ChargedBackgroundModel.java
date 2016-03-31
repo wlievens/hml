@@ -7,25 +7,29 @@ import heraldry.render.Renderable;
 import heraldry.render.path.Path;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 public class ChargedBackgroundModel implements Renderable
 {
     @NonNull
-    private Background background;
-    private List<Charge> charges;
+    private final Background background;
+    private final List<Charge> charges;
 
-    public ChargedBackgroundModel()
+    public ChargedBackgroundModel(Tincture tincture)
     {
+        this(new FieldBackground(tincture), Collections.emptyList());
     }
 
     public ChargedBackgroundModel(Tincture background, Charge... charges)
@@ -35,8 +39,7 @@ public class ChargedBackgroundModel implements Renderable
 
     public ChargedBackgroundModel(Background background, Charge... charges)
     {
-        this.background = background;
-        this.charges = Arrays.asList(charges);
+        this(background, Arrays.asList(charges));
     }
 
     public String generateBlazon(BlazonContext context)

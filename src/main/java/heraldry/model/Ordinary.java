@@ -39,7 +39,7 @@ public enum Ordinary
     BENDLET(new BendOrdinaryRenderer(false, 0.5)),
     BENDLET_SINISTER(new BendOrdinaryRenderer(true, 0.5)),
     BILLET(new BilletOrdinaryRenderer()),
-    BORDURE(new BordureOrdinaryRenderer()),
+    BORDURE(new BordureOrdinaryRenderer(0.5)),
     CANTON(new QuarterOrdinaryRenderer(1 / 3.0)),
     CHEVRON(new ChevronOrdinaryRenderer(false, 1.0)),
     CHEVRON_INVERTED(new ChevronOrdinaryRenderer(true, 1.0)),

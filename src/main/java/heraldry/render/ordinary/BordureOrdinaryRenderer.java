@@ -20,6 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BordureOrdinaryRenderer implements OrdinaryRenderer
 {
+    private final double scaleFactor;
+
     @Override
     public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
     {
@@ -31,7 +33,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         double centerY = center.getY();
         double size = Math.min(width, height);
         double period = painter.getLinePeriodFactor() * size;
-        double scale = 1.0 - painter.getOrdinaryThickness() / size;
+        double scale = 1.0 - scaleFactor * 2 * painter.getOrdinaryThickness() / width;
 
         int stepCount = contour.getPath().getStepCount();
         int midIndex = stepCount / 2;

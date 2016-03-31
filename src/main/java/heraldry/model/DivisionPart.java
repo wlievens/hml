@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -25,10 +24,12 @@ public class DivisionPart implements Renderable
 
     public DivisionPart(int position, Tincture tincture)
     {
-        positions = Collections.singletonList(position);
-        model = new ChargedBackgroundModel();
-        model.setBackground(new FieldBackground(tincture));
-        model.setCharges(new ArrayList<>());
+        this(Collections.singletonList(position), new ChargedBackgroundModel(tincture));
+    }
+
+    public DivisionPart(int position, Tincture tincture, Charge... charges)
+    {
+        this(Collections.singletonList(position), new ChargedBackgroundModel(tincture, charges));
     }
 
     @Override

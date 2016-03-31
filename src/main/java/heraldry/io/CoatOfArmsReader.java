@@ -110,10 +110,9 @@ public class CoatOfArmsReader
 
     private ChargedBackgroundModel readChargedBackgroundModel(Element element)
     {
-        ChargedBackgroundModel model = new ChargedBackgroundModel();
-        getChildElement(element, "background").map(this::readBackground).ifPresent(model::setBackground);
-        model.setCharges(getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList()));
-        return model;
+        Background background = getChildElement(element, "background").map(this::readBackground).get();
+        List<Charge> charges = getChildElement(element, "charges").map(this::readCharges).orElse(Collections.emptyList());
+        return new ChargedBackgroundModel(background, charges);
     }
 
     private List<Charge> readCharges(Element element)
