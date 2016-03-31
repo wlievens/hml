@@ -66,4 +66,11 @@ public class SaltireDivisionRenderer implements DivisionRenderer
 
         return Arrays.asList(top, right, bottom, left);
     }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
+    }
 }

@@ -1,11 +1,12 @@
 package heraldry.model;
 
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.division.DivisionRenderer;
+import heraldry.render.paint.Color;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import heraldry.util.StringUtils;
 import lombok.Getter;
@@ -90,6 +91,18 @@ public class DivisionBackground extends Background
             list.add(part.getModel().generateBlazon(context).toLowerCase());
         }
         return StringUtils.sentence(list);
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        DivisionRenderer renderer = division.getRenderer();
+        if (renderer == null)
+        {
+            log.warn("No renderer implemented for division '{}'", division);
+            return null;
+        }
+        return renderer.getSpine(contour);
     }
 
     @Override

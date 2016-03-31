@@ -3,6 +3,7 @@ package heraldry.model;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.path.Path;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,13 @@ public class FieldBackground extends Background
             return "of the field";
         }
         return tincture.getLabel();
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // This background has no natural spine for positioning charges
+        return null;
     }
 
     @Override

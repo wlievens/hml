@@ -2,12 +2,12 @@ package heraldry.render.division;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.render.RenderContour;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +51,16 @@ public class BendDivisionRenderer implements DivisionRenderer
         RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
         RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
         return Arrays.asList(right, left);
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        Box bounds = contour.getBounds();
+        double x1 = bounds.getX1();
+        double x2 = bounds.getX2();
+        double y1 = bounds.getY1();
+        double y2 = y1 + x2 - x1;
+        return flipX ? new Path(new LinePathStep(x1, y1, x2, y2)) : new Path(new LinePathStep(x2, y1, x1, y2));
     }
 }

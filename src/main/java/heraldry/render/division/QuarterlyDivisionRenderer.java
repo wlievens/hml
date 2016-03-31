@@ -64,4 +64,10 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
     }
 
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
+    }
 }

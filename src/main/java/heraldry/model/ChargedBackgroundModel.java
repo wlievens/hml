@@ -4,6 +4,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Renderable;
+import heraldry.render.path.Path;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -48,7 +49,8 @@ public class ChargedBackgroundModel implements Renderable
     {
         List<RenderShape> list = new ArrayList<>();
         list.addAll(background.render(contour, painter));
-        charges.stream().map(charge -> charge.render(contour, painter)).forEach(list::addAll);
+        Path spine = background.getSpine(contour);
+        charges.stream().map(charge -> charge.render(new RenderContour(contour.getPath(), spine), painter)).forEach(list::addAll);
         return list;
     }
 }

@@ -57,4 +57,11 @@ public class ChevronDivisionRenderer implements DivisionRenderer
         RenderContour top = CollectionUtils.single(GeometryUtils.subtract(contour, bottom));
         return Arrays.asList(top, bottom);
     }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
+    }
 }

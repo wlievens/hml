@@ -2,13 +2,13 @@ package heraldry.render.division;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.Path;
-import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
@@ -39,5 +39,12 @@ public class FessDivisionRenderer implements DivisionRenderer
         RenderContour bottom = CollectionUtils.single(GeometryUtils.subtract(contour, top));
 
         return Arrays.asList(top, bottom);
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
     }
 }

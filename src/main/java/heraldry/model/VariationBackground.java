@@ -3,6 +3,7 @@ package heraldry.model;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.path.Path;
 import heraldry.render.variation.VariationRenderer;
 import heraldry.util.StringUtils;
 import lombok.Getter;
@@ -51,6 +52,13 @@ public class VariationBackground extends Background
             default:
                 return String.format("%s %s and %s", label, firstTincture.getLabel().toLowerCase(), secondTincture.getLabel().toLowerCase());
         }
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
     }
 
     @Override

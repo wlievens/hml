@@ -5,6 +5,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.paint.Color;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.NonNull;
@@ -36,6 +37,13 @@ public class SemyBackground extends Background
     public String generateBlazon(BlazonContext context)
     {
         return String.format("%s semy of %s", background.generateBlazon(context), charge.generateBlazon(context.withPlural(true)));
+    }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // This background has no natural spine for positioning charges
+        return null;
     }
 
     @Override

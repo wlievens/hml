@@ -82,4 +82,11 @@ public class PallDivisionRenderer implements DivisionRenderer
 
         return Arrays.asList(left, right, bottom);
     }
+
+    @Override
+    public Path getSpine(RenderContour contour)
+    {
+        // TODO implement
+        return null;
+    }
 }
