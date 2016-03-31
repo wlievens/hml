@@ -16,7 +16,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,7 +38,7 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class RepeatCharge extends Charge
 {
-    private final boolean debug = true;
+    private static final boolean DEBUG = false;
 
     private final int number;
     private final Charge charge;
@@ -73,24 +74,62 @@ public class RepeatCharge extends Charge
         Path spine = contour.getSpine();
         if (spine != null)
         {
-            List<Point> positions = IntStream.range(0, number)
-                .mapToDouble(n -> (n + 0.5) / number)
-                .mapToObj(spine::sample)
-                .collect(toList());
+            List<Box> largestBoxes = null;
+            double largestArea = 0.0;
+            double marginStep = 0.05;
+            for (double marginFactor = 0.0; marginFactor <= 1.0; marginFactor += marginStep)
+            {
+                double mf = marginFactor;
+                List<Point> positions = IntStream.range(0, number)
+                        .mapToDouble(n -> (n + mf) / (number + mf * 2 - 1))
+                        .mapToObj(spine::sample)
+                        .collect(toList());
+
+                List<Box> boxes = positions.stream().map(contour::fitBox).collect(toList());
+                if (boxes.stream().anyMatch(box -> box == null))
+                {
+                    continue;
+                }
+
+                double minWidth = boxes.stream().mapToDouble(Box::getWidth).min().getAsDouble();
+                double minHeight = boxes.stream().mapToDouble(Box::getHeight).min().getAsDouble();
+                boxes = boxes.stream().map(box -> Box.around(box.getCenterX(), box.getCenterY(), minWidth, minHeight)).collect(toList());
+                boolean overlap = false;
+                loop1:
+                for (int index1 = 0; index1 < boxes.size(); index1++)
+                {
+                    Box box1 = boxes.get(index1);
+                    for (int index2 = index1 + 1; index2 < boxes.size(); index2++)
+                    {
+                        Box box2 = boxes.get(index2);
+                        if (box1.intersects(box2))
+                        {
+                            overlap = true;
+                            break loop1;
+                        }
+                    }
+                }
+                if (overlap)
+                {
+                    continue;
+                }
+                double area = minWidth * minHeight;
+                if (area > largestArea)
+                {
+                    largestArea = area;
+                    largestBoxes = boxes;
+                }
+            }
 
             List<RenderShape> list = new ArrayList<>();
-            double minWidth = Double.MAX_VALUE;
-            double minHeight = Double.MAX_VALUE;
-            for (Point position : positions)
+            for (Box box : largestBoxes)
             {
-                Box box = contour.fitBox(position);
-                minWidth = Math.min(minWidth, box.getWidth());
-                minHeight = Math.min(minHeight, box.getHeight());
-            }
-            for (Point position : positions)
-            {
-                RenderContour child = new RenderContour(GeometryUtils.rectangle(position.getX() - minWidth / 2, position.getY() - minHeight / 2, position.getX() + minWidth / 2, position.getY() + minHeight / 2));
+                RenderContour child = new RenderContour(box.toPath());
                 list.addAll(contour.clipShapes(charge.render(child, painter)));
+                if (DEBUG)
+                {
+                    list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), null));
+                }
             }
             return list;
         }
@@ -149,9 +188,9 @@ public class RepeatCharge extends Charge
             double y2 = points.get(n).getY() + 15;
             RenderContour child = new RenderContour(GeometryUtils.rectangle(x1, y1, x2, y2));
             list.addAll(contour.clipShapes(charge.render(child, painter)));
-            if (debug)
+            if (DEBUG)
             {
-                list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "debug repeat reticle"));
+                list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "DEBUG repeat reticle"));
             }
         }
         return list;

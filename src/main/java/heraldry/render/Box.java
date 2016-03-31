@@ -15,6 +15,11 @@ public final class Box
     private final double x2;
     private final double y2;
 
+    public static Box around(double centerX, double centerY, double width, double height)
+    {
+        return new Box(centerX - width / 2, centerY - height / 2, centerX + width / 2, centerY + height / 2);
+    }
+
     public double lerpX(double t)
     {
         return MathUtils.lerp(t, x1, x2);
@@ -69,5 +74,20 @@ public final class Box
     public double prelY(double y)
     {
         return (y - y1) / (y2 - y1);
+    }
+
+    public boolean intersects(Box box)
+    {
+        return !(this.x2 < box.x1 || this.x1 > box.x2 || this.y2 < box.y1 || this.y1 > box.y2);
+    }
+
+    public double getCenterX()
+    {
+        return (x1 + x2) / 2;
+    }
+
+    public double getCenterY()
+    {
+        return (y1 + y2) / 2;
     }
 }
