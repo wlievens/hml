@@ -2,14 +2,13 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.CubicPathStep;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
+import heraldry.render.path.CubicPathStep;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 @RequiredArgsConstructor

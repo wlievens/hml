@@ -2,17 +2,17 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
+import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.render.RenderContour;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,6 +37,6 @@ public class FessOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(x2, midY - step, x2, midY + step));
         LineRenderer.line(steps, x2, midY + step, x1, midY + step, line, period, true, sizeRatio);
         steps.add(new LinePathStep(x1, midY + step, x1, midY - step));
-        return Arrays.asList(new RenderContour(new Path(steps)));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

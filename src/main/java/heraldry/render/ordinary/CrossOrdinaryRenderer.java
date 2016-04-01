@@ -2,18 +2,18 @@ package heraldry.render.ordinary;
 
 import heraldry.model.Line;
 import heraldry.render.Box;
-import heraldry.render.path.LinePathStep;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
-import heraldry.render.path.Path;
-import heraldry.render.path.PathStep;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.path.LinePathStep;
+import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -50,6 +50,6 @@ public class CrossOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(x1, centerY + step, x1, centerY - step));
         LineRenderer.line(steps, x1, centerY - step, centerX - step, centerY - step, line, period, false, sizeRatio);
         LineRenderer.line(steps, centerX - step, centerY - step, centerX - step, y1, line, period, false, sizeRatio);
-        return Arrays.asList(new RenderContour(new Path(steps)));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }

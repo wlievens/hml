@@ -11,8 +11,8 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,6 +38,6 @@ public class PaleOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, midX + step, y1, midX + step, y2, line, period, false, sizeRatio);
         steps.add(new LinePathStep(midX + step, y2, midX - step, y2));
         LineRenderer.line(steps, midX - step, y2, midX - step, y1, line, period, false, sizeRatio);
-        return Arrays.asList(new RenderContour(new Path(steps)));
+        return Collections.singleton(new RenderContour(new Path(steps)));
     }
 }
