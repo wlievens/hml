@@ -20,6 +20,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @Getter
@@ -35,6 +38,11 @@ public class DivisionBackground extends Background
     public DivisionBackground(Division division, DivisionPart... parts)
     {
         this(division, Line.PLAIN, Arrays.asList(parts));
+    }
+
+    public DivisionBackground(Division division, Tincture... tinctures)
+    {
+        this(division, Line.PLAIN, IntStream.range(0, tinctures.length).mapToObj(n -> new DivisionPart(n + 1, tinctures[n])).collect(toList()));
     }
 
     @Override
@@ -128,8 +136,8 @@ public class DivisionBackground extends Background
             int index = n + 1;
             RenderContour divisionContour = divisionContours.get(n);
             parts.stream()
-                    .filter(part -> part.getPositions().contains(index))
-                    .forEach(part -> list.addAll(part.render(divisionContour, painter)));
+                .filter(part -> part.getPositions().contains(index))
+                .forEach(part -> list.addAll(part.render(divisionContour, painter)));
         }
         return list;
     }
