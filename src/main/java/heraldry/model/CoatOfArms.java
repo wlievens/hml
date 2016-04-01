@@ -183,7 +183,7 @@ public class CoatOfArms
                     Tincture tincture1 = ((CounterchangedPaint)paint).getFirstTincture();
                     Tincture tincture2 = ((CounterchangedPaint)paint).getSecondTincture();
                     renderShapes.remove(n);
-                    Area shapeArea = GeometryUtils.convertShapeToArea(path);
+                    Area shapeArea = path.getSurface().createArea();
                     if (shapeArea.isEmpty())
                     {
                         --n;
@@ -210,7 +210,7 @@ public class CoatOfArms
                     n--;
                     continue;
                 }
-                Area area = GeometryUtils.convertShapeToArea(path);
+                Area area = path.getSurface().createArea();
                 for (Map.Entry<Paint, Area> entry : paintedAreas.entrySet())
                 {
                     if (entry.getKey() != paint)
@@ -268,7 +268,7 @@ public class CoatOfArms
         float diagramWidth = patternDiagram.getWidth();
         List<RenderShape> list = new ArrayList<>();
         AffineTransform transform = new AffineTransform();
-        RenderContour shapeContour = new RenderContour(shape.getPath());
+        RenderContour shapeContour = new RenderContour(shape.getSurface());
         Box bounds = shieldContour.getBounds(); // Use the shield contour for the bounds!
         double x1 = bounds.getX1();
         double y1 = bounds.getY1();
@@ -293,7 +293,7 @@ public class CoatOfArms
                         .collect(Collectors.toList());
                 for (Path path : transformedPaths)
                 {
-                    for (Path clipped : GeometryUtils.clip(path, shapeContour))
+                    for (Path clipped : shapeContour.clip(path))
                     {
                         list.addAll(shapeContour.clip(clipped.render(pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
                     }

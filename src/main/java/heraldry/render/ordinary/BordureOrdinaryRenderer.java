@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
@@ -35,20 +36,28 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         double period = painter.getLinePeriodFactor() * size;
         double scale = 1.0 - scaleFactor * 2 * painter.getOrdinaryThickness() / width;
 
-        int stepCount = contour.getPath().getStepCount();
+        Surface surface = contour.getSurface();
+        // TODO this is a pretty ugly hack
+        if (surface.getPositives().size() != 1 || !surface.getNegatives().isEmpty())
+        {
+            throw new IllegalArgumentException();
+        }
+        Path path = surface.getPositives().get(0);
+
+        int stepCount = path.getStepCount();
         int midIndex = stepCount / 2;
 
-        List<PathStep> steps1 = createBordure(contour, centerX, centerY, scale, 0, midIndex - 1);
-        List<PathStep> steps2 = createBordure(contour, centerX, centerY, scale, midIndex, stepCount - 1);
+        List<PathStep> steps1 = createBordure(path, centerX, centerY, scale, 0, midIndex - 1);
+        List<PathStep> steps2 = createBordure(path, centerX, centerY, scale, midIndex, stepCount - 1);
         return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
     }
 
-    private List<PathStep> createBordure(RenderContour contour, double centerX, double centerY, double scale, int start, int end)
+    private List<PathStep> createBordure(Path path, double centerX, double centerY, double scale, int start, int end)
     {
         List<PathStep> steps = new ArrayList<>();
         for (int index = start; index <= end; ++index)
         {
-            steps.add(contour.getPath().getStep(index));
+            steps.add(path.getStep(index));
         }
         {
             PathStep last = steps.get(steps.size() - 1);
@@ -57,7 +66,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         }
         for (int index = end; index >= start; --index)
         {
-            steps.add(rescale(contour.getPath().getStep(index), centerX, centerY, scale).inverse());
+            steps.add(rescale(path.getStep(index), centerX, centerY, scale).inverse());
         }
         {
             PathStep last = steps.get(steps.size() - 1);

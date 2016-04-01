@@ -141,7 +141,7 @@ public class MobileCharge extends Charge
         List<RenderShape> list = new ArrayList<>();
         for (Path c1 : SvgUtils.collect(diagram, transform))
         {
-            for (Path c2 : GeometryUtils.clip(c1, contour))
+            for (Path c2 : contour.clip(c1))
             {
                 list.addAll(background.render(new RenderContour(c2), painter).stream()
                         .map(shape -> shape.withBorderColor(painter.getMobileBorderColor()).withLabel(String.format("'%s' %s", figure, shape.getLabel())))

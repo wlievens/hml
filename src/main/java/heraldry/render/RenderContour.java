@@ -2,7 +2,9 @@ package heraldry.render;
 
 import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
+import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
+import heraldry.render.path.PathStep;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,9 +13,13 @@ import lombok.ToString;
 import lombok.experimental.Wither;
 
 import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,31 +29,31 @@ import static java.util.stream.Collectors.toList;
 public final class RenderContour
 {
     @NonNull
-    private final Path path;
+    private final Surface surface;
     
     @Wither
     private final Path spine;
     
     public RenderContour(@NonNull Path path)
     {
-        this(path, null);
+        this(new Surface(path));
     }
-    
+
+    public RenderContour(@NonNull Surface surface)
+    {
+        this(surface, null);
+    }
+
     public RenderShape render(Paint fillPaint, Color border, String label)
     {
-        return RenderShape.create(path, fillPaint, border, label);
+        return RenderShape.create(surface, fillPaint, border, label);
     }
     
     public Area createArea()
     {
-        return GeometryUtils.convertPathToArea(path);
+        return surface.createArea();
     }
-    
-    public Path getPath()
-    {
-        return this.path;
-    }
-    
+
     public Point getFessPoint()
     {
         return getBounds().getFessPoint();
@@ -55,7 +61,7 @@ public final class RenderContour
     
     public Box getBounds()
     {
-        return path.getBounds();
+        return surface.getBounds();
     }
     
     public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
@@ -76,26 +82,54 @@ public final class RenderContour
     
     public List<Path> clip(@NonNull Path path)
     {
-        return GeometryUtils.clip(path, this);
+        Area contourArea = createArea();
+        if (path.isClosed())
+        {
+            Area area = GeometryUtils.convertPathToArea(path);
+            area.intersect(contourArea);
+            return (List)GeometryUtils.convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
+        }
+        int samples = 100;
+        List<Point> points = IntStream.range(0, samples)
+                .mapToDouble(n -> n / (double)samples)
+                .mapToObj(path::sample)
+                .filter(sample -> contourArea.contains(sample.getX(), sample.getY()))
+                .collect(Collectors.toList());
+        List<PathStep> steps = new ArrayList<>();
+        for (int n = 0; n < points.size() - 1; ++n)
+        {
+            steps.add(new LinePathStep(points.get(n), points.get(n + 1)));
+        }
+        return Collections.singletonList(new Path(steps, false));
     }
     
     public List<RenderShape> clip(@NonNull RenderShape shape)
     {
-        return GeometryUtils.clip(shape.getPath(), this).stream()
-                .map(path -> path.render(shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
-                .collect(toList());
+        Paint fillPaint = shape.getFillPaint();
+        Color borderColor = shape.getBorderColor();
+        String label = "clipped " + shape.getLabel();
+        Surface surface = clip(shape.getSurface());
+        return Collections.singletonList(surface.render(fillPaint, borderColor, label));
     }
     
     public List<RenderContour> clip(@NonNull RenderContour contour)
     {
-        return GeometryUtils.clip(contour.getPath(), this).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+        return Collections.singletonList(new RenderContour(clip(contour.getSurface()), null));
+    }
+
+    public Surface clip(Surface surface)
+    {
+        Area negative = surface.createArea();
+        Area area = createArea();
+        area.intersect(negative);
+        PathIterator iterator = area.getPathIterator(null);
+        List<Path> paths = GeometryUtils.convertPathIteratorToPaths(iterator);
+        return new Surface(paths);
     }
     
     public boolean isRectangle()
     {
-        return path.isRectangle();
+        return surface.isRectangle();
     }
     
     public Box fitBox(@NonNull Point center)

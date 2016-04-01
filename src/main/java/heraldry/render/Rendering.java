@@ -4,7 +4,6 @@ import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
-import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
 import lombok.NonNull;
@@ -28,61 +27,68 @@ public final class Rendering
     private final RenderContour contour;
     private final Collection<RenderShape> renderShapes;
 
-    public static String buildPath(Path path, double offsetX, double offsetY)
+    public static String buildPath(Surface surface, double offsetX, double offsetY)
     {
-        List<PathStep> steps = path.getSteps();
-        StringBuilder builder = new StringBuilder();
-        for (PathStep step : steps)
+        if (!surface.getNegatives().isEmpty())
         {
-            if (step instanceof LinePathStep)
-            {
-                LinePathStep line = (LinePathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + line.getX1(), offsetY + line.getY1()
-                    ));
-                }
-                builder.append(String.format("L %s,%s ",
-                        offsetX + line.getX2(), offsetY + line.getY2()
-                ));
-            }
-            else if (step instanceof QuadraticPathStep)
-            {
-                QuadraticPathStep quadratic = (QuadraticPathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + quadratic.getX1(), offsetY + quadratic.getY1()
-                    ));
-                }
-                builder.append(String.format("Q %s,%s %s,%s ",
-                        offsetX + quadratic.getX2(), offsetY + quadratic.getY2(),
-                        offsetX + quadratic.getX3(), offsetY + quadratic.getY3()
-                ));
-            }
-            else if (step instanceof CubicPathStep)
-            {
-                CubicPathStep cubic = (CubicPathStep)step;
-                if (builder.length() == 0)
-                {
-                    builder.append(String.format("M %s,%s ",
-                            offsetX + cubic.getX1(), offsetY + cubic.getY1()
-                    ));
-                }
-                builder.append(String.format("C %s,%s %s,%s %s,%s ",
-                        offsetX + cubic.getX2(), offsetY + cubic.getY2(),
-                        offsetX + cubic.getX3(), offsetY + cubic.getY3(),
-                        offsetX + cubic.getX4(), offsetY + cubic.getY4()
-                ));
-            }
-            else
-            {
-                throw new IllegalStateException();
-            }
+            throw new IllegalArgumentException();
         }
-        builder.append("Z");
-        return builder.toString();
+        StringBuilder builder = new StringBuilder();
+        surface.getPositives().forEach(path ->
+        {
+            List<PathStep> steps = path.getSteps();
+            for (PathStep step : steps)
+            {
+                if (step instanceof LinePathStep)
+                {
+                    LinePathStep line = (LinePathStep)step;
+                    if (builder.length() == 0)
+                    {
+                        builder.append(String.format("M %s,%s ",
+                                offsetX + line.getX1(), offsetY + line.getY1()
+                        ));
+                    }
+                    builder.append(String.format("L %s,%s ",
+                            offsetX + line.getX2(), offsetY + line.getY2()
+                    ));
+                }
+                else if (step instanceof QuadraticPathStep)
+                {
+                    QuadraticPathStep quadratic = (QuadraticPathStep)step;
+                    if (builder.length() == 0)
+                    {
+                        builder.append(String.format("M %s,%s ",
+                                offsetX + quadratic.getX1(), offsetY + quadratic.getY1()
+                        ));
+                    }
+                    builder.append(String.format("Q %s,%s %s,%s ",
+                            offsetX + quadratic.getX2(), offsetY + quadratic.getY2(),
+                            offsetX + quadratic.getX3(), offsetY + quadratic.getY3()
+                    ));
+                }
+                else if (step instanceof CubicPathStep)
+                {
+                    CubicPathStep cubic = (CubicPathStep)step;
+                    if (builder.length() == 0)
+                    {
+                        builder.append(String.format("M %s,%s ",
+                                offsetX + cubic.getX1(), offsetY + cubic.getY1()
+                        ));
+                    }
+                    builder.append(String.format("C %s,%s %s,%s %s,%s ",
+                            offsetX + cubic.getX2(), offsetY + cubic.getY2(),
+                            offsetX + cubic.getX3(), offsetY + cubic.getY3(),
+                            offsetX + cubic.getX4(), offsetY + cubic.getY4()
+                    ));
+                }
+                else
+                {
+                    throw new IllegalStateException();
+                }
+            }
+            builder.append("Z ");
+        });
+        return builder.toString().trim();
     }
 
     private static int to255(double value)
@@ -110,7 +116,7 @@ public final class Rendering
                 {
                     xmlClipPath.setAttribute("id", SVG_ID_CONTOUR);
                     Element xmlPath = document.createElement("path");
-                    xmlPath.setAttribute("d", buildPath(this.contour.getPath(), 0, 0));
+                    xmlPath.setAttribute("d", buildPath(this.contour.getSurface(), 0, 0));
                     xmlClipPath.appendChild(xmlPath);
                     xmlDefs.appendChild(xmlClipPath);
                 }
@@ -165,7 +171,7 @@ public final class Rendering
         for (RenderShape renderShape : renderShapes)
         {
             Element svgPath = document.createElement("path");
-            svgPath.setAttribute("d", buildPath(renderShape.getPath(), 0, 0));
+            svgPath.setAttribute("d", buildPath(renderShape.getSurface(), 0, 0));
             svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(renderShape.getFillPaint()), getSvgColor(renderShape.getBorderColor())));
             svgPath.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
             svgPath.setAttribute("comment", renderShape.getLabel());

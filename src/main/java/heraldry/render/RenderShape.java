@@ -13,7 +13,7 @@ import lombok.experimental.Wither;
 public final class RenderShape
 {
     @NonNull
-    private final Path path;
+    private final Surface surface;
 
     @Wither
     private final Paint fillPaint;
@@ -24,9 +24,14 @@ public final class RenderShape
     @Wither
     private final String label;
 
+    public static RenderShape create(Path path, Paint fillPaint, Color borderColor, String label)
+    {
+        return create(new Surface(path), fillPaint, borderColor, label);
+    }
+
     @Override
     public String toString()
     {
-        return String.format("Shape(\"%s\" %s)", label, path);
+        return String.format("Shape(\"%s\" %s)", label, surface);
     }
 }

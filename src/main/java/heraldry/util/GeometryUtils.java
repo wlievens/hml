@@ -1,58 +1,24 @@
 package heraldry.util;
 
 import heraldry.render.Box;
-import heraldry.render.Point;
 import heraldry.render.RenderContour;
-import heraldry.render.RenderShape;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
-import lombok.NonNull;
 
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
-    public static List<Path> clip(@NonNull Path path, @NonNull RenderContour contour)
-    {
-        if (false)
-        {
-            return Arrays.asList(path);
-        }
-        Area contourArea = contour.createArea();
-        if (path.isClosed())
-        {
-            Area area = convertPathToArea(path);
-            area.intersect(contourArea);
-            return (List)convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
-        }
-        int samples = 100;
-        List<Point> points = IntStream.range(0, samples)
-                .mapToDouble(n -> n / (double)samples)
-                .mapToObj(path::sample)
-                .filter(sample -> contourArea.contains(sample.getX(), sample.getY()))
-                .collect(Collectors.toList());
-        List<PathStep> steps = new ArrayList<>();
-        for (int n = 0; n < points.size() - 1; ++n)
-        {
-            steps.add(new LinePathStep(points.get(n), points.get(n + 1)));
-        }
-        return Collections.singletonList(new Path(steps, false));
-    }
-
     public static List<RenderContour> convertAreaToContours(Area area)
     {
         return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
@@ -176,11 +142,6 @@ public class GeometryUtils
             path2D.closePath();
         }
         return path2D;
-    }
-
-    public static Area convertShapeToArea(RenderShape shape)
-    {
-        return convertPathToArea(shape.getPath());
     }
 
     public static Path polygon(double... xys)

@@ -4,6 +4,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.Surface;
 import heraldry.render.ordinary.OrdinaryRenderer;
 import heraldry.render.paint.Color;
 import heraldry.render.path.Path;
@@ -110,10 +111,9 @@ public class OrdinaryCharge extends Charge
         List<RenderShape> list = new ArrayList<>();
         for (RenderContour chargeContour : chargeContours)
         {
-            List<Path> clippedPaths = contour.clip(chargeContour.getPath());
-            Path clippedPath = CollectionUtils.single(clippedPaths);
+            Surface clippedSurface = contour.clip(chargeContour.getSurface());
             Path spine = chargeContour.getSpine() == null ? null : CollectionUtils.single(contour.clip(chargeContour.getSpine()));
-            RenderContour clippedContour = new RenderContour(clippedPath, spine);
+            RenderContour clippedContour = new RenderContour(clippedSurface, spine);
             list.addAll(background.render(clippedContour, painter));
             for (Charge charge : charges)
             {

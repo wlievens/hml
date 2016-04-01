@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
@@ -50,7 +51,7 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
             spine.add(new LinePathStep(x1, y1, cx, cy));
             spine.add(new LinePathStep(cx, cy, x2, y1));
 
-            return Collections.singleton(new RenderContour(new Path(steps), new Path(spine, false)));
+            return Collections.singleton(new RenderContour(new Surface(new Path(steps)), new Path(spine, false)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -65,6 +66,6 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         spine.add(new LinePathStep(x1, y2, cx, cy));
         spine.add(new LinePathStep(cx, cy, x2, y2));
 
-        return Collections.singleton(new RenderContour(new Path(steps), new Path(spine, false)));
+        return Collections.singleton(new RenderContour(new Surface(new Path(steps)), new Path(spine, false)));
     }
 }
