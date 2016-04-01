@@ -164,7 +164,7 @@ public class CoatOfArms
         };
         List<RenderShape> renderShapes = new ArrayList<>();
         renderShapes.addAll(model.render(shieldContour, painter));
-        renderShapes.add(new RenderShape(shieldContour.getPath(), null, painter.getOuterBorderColor(), "outer shield shape border"));
+        renderShapes.add(shieldContour.render(null, painter.getOuterBorderColor(), "outer shield shape border"));
 
         // Process counterchanged paint
         if (renderShapes.stream().anyMatch(renderShape -> renderShape.getFillPaint() instanceof CounterchangedPaint))
@@ -203,7 +203,7 @@ public class CoatOfArms
                             List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
                             for (int i = 0; i < intersectionContours.size(); ++i)
                             {
-                                renderShapes.add(n + i, new RenderShape(intersectionContours.get(i).getPath(), counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
+                                renderShapes.add(n + i, intersectionContours.get(i).render(counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
                             }
                         }
                     }
@@ -277,7 +277,7 @@ public class CoatOfArms
         int columns = 9;
         double scale = bounds.getWidth() / (2 * columns * diagramWidth);
         transform.scale(scale, scale);
-        list.add(new RenderShape(shapeContour.getPath(), pattern.getBackground(), null, "pattern background"));
+        list.add(shapeContour.render(pattern.getBackground(), null, "pattern background"));
         double stepX = bounds.getWidth() / columns;
         double stepY = stepX * 1.25;
         int row = 0;
@@ -295,7 +295,7 @@ public class CoatOfArms
                 {
                     for (Path clipped : GeometryUtils.clip(path, shapeContour))
                     {
-                        list.addAll(shapeContour.clip(new RenderShape(clipped, pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
+                        list.addAll(shapeContour.clip(clipped.render(pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
                     }
                 }
             }

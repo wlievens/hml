@@ -42,6 +42,6 @@ public class FieldBackground extends Background
     @Override
     public Collection<RenderShape> render(RenderContour contour, Painter painter)
     {
-        return Collections.singleton(new RenderShape(contour.getPath(), painter.getPaint(tincture), null, getClass().getSimpleName()));
+        return Collections.singleton(contour.render(painter.getPaint(tincture), null, getClass().getSimpleName()));
     }
 }

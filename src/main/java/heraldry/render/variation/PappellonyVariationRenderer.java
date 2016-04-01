@@ -56,7 +56,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
                 steps.add(new LinePathStep(x4, y1, x5, y1));
                 steps.add(new CubicPathStep(x5, y1, x5, y1 + control2, x3 + control2, y3, x3, y3));
                 steps.add(new CubicPathStep(x3, y3, x3 - control2, y3, x1, y1 + control2, x1, y1));
-                list.add(new RenderShape(new Path(steps), painter.getPaint(secondTincture), null, "pappellony " + row + ", " + column));
+                list.add(new Path(steps).render(painter.getPaint(secondTincture), null, "pappellony " + row + ", " + column));
             }
         }
         return contour.clipShapes(list);

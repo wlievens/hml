@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Wither;
 
 @Getter
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "create")
 public final class RenderShape
 {
     @NonNull

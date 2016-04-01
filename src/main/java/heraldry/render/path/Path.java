@@ -2,6 +2,9 @@ package heraldry.render.path;
 
 import heraldry.render.Box;
 import heraldry.render.Point;
+import heraldry.render.RenderShape;
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
 
@@ -37,6 +40,11 @@ public final class Path
         }
         this.steps = steps;
         this.closed = closed;
+    }
+
+    public RenderShape render(Paint fillPaint, Color border, String label)
+    {
+        return RenderShape.create(this, fillPaint, border, label);
     }
 
     @Override

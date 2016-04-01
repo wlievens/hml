@@ -128,7 +128,7 @@ public class RepeatCharge extends Charge
                 list.addAll(contour.clipShapes(charge.render(child, painter)));
                 if (DEBUG)
                 {
-                    list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), null));
+                    list.add(child.render(null, new Color(1, 0, 1), null));
                 }
             }
             return list;
@@ -192,7 +192,7 @@ public class RepeatCharge extends Charge
             list.addAll(contour.clipShapes(charge.render(child, painter)));
             if (DEBUG)
             {
-                list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "DEBUG repeat reticle"));
+                list.add(child.render(null, new Color(1, 0, 1), "DEBUG repeat reticle"));
             }
         }
         return list;

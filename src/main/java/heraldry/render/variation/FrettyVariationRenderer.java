@@ -6,6 +6,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
@@ -28,19 +29,21 @@ public class FrettyVariationRenderer implements VariationRenderer
         {
             for (double y = bounds.getY1(); y < bounds.getY2() + spacing; y += spacing)
             {
-                list.add(new RenderShape(GeometryUtils.polygon(
+                Path polygon1 = GeometryUtils.polygon(
                         x + step + margin, y + margin,
                         x + spacing - margin, y + spacing - step - margin,
                         x + spacing - step - margin, y + spacing - margin,
                         x + margin, y + step + margin
-                ), painter.getPaint(secondTincture), null, "fretty first " + x + ", " + y));
+                );
+                list.add(polygon1.render(painter.getPaint(secondTincture), null, "fretty first " + x + ", " + y));
 
-                list.add(new RenderShape(GeometryUtils.polygon(
+                Path polygon2 = GeometryUtils.polygon(
                         x - spacing / 2 + margin, y + spacing / 2 - step - margin,
                         x - spacing / 2 + step + margin, y + spacing / 2 - margin,
                         x + spacing / 2 - margin, y - spacing / 2 + step + margin,
                         x + spacing / 2 - step - margin, y - spacing / 2 + margin
-                ), painter.getPaint(secondTincture), null, "fretty second " + x + ", " + y));
+                );
+                list.add(polygon2.render(painter.getPaint(secondTincture), null, "fretty second " + x + ", " + y));
             }
         }
 

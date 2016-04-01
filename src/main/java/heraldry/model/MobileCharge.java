@@ -150,7 +150,8 @@ public class MobileCharge extends Charge
         }
         if (DEBUG)
         {
-            list.add(new RenderShape(GeometryUtils.rectangle(x1, y1, x2, y2), null, new Color(0, 1, 1), String.format("'%s' mobile debug reticle", figure)));
+            Path rectangle = GeometryUtils.rectangle(x1, y1, x2, y2);
+            list.add(rectangle.render(null, new Color(0, 1, 1), String.format("'%s' mobile debug reticle", figure)));
         }
         return list;
     }

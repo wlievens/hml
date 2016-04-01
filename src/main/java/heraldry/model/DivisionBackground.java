@@ -127,7 +127,8 @@ public class DivisionBackground extends Background
         {
             log.warn("No renderer implemented for division '{}'", division);
             Box bounds = contour.getBounds();
-            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1), "fall-back background for missing division"));
+            Path rectangle = GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8));
+            return Collections.singleton(rectangle.render(null, new Color(1, 0, 1), "fall-back background for missing division"));
         }
         List<RenderContour> divisionContours = renderer.render(contour, line, painter);
         List<RenderShape> list = new ArrayList<>();
@@ -136,8 +137,8 @@ public class DivisionBackground extends Background
             int index = n + 1;
             RenderContour divisionContour = divisionContours.get(n);
             parts.stream()
-                .filter(part -> part.getPositions().contains(index))
-                .forEach(part -> list.addAll(part.render(divisionContour, painter)));
+                    .filter(part -> part.getPositions().contains(index))
+                    .forEach(part -> list.addAll(part.render(divisionContour, painter)));
         }
         return list;
     }

@@ -103,7 +103,8 @@ public class OrdinaryCharge extends Charge
         if (renderer == null)
         {
             log.warn("No renderer implemented for ordinary '{}'", ordinary);
-            return Collections.singleton(new RenderShape(GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8)), null, new Color(1, 0, 1), "fall-back for missing ordinary renderer"));
+            Path rectangle = GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8));
+            return Collections.singleton(rectangle.render(null, new Color(1, 0, 1), "fall-back for missing ordinary renderer"));
         }
         Collection<RenderContour> chargeContours = renderer.render(contour, line, painter);
         List<RenderShape> list = new ArrayList<>();

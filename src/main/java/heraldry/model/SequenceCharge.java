@@ -1,10 +1,10 @@
 package heraldry.model;
 
 import heraldry.render.Box;
-import heraldry.render.paint.Color;
 import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.paint.Color;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -87,7 +87,7 @@ public class SequenceCharge extends Charge
                     list.addAll(charge.render(child, painter));
                     if (DEBUG)
                     {
-                        list.add(new RenderShape(child.getPath(), null, new Color(1, 0, 1), "sequence debug reticle"));
+                        list.add(child.render(null, new Color(1, 0, 1), "sequence debug reticle"));
                     }
                 }
             }

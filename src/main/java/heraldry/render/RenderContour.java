@@ -35,7 +35,7 @@ public final class RenderContour
     
     public RenderShape render(Paint fillPaint, Color border, String label)
     {
-        return new RenderShape(path, fillPaint, border, label);
+        return RenderShape.create(path, fillPaint, border, label);
     }
     
     public Area createArea()
@@ -82,7 +82,7 @@ public final class RenderContour
     public List<RenderShape> clip(@NonNull RenderShape shape)
     {
         return GeometryUtils.clip(shape.getPath(), this).stream()
-                .map(path -> new RenderShape(path, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
+                .map(path -> path.render(shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
                 .collect(toList());
     }
     

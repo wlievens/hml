@@ -22,7 +22,7 @@ public class PalyVariationRenderer implements VariationRenderer
     {
         Box bounds = contour.getBounds();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        list.add(contour.render(painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         double step = number == 0 ? painter.getGridPatternSize() : bounds.getHeight() / number;
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
         double y1 = bounds.getY1();
@@ -34,7 +34,7 @@ public class PalyVariationRenderer implements VariationRenderer
             LineRenderer.line(steps, x + step, y1, x + step, y2, line, period, false, 1.0);
             steps.add(new LinePathStep(x + step, y2, x, y2));
             LineRenderer.line(steps, x, y2, x, y1, line, period, false, 1.0);
-            list.addAll(contour.clip(new RenderShape(new Path(steps), painter.getPaint(secondTincture), null, "paly " + x)));
+            list.addAll(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "paly " + x)));
         }
         return list;
     }

@@ -61,7 +61,7 @@ public class InescutcheonCharge extends Charge
         RenderContour subContour = new RenderContour(SvgUtils.convertSvgElementToPath((com.kitfox.svg.Path)diagram.getElement("contour"), transform));
         List<RenderShape> shapes = new ArrayList<>();
         shapes.addAll(model.render(subContour, painter));
-        shapes.add(new RenderShape(subContour.getPath(), null, painter.getOuterBorderColor(), "inescutcheon border"));
+        shapes.add(subContour.render(null, painter.getOuterBorderColor(), "inescutcheon border"));
         return shapes;
     }
 }
