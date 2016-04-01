@@ -2,6 +2,7 @@ package heraldry.util;
 
 import com.kitfox.svg.SVGCache;
 import com.kitfox.svg.SVGDiagram;
+import heraldry.render.Surface;
 import heraldry.render.path.Path;
 import lombok.NonNull;
 
@@ -10,13 +11,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
 
 public class SvgUtils
 {
-    public static List<Path> collect(SVGDiagram diagram, AffineTransform transform)
+    public static Surface collect(SVGDiagram diagram, AffineTransform transform)
     {
-        return GeometryUtils.convertPathIteratorToPaths(diagram.getRoot().getShape().getPathIterator(transform));
+        return GeometryUtils.convertPathIteratorToSurface(diagram.getRoot().getShape().getPathIterator(transform));
     }
 
     public static Path convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath)
@@ -28,8 +28,13 @@ public class SvgUtils
     {
         Shape path2d = svgPath.getShape();
         PathIterator it = path2d.getPathIterator(transform);
-        List<Path> paths = GeometryUtils.convertPathIteratorToPaths(it);
-        return CollectionUtils.single(paths);
+        Surface surface = GeometryUtils.convertPathIteratorToSurface(it);
+        if (surface.isSingular())
+        {
+            return surface.getPositives().get(0);
+        }
+        System.out.println(surface);
+        throw new IllegalStateException();
     }
 
     public static SVGDiagram loadSvg(@NonNull String resource)

@@ -2,6 +2,7 @@ package heraldry.util;
 
 import heraldry.render.Box;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
@@ -13,17 +14,14 @@ import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 public class GeometryUtils
 {
     public static List<RenderContour> convertAreaToContours(Area area)
     {
-        return convertPathIteratorToPaths(area.getPathIterator(null)).stream()
-                .map(RenderContour::new)
-                .collect(toList());
+        return Collections.singletonList(new RenderContour(convertPathIteratorToSurface(area.getPathIterator(null))));
     }
 
     public static Area convertBoxToArea(Box box)
@@ -31,10 +29,22 @@ public class GeometryUtils
         return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
     }
 
-    public static List<Path> convertPathIteratorToPaths(PathIterator it)
+    public static void main(String[] args)
+    {
+        Area area = new Area();
+        area.add(new Area(new Rectangle2D.Double(0, 0, 100, 100)));
+        area.subtract(new Area(new Rectangle2D.Double(10, 10, 20, 10)));
+        area.subtract(new Area(new Rectangle2D.Double(10, 50, 20, 10)));
+        Surface surface = convertPathIteratorToSurface(area.getPathIterator(null));
+        System.out.println(surface);
+        System.out.println(convertPathIteratorToSurface(surface.createArea().getPathIterator(null)));
+    }
+
+    public static Surface convertPathIteratorToSurface(PathIterator it)
     {
         float[] xys = new float[6];
-        List<Path> list = new ArrayList<>();
+        List<Path> positives = new ArrayList<>();
+        List<Path> negatives = new ArrayList<>();
         List<PathStep> steps = new ArrayList<>();
         double previousX = 0;
         double previousY = 0;
@@ -98,7 +108,10 @@ public class GeometryUtils
                         {
                             steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
                         }
-                        list.add(new Path(steps));
+                        Path path = new Path(steps);
+
+                        double winding = steps.stream().mapToDouble(step -> (step.getEndX() - step.getStartX()) * (step.getEndY() + step.getStartY())).sum();
+                        ((winding >= 0) ? positives : negatives).add(path);
                         steps = new ArrayList<>();
                     }
                     break;
@@ -120,7 +133,12 @@ public class GeometryUtils
         {
             throw new IllegalStateException();
         }
-        return list;
+        if (positives.isEmpty())
+        {
+            // There are no positives, so we have misinterpreted the negatives due to inconsistent winding
+            return new Surface(negatives);
+        }
+        return new Surface(positives, negatives);
     }
 
     public static Area convertPathToArea(Path path)

@@ -11,7 +11,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class HamadeOrdinaryRenderer implements OrdinaryRenderer
 {
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double margin = painter.getOrdinaryThickness() / 2;
@@ -37,6 +36,6 @@ public class HamadeOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, x2, y1, x2, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x2, y2, x1, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x1, y2, x1, y1, line, period, false, 1.0);
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

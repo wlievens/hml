@@ -5,18 +5,19 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
+import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RequiredArgsConstructor
 public class FretOrdinaryRenderer implements OrdinaryRenderer
 {
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
@@ -41,44 +42,44 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
         double farX = middleX + distance;
         double farY = middleY + distance;
 
-        List<RenderContour> list = new ArrayList<>();
+        List<Path> paths = new ArrayList<>();
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 x1 - step, y1,
                 x1, y1 - step,
                 nearX - margin, nearY - step - margin,
                 nearX - step - margin, nearY - margin
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 nearX + margin, nearY + step + margin,
                 nearX + step + margin, nearY + margin,
                 farX - margin, farY - step - margin,
                 farX - step - margin, farY - margin
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 farX + margin, farY + step + margin,
                 farX + step + margin, farY + margin,
                 x1 + width + step, y1 + width,
                 x1 + width, y1 + width + step
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 x1 + width, y1 - step,
                 x1 + width + step, y1,
                 middleX + step + margin, middleY - margin,
                 middleX + margin, middleY - step - margin
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 middleX - step - margin, middleY + margin,
                 middleX - margin, middleY + step + margin,
                 x1, y1 + width + step,
                 x1 - step, y1 + width
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 middleX, middleY - 2 * distance - step,
                 middleX - 2 * distance - step, middleY,
                 middleX - distance - step - margin, middleY + distance - margin,
@@ -87,9 +88,9 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
                 middleX, middleY - 2 * distance + step,
                 middleX + distance - step - margin, middleY - distance - margin,
                 middleX + distance - margin, middleY - distance - step - margin
-        )));
+        ));
 
-        list.add(new RenderContour(GeometryUtils.polygon(
+        paths.add(GeometryUtils.polygon(
                 middleX, middleY + 2 * distance - step,
                 middleX + 2 * distance - step, middleY,
                 middleX + distance + margin, middleY - distance + step + margin,
@@ -98,8 +99,8 @@ public class FretOrdinaryRenderer implements OrdinaryRenderer
                 middleX, middleY + 2 * distance + step,
                 middleX - distance + margin, middleY + step + distance + margin,
                 middleX - distance + step + margin, middleY + distance + margin
-        )));
+        ));
 
-        return list;
+        return new RenderContour(new Surface(paths));
     }
 }

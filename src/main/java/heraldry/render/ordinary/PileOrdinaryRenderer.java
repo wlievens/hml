@@ -11,7 +11,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class PileOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipY;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
@@ -38,7 +37,7 @@ public class PileOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps, midX, y1, x2, y2, line, period, false, 1.0);
             steps.add(new LinePathStep(x2, y2, x1, y2));
             LineRenderer.line(steps, x1, y2, midX, y1, line, period, false, 1.0);
-            return Collections.singleton(new RenderContour(new Path(steps)));
+            return new RenderContour(new Path(steps));
         }
 
         double y1 = bounds.getY1();
@@ -47,6 +46,6 @@ public class PileOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(x1, y1, x2, y1));
         LineRenderer.line(steps, x2, y1, midX, y2, line, period, false, 1.0);
         LineRenderer.line(steps, midX, y2, x1, y1, line, period, false, 1.0);
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

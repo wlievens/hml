@@ -12,7 +12,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
     private final double sizeRatio;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
@@ -51,7 +50,7 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
             spine.add(new LinePathStep(x1, y1, cx, cy));
             spine.add(new LinePathStep(cx, cy, x2, y1));
 
-            return Collections.singleton(new RenderContour(new Surface(new Path(steps)), new Path(spine, false)));
+            return new RenderContour(new Surface(new Path(steps)), new Path(spine, false));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -66,6 +65,6 @@ public class ChevronOrdinaryRenderer implements OrdinaryRenderer
         spine.add(new LinePathStep(x1, y2, cx, cy));
         spine.add(new LinePathStep(cx, cy, x2, y2));
 
-        return Collections.singleton(new RenderContour(new Surface(new Path(steps)), new Path(spine, false)));
+        return new RenderContour(new Surface(new Path(steps)), new Path(spine, false));
     }
 }

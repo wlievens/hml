@@ -11,7 +11,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class FessOrdinaryRenderer implements OrdinaryRenderer
     private final double sizeRatio;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
@@ -37,6 +36,6 @@ public class FessOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new LinePathStep(x2, midY - step, x2, midY + step));
         LineRenderer.line(steps, x2, midY + step, x1, midY + step, line, period, true, sizeRatio);
         steps.add(new LinePathStep(x1, midY + step, x1, midY - step));
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

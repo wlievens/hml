@@ -6,6 +6,7 @@ import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
+import heraldry.render.Surface;
 import heraldry.render.paint.Color;
 import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
@@ -139,7 +140,12 @@ public class MobileCharge extends Charge
         transform.translate(center.getX() - 0.5 * scale * diagramWidth, center.getY() - 0.5 * scale * diagramHeight);
         transform.scale(scale, scale);
         List<RenderShape> list = new ArrayList<>();
-        for (Path c1 : SvgUtils.collect(diagram, transform))
+        Surface surface = SvgUtils.collect(diagram, transform);
+        if (!surface.getNegatives().isEmpty())
+        {
+            throw new IllegalStateException();
+        }
+        for (Path c1 : surface.getPositives())
         {
             for (Path c2 : contour.clip(c1))
             {

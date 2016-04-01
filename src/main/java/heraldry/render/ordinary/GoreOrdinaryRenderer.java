@@ -12,7 +12,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class GoreOrdinaryRenderer implements OrdinaryRenderer
     private final boolean flipX;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
@@ -56,6 +55,6 @@ public class GoreOrdinaryRenderer implements OrdinaryRenderer
             steps.add(new LinePathStep(centerX, y2, x1, y2));
             steps.add(new LinePathStep(x1, y2, x1, y1));
         }
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

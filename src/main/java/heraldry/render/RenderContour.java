@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.toList;
-
 @Getter
 @ToString
 @RequiredArgsConstructor
@@ -87,7 +85,12 @@ public final class RenderContour
         {
             Area area = GeometryUtils.convertPathToArea(path);
             area.intersect(contourArea);
-            return (List)GeometryUtils.convertPathIteratorToPaths(area.getPathIterator(null)).stream().collect(toList());
+            Surface surface = GeometryUtils.convertPathIteratorToSurface(area.getPathIterator(null));
+            if (!surface.getNegatives().isEmpty())
+            {
+                throw new IllegalStateException();
+            }
+            return surface.getPositives();
         }
         int samples = 100;
         List<Point> points = IntStream.range(0, samples)
@@ -123,8 +126,7 @@ public final class RenderContour
         Area area = createArea();
         area.intersect(negative);
         PathIterator iterator = area.getPathIterator(null);
-        List<Path> paths = GeometryUtils.convertPathIteratorToPaths(iterator);
-        return new Surface(paths);
+        return GeometryUtils.convertPathIteratorToSurface(iterator);
     }
     
     public boolean isRectangle()

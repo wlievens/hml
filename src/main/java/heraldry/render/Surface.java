@@ -70,11 +70,25 @@ public class Surface
 
     public boolean isRectangle()
     {
-        return negatives.isEmpty() && positives.size() == 1 && positives.get(0).isRectangle();
+        return isSingular() && positives.get(0).isRectangle();
     }
 
     public RenderShape render(Paint fillPaint, Color borderColor, String label)
     {
         return RenderShape.create(this, fillPaint, borderColor, label);
+    }
+
+    public boolean isSingular()
+    {
+        return negatives.isEmpty() && positives.size() == 1;
+    }
+
+    public Surface simplify()
+    {
+        if (negatives.isEmpty())
+        {
+            return this;
+        }
+        return GeometryUtils.convertPathIteratorToSurface(createArea().getPathIterator(null));
     }
 }

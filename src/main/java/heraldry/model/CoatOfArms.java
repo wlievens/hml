@@ -6,6 +6,7 @@ import heraldry.render.Painter;
 import heraldry.render.RenderContour;
 import heraldry.render.RenderShape;
 import heraldry.render.Rendering;
+import heraldry.render.Surface;
 import heraldry.render.paint.Color;
 import heraldry.render.paint.CounterchangedPaint;
 import heraldry.render.paint.Paint;
@@ -281,7 +282,12 @@ public class CoatOfArms
         double stepX = bounds.getWidth() / columns;
         double stepY = stepX * 1.25;
         int row = 0;
-        List<Path> patternPaths = SvgUtils.collect(patternDiagram, transform);
+        Surface surface = SvgUtils.collect(patternDiagram, transform);
+        if (!surface.getNegatives().isEmpty())
+        {
+            throw new IllegalStateException();
+        }
+        List<Path> patternPaths = surface.getPositives();
         for (double y = y1; y <= y2 + stepY; y += stepY)
         {
             for (double x = x1; x <= x2 + stepX; x += stepX)

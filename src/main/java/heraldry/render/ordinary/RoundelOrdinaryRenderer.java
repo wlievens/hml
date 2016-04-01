@@ -5,6 +5,7 @@ import heraldry.render.Box;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
 import heraldry.render.path.CubicPathStep;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
@@ -12,9 +13,6 @@ import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +21,7 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
     private final boolean open;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
@@ -59,7 +57,7 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
             steps2.add(new CubicPathStep(x3, y2, x3, y2 + control1, x2 + control1, y3, x2, y3));
             steps2.add(new CubicPathStep(x2, y3, x2 - control1, y3, x1, y2 + control1, x1, y2));
 
-            return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
+            return new RenderContour(new Surface(new Path(steps1), new Path(steps2)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -68,6 +66,6 @@ public class RoundelOrdinaryRenderer implements OrdinaryRenderer
         steps.add(new CubicPathStep(x3, y2, x3, y2 + control1, x2 + control1, y3, x2, y3));
         steps.add(new CubicPathStep(x2, y3, x2 - control1, y3, x1, y2 + control1, x1, y2));
 
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

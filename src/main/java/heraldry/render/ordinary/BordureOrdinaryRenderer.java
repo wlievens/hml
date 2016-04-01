@@ -13,10 +13,10 @@ import heraldry.render.path.PathStep;
 import heraldry.render.path.QuadraticPathStep;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
 public class BordureOrdinaryRenderer implements OrdinaryRenderer
@@ -24,7 +24,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
     private final double scaleFactor;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         double width = bounds.getWidth();
@@ -37,45 +37,19 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         double scale = 1.0 - scaleFactor * 2 * painter.getOrdinaryThickness() / width;
 
         Surface surface = contour.getSurface();
-        // TODO this is a pretty ugly hack
-        if (surface.getPositives().size() != 1 || !surface.getNegatives().isEmpty())
+        if (!surface.isSingular())
         {
             throw new IllegalArgumentException();
         }
         Path path = surface.getPositives().get(0);
-
-        int stepCount = path.getStepCount();
-        int midIndex = stepCount / 2;
-
-        List<PathStep> steps1 = createBordure(path, centerX, centerY, scale, 0, midIndex - 1);
-        List<PathStep> steps2 = createBordure(path, centerX, centerY, scale, midIndex, stepCount - 1);
-        return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
+        List<PathStep> list = path.getSteps().stream()
+                .map(step -> rescale(step, centerX, centerY, scale))
+                .collect(toList());
+        Surface bordureSurface = new Surface(Collections.singletonList(path), Collections.singletonList(new Path(list)));
+        System.out.println(bordureSurface);
+        return new RenderContour(bordureSurface);
     }
 
-    private List<PathStep> createBordure(Path path, double centerX, double centerY, double scale, int start, int end)
-    {
-        List<PathStep> steps = new ArrayList<>();
-        for (int index = start; index <= end; ++index)
-        {
-            steps.add(path.getStep(index));
-        }
-        {
-            PathStep last = steps.get(steps.size() - 1);
-            PathStep rescaled = rescale(last, centerX, centerY, scale);
-            steps.add(new LinePathStep(last.getEndX(), last.getEndY(), rescaled.getEndX(), rescaled.getEndY()));
-        }
-        for (int index = end; index >= start; --index)
-        {
-            steps.add(rescale(path.getStep(index), centerX, centerY, scale).inverse());
-        }
-        {
-            PathStep last = steps.get(steps.size() - 1);
-            PathStep first = steps.get(start);
-            steps.add(new LinePathStep(last.getEndX(), last.getEndY(), first.getStartX(), first.getStartY()));
-        }
-        return steps;
-    }
-    
     private PathStep rescale(PathStep step, double centerX, double centerY, double scale)
     {
         if (step instanceof LinePathStep)

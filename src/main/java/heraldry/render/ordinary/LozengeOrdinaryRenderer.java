@@ -6,15 +6,13 @@ import heraldry.render.LineRenderer;
 import heraldry.render.Painter;
 import heraldry.render.Point;
 import heraldry.render.RenderContour;
+import heraldry.render.Surface;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
     private final boolean open;
 
     @Override
-    public Collection<RenderContour> render(RenderContour contour, Line line, Painter painter)
+    public RenderContour render(RenderContour contour, Line line, Painter painter)
     {
         Box bounds = contour.getBounds();
         Point center = bounds.getFessPoint();
@@ -67,7 +65,7 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
             LineRenderer.line(steps2, x3, y2, x2, y3, line, period, false, 1.0);
             LineRenderer.line(steps2, x2, y3, x1, y2, line, period, false, 1.0);
 
-            return Arrays.asList(new RenderContour(new Path(steps1)), new RenderContour(new Path(steps2)));
+            return new RenderContour(new Surface(new Path(steps1), new Path(steps2)));
         }
 
         List<PathStep> steps = new ArrayList<>();
@@ -75,6 +73,6 @@ public class LozengeOrdinaryRenderer implements OrdinaryRenderer
         LineRenderer.line(steps, x2, y1, x3, y2, line, period, false, 1.0);
         LineRenderer.line(steps, x3, y2, x2, y3, line, period, false, 1.0);
         LineRenderer.line(steps, x2, y3, x1, y2, line, period, false, 1.0);
-        return Collections.singleton(new RenderContour(new Path(steps)));
+        return new RenderContour(new Path(steps));
     }
 }

@@ -107,18 +107,15 @@ public class OrdinaryCharge extends Charge
             Path rectangle = GeometryUtils.rectangle(bounds.lerpX(0.2), bounds.lerpY(0.2), bounds.lerpX(0.8), bounds.lerpY(0.8));
             return Collections.singleton(rectangle.render(null, new Color(1, 0, 1), "fall-back for missing ordinary renderer"));
         }
-        Collection<RenderContour> chargeContours = renderer.render(contour, line, painter);
+        RenderContour chargeContour = renderer.render(contour, line, painter);
         List<RenderShape> list = new ArrayList<>();
-        for (RenderContour chargeContour : chargeContours)
+        Surface clippedSurface = contour.clip(chargeContour.getSurface());
+        Path spine = chargeContour.getSpine() == null ? null : CollectionUtils.single(contour.clip(chargeContour.getSpine()));
+        RenderContour clippedContour = new RenderContour(clippedSurface, spine);
+        list.addAll(background.render(clippedContour, painter));
+        for (Charge charge : charges)
         {
-            Surface clippedSurface = contour.clip(chargeContour.getSurface());
-            Path spine = chargeContour.getSpine() == null ? null : CollectionUtils.single(contour.clip(chargeContour.getSpine()));
-            RenderContour clippedContour = new RenderContour(clippedSurface, spine);
-            list.addAll(background.render(clippedContour, painter));
-            for (Charge charge : charges)
-            {
-                list.addAll(charge.render(clippedContour, painter));
-            }
+            list.addAll(charge.render(clippedContour, painter));
         }
         return list;
     }
