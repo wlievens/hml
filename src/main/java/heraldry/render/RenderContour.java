@@ -1,5 +1,7 @@
 package heraldry.render;
 
+import heraldry.render.paint.Color;
+import heraldry.render.paint.Paint;
 import heraldry.render.path.Path;
 import heraldry.util.GeometryUtils;
 import lombok.Getter;
@@ -22,35 +24,40 @@ public final class RenderContour
 {
     @NonNull
     private final Path path;
-
+    
     @Wither
     private final Path spine;
-
+    
     public RenderContour(@NonNull Path path)
     {
         this(path, null);
     }
-
+    
+    public RenderShape render(Paint fillPaint, Color border, String label)
+    {
+        return new RenderShape(path, fillPaint, border, label);
+    }
+    
     public Area createArea()
     {
         return GeometryUtils.convertPathToArea(path);
     }
-
+    
     public Path getPath()
     {
         return this.path;
     }
-
+    
     public Point getFessPoint()
     {
         return getBounds().getFessPoint();
     }
-
+    
     public Box getBounds()
     {
         return path.getBounds();
     }
-
+    
     public List<RenderShape> clipShapes(Collection<RenderShape> shapes)
     {
         return shapes.stream()
@@ -58,7 +65,7 @@ public final class RenderContour
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
-
+    
     public List<RenderContour> clipContours(@NonNull Collection<RenderContour> contours)
     {
         return contours.stream()
@@ -66,31 +73,31 @@ public final class RenderContour
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
-
+    
     public List<Path> clip(@NonNull Path path)
     {
         return GeometryUtils.clip(path, this);
     }
-
+    
     public List<RenderShape> clip(@NonNull RenderShape shape)
     {
         return GeometryUtils.clip(shape.getPath(), this).stream()
-                .map(steps -> new RenderShape(steps, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
+                .map(path -> new RenderShape(path, shape.getFillPaint(), shape.getBorderColor(), "clipped " + shape.getLabel()))
                 .collect(toList());
     }
-
+    
     public List<RenderContour> clip(@NonNull RenderContour contour)
     {
         return GeometryUtils.clip(contour.getPath(), this).stream()
                 .map(RenderContour::new)
                 .collect(toList());
     }
-
+    
     public boolean isRectangle()
     {
         return path.isRectangle();
     }
-
+    
     public Box fitBox(@NonNull Point center)
     {
         double centerX = center.getX();

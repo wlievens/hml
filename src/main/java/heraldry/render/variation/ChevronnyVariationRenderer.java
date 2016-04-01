@@ -37,7 +37,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
         double midX = (x1 + x2) / 2;
 
         List<RenderShape> shapes = new ArrayList<>();
-        shapes.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        shapes.add(contour.render(painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
 
         for (double y = y1 - width / 2; y <= y2 + width / 2; y += spacing)
         {

@@ -24,7 +24,7 @@ public class PappellonyVariationRenderer implements VariationRenderer
         double width = bounds.getWidth();
         double height = bounds.getHeight();
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        list.add(contour.render(painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         int columns = 4;
         double spacingX = width / columns;
         double spacingY = spacingX / 2;

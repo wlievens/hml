@@ -25,7 +25,7 @@ public class BendyVariationRenderer implements VariationRenderer
     public Collection<RenderShape> render(RenderContour contour, Tincture firstTincture, Tincture secondTincture, Line line, int number, Painter painter)
     {
         List<RenderShape> list = new ArrayList<>();
-        list.add(new RenderShape(contour.getPath(), painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
+        list.add(contour.render(painter.getPaint(firstTincture), null, getClass().getSimpleName() + " background"));
         Box bounds = contour.getBounds();
         double x1 = bounds.getX1();
         double x2 = bounds.getX2();
