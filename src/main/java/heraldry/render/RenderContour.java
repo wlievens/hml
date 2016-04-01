@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.Wither;
 
 import java.awt.geom.Area;
 import java.util.Collection;
@@ -22,11 +23,22 @@ public final class RenderContour
     @NonNull
     private final Path path;
 
+    @Wither
     private final Path spine;
 
     public RenderContour(@NonNull Path path)
     {
         this(path, null);
+    }
+
+    public Area createArea()
+    {
+        return GeometryUtils.convertPathToArea(path);
+    }
+
+    public Path getPath()
+    {
+        return this.path;
     }
 
     public Point getFessPoint()
@@ -83,7 +95,7 @@ public final class RenderContour
     {
         double centerX = center.getX();
         double centerY = center.getY();
-        Area area = GeometryUtils.convertContourToArea(this);
+        Area area = createArea();
         Box bounds = getBounds();
         int steps = 50;
         double largestArea = 0;

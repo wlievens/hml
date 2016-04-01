@@ -81,7 +81,7 @@ public class MobileCharge extends Charge
         }
         else
         {
-            Area contourArea = GeometryUtils.convertContourToArea(contour);
+            Area contourArea = contour.createArea();
             double centerX = bounds.lerpX(0.5);
             int steps = 50;
             double largestArea = 0;

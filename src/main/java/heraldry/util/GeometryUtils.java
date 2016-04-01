@@ -32,7 +32,7 @@ public class GeometryUtils
         {
             return Arrays.asList(path);
         }
-        Area contourArea = convertContourToArea(contour);
+        Area contourArea = contour.createArea();
         if (path.isClosed())
         {
             Area area = convertPathToArea(path);
@@ -63,11 +63,6 @@ public class GeometryUtils
     public static Area convertBoxToArea(Box box)
     {
         return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
-    }
-
-    public static Area convertContourToArea(RenderContour contour)
-    {
-        return convertPathToArea(contour.getPath());
     }
 
     public static List<Path> convertPathIteratorToPaths(PathIterator it)
@@ -212,8 +207,8 @@ public class GeometryUtils
 
     public static List<RenderContour> subtract(RenderContour first, RenderContour second)
     {
-        Area area1 = convertContourToArea(first);
-        Area area2 = convertContourToArea(second);
+        Area area1 = first.createArea();
+        Area area2 = second.createArea();
         area1.subtract(area2);
         return convertAreaToContours(area1);
     }

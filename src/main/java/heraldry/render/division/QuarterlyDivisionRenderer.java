@@ -32,7 +32,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         double y2 = bounds.getY2();
         double period = painter.getLinePeriodFactor() * Math.min(bounds.getWidth(), bounds.getHeight());
 
-        Area remainder = GeometryUtils.convertContourToArea(contour);
+        Area remainder = contour.createArea();
         List<PathStep> steps;
 
         steps = new ArrayList<>();
@@ -41,7 +41,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, cx, y1, cx, cy, line, period, false, 1.0);
         LineRenderer.line(steps, cx, cy, x1, cy, line, period, false, 1.0);
         RenderContour topLeft = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        remainder.subtract(GeometryUtils.convertContourToArea(topLeft));
+        remainder.subtract(topLeft.createArea());
 
         steps = new ArrayList<>();
         LineRenderer.line(steps, x2, cy, cx, cy, line, period, false, 1.0);
@@ -49,7 +49,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx, y1, x2, y1));
         steps.add(new LinePathStep(x2, y1, x2, cy));
         RenderContour topRight = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        remainder.subtract(GeometryUtils.convertContourToArea(topRight));
+        remainder.subtract(topRight.createArea());
 
         steps = new ArrayList<>();
         LineRenderer.line(steps, cx, y2, cx, cy, line, period, false, 1.0);
@@ -57,7 +57,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(x2, cy, x2, y2));
         steps.add(new LinePathStep(x2, y2, cx, y2));
         RenderContour bottomRight = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        remainder.subtract(GeometryUtils.convertContourToArea(bottomRight));
+        remainder.subtract(bottomRight.createArea());
 
         RenderContour bottomLeft = CollectionUtils.single(GeometryUtils.convertAreaToContours(remainder));
 

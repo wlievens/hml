@@ -169,7 +169,7 @@ public class RepeatCharge extends Charge
             return list;
         }
 
-        Area area = GeometryUtils.convertContourToArea(contour);
+        Area area = contour.createArea();
         // Use a rasterized Voronoi approach with Lloyd's algorithm for approaching optimal distribution
         // https://en.wikipedia.org/wiki/Voronoi_diagram
         // https://en.wikipedia.org/wiki/Lloyd%27s_algorithm

@@ -69,7 +69,7 @@ public class ChargedBackgroundModel implements Renderable
         List<RenderShape> list = new ArrayList<>();
         list.addAll(background.render(contour, painter));
         Path spine = background.getSpine(contour);
-        charges.stream().map(charge -> charge.render(new RenderContour(contour.getPath(), spine), painter)).forEach(list::addAll);
+        charges.stream().map(charge -> charge.render(contour.withSpine(spine), painter)).forEach(list::addAll);
         return list;
     }
 }
