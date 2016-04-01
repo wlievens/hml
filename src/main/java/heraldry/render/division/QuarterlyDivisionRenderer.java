@@ -44,7 +44,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         remainder.subtract(GeometryUtils.convertContourToArea(topLeft));
 
         steps = new ArrayList<>();
-        LineRenderer.line(steps, x2, y2, cx, cy, line, period, false, 1.0);
+        LineRenderer.line(steps, x2, cy, cx, cy, line, period, false, 1.0);
         LineRenderer.line(steps, cx, cy, cx, y1, line, period, false, 1.0);
         steps.add(new LinePathStep(cx, y1, x2, y1));
         steps.add(new LinePathStep(x2, y1, x2, cy));
