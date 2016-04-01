@@ -110,11 +110,6 @@ public class OrdinaryCharge extends Charge
         for (RenderContour chargeContour : chargeContours)
         {
             List<Path> clippedPaths = contour.clip(chargeContour.getPath());
-            if (clippedPaths.size() > 1)
-            {
-                System.out.println(this);
-                System.out.println(clippedPaths);
-            }
             Path clippedPath = CollectionUtils.single(clippedPaths);
             Path spine = chargeContour.getSpine() == null ? null : CollectionUtils.single(contour.clip(chargeContour.getSpine()));
             RenderContour clippedContour = new RenderContour(clippedPath, spine);
