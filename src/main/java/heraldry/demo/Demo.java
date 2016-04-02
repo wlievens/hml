@@ -20,11 +20,6 @@ public class Demo
         File path = new File("examples");
         for (File input : path.listFiles())
         {
-            if (!input.getName().equals("example039.xml"))
-            {
-                continue;
-            }
-            System.out.println(input);
             if (input.getName().toLowerCase().endsWith(".xml"))
             {
                 try

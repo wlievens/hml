@@ -10,8 +10,8 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 200.0,0.0 L 200.0,100.0 C 200.0,150.0 160.0,200.0 100.0,230.0 C 40.0,200.0 0.0,150.0 0.0,100.0 L 0.0,0.0 Z" style="fill: rgb(38, 64, 204); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="Bend FieldBackground" d="M 0.0,0.0 L 0.0,21.21320343017578 L 162.74252319335938,183.95571899414062 C 169.8382110595703,176.31600952148438 176.04647827148438,168.3079833984375 181.25607299804688,160.04286193847656 L 21.21320343017578,0.0 L 0.0,0.0 Z" style="fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 200.0,0.0 L 200.0,100.0 C 200.0,150.0 160.0,200.0 100.0,230.0 C 40.0,200.0 0.0,150.0 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(38, 64, 204); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,28.284271240234375 L 159.2891387939453,187.5734100341797 C 169.14064025878906,177.52891540527344 177.44033813476562,166.79566955566406 183.92308044433594,155.63880920410156 L 28.284271240234375,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 </svg>

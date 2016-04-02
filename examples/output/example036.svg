@@ -10,8 +10,8 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="Chevron FieldBackground" d="M 100.0,28.78679656982422 L 28.78679656982422,100.0 L 71.21320343017578,100.0 L 100.0,71.21320343017578 L 128.7867889404297,100.0 L 171.2132110595703,100.0 L 100.0,28.78679656982422 Z" style="fill: rgb(51, 153, 51); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,100.0 L 200.0,100.0 L 160.0,50.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(217, 217, 38); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 100.0,21.715728759765625 L 21.715728759765625,100.0 L 78.28427124023438,100.0 L 100.0,78.28427124023438 L 121.71572875976562,100.0 L 178.28427124023438,100.0 L 100.0,21.715728759765625 Z" style="fill-rule: evenodd; fill: rgb(51, 153, 51); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 0.0,100.0 L 200.0,100.0 L 160.0,50.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 </svg>

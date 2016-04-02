@@ -10,10 +10,10 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,50.0 L 100.0,50.0 L 100.0,0.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 100.0,50.0 L 100.0,100.0 L 200.0,100.0 L 160.0,50.0 L 100.0,50.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 200.0,0.0 L 160.0,50.0 L 200.0,100.0 L 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,50.0 L 100.0,50.0 L 100.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 100.0,0.0 L 100.0,50.0 L 160.0,50.0 L 200.0,0.0 L 100.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 100.0,50.0 L 100.0,100.0 L 200.0,100.0 L 160.0,50.0 L 100.0,50.0 Z" style="fill-rule: evenodd; fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,50.0 L 0.0,100.0 L 100.0,100.0 L 100.0,50.0 L 0.0,50.0 Z" style="fill-rule: evenodd; fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 0.0,100.0 L 200.0,100.0 L 160.0,50.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 </svg>

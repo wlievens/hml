@@ -10,9 +10,9 @@
 </radialGradient>
 </defs>
 <g transform="translate(8.0,8.0)">
-<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 200.0,0.0 L 200.0,100.0 C 200.0,150.0 160.0,200.0 100.0,230.0 C 40.0,200.0 0.0,150.0 0.0,100.0 L 0.0,0.0 Z" style="fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="Gore FieldBackground" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 80.0,191.0 80.0,139.0 100.0,100.0 C 50.0,80.0 30.0,30.0 0.0,0.0 Z" style="fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="Gore sinister FieldBackground" d="M 200.0,0.0 C 170.0,30.0 150.0,80.0 100.0,100.0 C 120.0,139.0 120.0,191.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 Z" style="fill: rgb(38, 64, 204); stroke-width: 1px; stroke: none;"/>
-<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 200.0,0.0 L 200.0,100.0 C 200.0,150.0 160.0,200.0 100.0,230.0 C 40.0,200.0 0.0,150.0 0.0,100.0 L 0.0,0.0 Z" style="fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(230, 230, 230); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 80.0,191.0 80.0,139.0 100.0,100.0 C 50.0,80.0 30.0,30.0 0.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(179, 38, 26); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="FieldBackground" d="M 200.0,0.0 C 170.0,30.0 150.0,80.0 100.0,100.0 C 120.0,139.0 120.0,191.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 Z" style="fill-rule: evenodd; fill: rgb(38, 64, 204); stroke-width: 1px; stroke: none;"/>
+<path clip-path="url(#contour)" comment="outer shield shape border" d="M 0.0,0.0 L 0.0,100.0 C 0.0,150.0 40.0,200.0 100.0,230.0 C 160.0,200.0 200.0,150.0 200.0,100.0 L 200.0,0.0 L 0.0,0.0 Z" style="fill-rule: evenodd; fill: none; stroke-width: 1px; stroke: rgb(0, 0, 0);"/>
 </g>
 </svg>
