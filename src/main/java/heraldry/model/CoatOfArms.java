@@ -165,7 +165,7 @@ public class CoatOfArms
         };
         List<RenderShape> renderShapes = new ArrayList<>();
         renderShapes.addAll(model.render(shieldContour, painter));
-        //renderShapes.add(shieldContour.render(null, painter.getOuterBorderColor(), "outer shield shape border"));
+        renderShapes.add(shieldContour.render(null, painter.getOuterBorderColor(), "outer shield shape border"));
 
         // Process counterchanged paint
         if (renderShapes.stream().anyMatch(renderShape -> renderShape.getFillPaint() instanceof CounterchangedPaint))
