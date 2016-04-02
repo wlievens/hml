@@ -9,7 +9,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -45,17 +44,17 @@ public class PallDivisionRenderer implements DivisionRenderer
             steps.add(new LinePathStep(x1, y1, x2, y1));
             LineRenderer.line(steps, x2, y1, cx, cy, line, period, false, 1.0);
             LineRenderer.line(steps, cx, cy, x1, y1, line, period, false, 1.0);
-            RenderContour top = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+            RenderContour top = contour.clip(new RenderContour(new Path(steps)));
             remainder.subtract(top.createArea());
 
             steps = new ArrayList<>();
             steps.add(new LinePathStep(x2, y1, x2, y3));
             steps.add(new LinePathStep(x2, y3, cx, y3));
             LineRenderer.line(steps, cx, y3, cx, cy, line, period, false, 1.0);
-            RenderContour right = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+            RenderContour right = contour.clip(new RenderContour(new Path(steps)));
             remainder.subtract(right.createArea());
 
-            RenderContour left = CollectionUtils.single(GeometryUtils.convertAreaToContours(remainder));
+            RenderContour left = GeometryUtils.convertAreaToContour(remainder);
 
             return Arrays.asList(top, right, left);
         }
@@ -66,7 +65,7 @@ public class PallDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, cx, cy, x2, y2, line, period, false, 1.0);
         steps.add(new LinePathStep(x2, y2, x2, y3));
         steps.add(new LinePathStep(x2, y3, x1, y3));
-        RenderContour bottom = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+        RenderContour bottom = contour.clip(new RenderContour(new Path(steps)));
         remainder.subtract(bottom.createArea());
 
         steps = new ArrayList<>();
@@ -75,10 +74,10 @@ public class PallDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx, cy, cx, y3));
         steps.add(new LinePathStep(cx, y2, x1, y3));
         steps.add(new LinePathStep(x1, y3, x1, y1));
-        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+        RenderContour left = contour.clip(new RenderContour(new Path(steps)));
         remainder.subtract(left.createArea());
 
-        RenderContour right = CollectionUtils.single(GeometryUtils.convertAreaToContours(remainder));
+        RenderContour right = GeometryUtils.convertAreaToContour(remainder);
 
         return Arrays.asList(left, right, bottom);
     }

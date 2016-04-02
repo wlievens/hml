@@ -48,7 +48,7 @@ public class BendyVariationRenderer implements VariationRenderer
             LineRenderer.line(steps, endX, endY + step, startX, startY + step, line, period, flipX, 1.0);
             steps.add(new LinePathStep(startX, startY + step, startX, startY - step));
 
-            list.addAll(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "bendy " + y)));
+            list.add(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "bendy " + y)));
         }
 
         return list;

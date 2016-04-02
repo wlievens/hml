@@ -32,7 +32,7 @@ public class BarryVariationRenderer implements VariationRenderer
             steps.add(new LinePathStep(bounds.getX2(), y, bounds.getX2(), y + step));
             LineRenderer.line(steps, bounds.getX2(), y + step, bounds.getX1(), y + step, line, period, true, 1.0);
             steps.add(new LinePathStep(bounds.getX1(), y + step, bounds.getX1(), y));
-            list.addAll(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "barry " + y)));
+            list.add(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "barry " + y)));
         }
         return list;
     }

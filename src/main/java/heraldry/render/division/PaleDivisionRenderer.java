@@ -35,8 +35,8 @@ public class PaleDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx, y2, x1, y2));
         steps.add(new LinePathStep(x1, y2, x1, y1));
 
-        RenderContour left = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        RenderContour right = CollectionUtils.single(GeometryUtils.subtract(contour, left));
+        RenderContour left = contour.clip(new RenderContour(new Path(steps)));
+        RenderContour right = GeometryUtils.subtract(contour, left);
 
         return Arrays.asList(left, right);
     }

@@ -66,7 +66,6 @@ public final class RenderContour
     {
         return shapes.stream()
                 .map(this::clip)
-                .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
     
@@ -74,7 +73,6 @@ public final class RenderContour
     {
         return contours.stream()
                 .map(this::clip)
-                .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
     
@@ -106,18 +104,18 @@ public final class RenderContour
         return Collections.singletonList(new Path(steps, false));
     }
     
-    public List<RenderShape> clip(@NonNull RenderShape shape)
+    public RenderShape clip(@NonNull RenderShape shape)
     {
         Paint fillPaint = shape.getFillPaint();
         Color borderColor = shape.getBorderColor();
         String label = "clipped " + shape.getLabel();
         Surface surface = clip(shape.getSurface());
-        return Collections.singletonList(surface.render(fillPaint, borderColor, label));
+        return surface.render(fillPaint, borderColor, label);
     }
     
-    public List<RenderContour> clip(@NonNull RenderContour contour)
+    public RenderContour clip(@NonNull RenderContour contour)
     {
-        return Collections.singletonList(new RenderContour(clip(contour.getSurface()), null));
+        return new RenderContour(clip(contour.getSurface()), null);
     }
 
     public Surface clip(Surface surface)

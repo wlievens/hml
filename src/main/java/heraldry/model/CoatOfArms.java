@@ -201,11 +201,8 @@ public class CoatOfArms
                         if (intersectedArea != null)
                         {
                             partShapeArea.intersect(intersectedArea);
-                            List<RenderContour> intersectionContours = GeometryUtils.convertAreaToContours(partShapeArea);
-                            for (int i = 0; i < intersectionContours.size(); ++i)
-                            {
-                                renderShapes.add(n + i, intersectionContours.get(i).render(counter, null, String.format("counterchanged intersection #%d of %s color %d %s counter %s", i, path.getLabel(), c, color, counter)));
-                            }
+                            RenderContour intersectionContour = GeometryUtils.convertAreaToContour(partShapeArea);
+                            renderShapes.add(n, intersectionContour.render(counter, null, String.format("counterchanged intersection of %s color %d %s counter %s", path.getLabel(), c, color, counter)));
                         }
                     }
                     n--;
@@ -301,7 +298,7 @@ public class CoatOfArms
                 {
                     for (Path clipped : shapeContour.clip(path))
                     {
-                        list.addAll(shapeContour.clip(clipped.render(pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
+                        list.add(shapeContour.clip(clipped.render(pattern.getForeground(), null, String.format("pattern element %s, %s clipped and transformed", x, y))));
                     }
                 }
             }

@@ -30,7 +30,7 @@ public class ChequyVariationRenderer implements VariationRenderer
                 double x2 = x1 + step;
                 double y2 = y1 + step;
                 Path rectangle = GeometryUtils.rectangle(x1, y1, x2, y2);
-                list.addAll(contour.clip(rectangle.render(painter.getPaint(alternate ? firstTincture : secondTincture), null, "chequy element " + x1 + ", " + y1)));
+                list.add(contour.clip(rectangle.render(painter.getPaint(alternate ? firstTincture : secondTincture), null, "chequy element " + x1 + ", " + y1)));
                 alternate = !alternate;
             }
             rowAlternate = !rowAlternate;

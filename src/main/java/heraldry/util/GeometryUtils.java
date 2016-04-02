@@ -1,6 +1,5 @@
 package heraldry.util;
 
-import heraldry.render.Box;
 import heraldry.render.RenderContour;
 import heraldry.render.Surface;
 import heraldry.render.path.CubicPathStep;
@@ -12,21 +11,14 @@ import heraldry.render.path.QuadraticPathStep;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GeometryUtils
 {
-    public static List<RenderContour> convertAreaToContours(Area area)
+    public static RenderContour convertAreaToContour(Area area)
     {
-        return Collections.singletonList(new RenderContour(convertPathIteratorToSurface(area.getPathIterator(null), true)));
-    }
-
-    public static Area convertBoxToArea(Box box)
-    {
-        return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
+        return new RenderContour(convertPathIteratorToSurface(area.getPathIterator(null), true));
     }
 
     public static Surface convertPathIteratorToSurface(PathIterator it, boolean checkWinding)
@@ -175,12 +167,12 @@ public class GeometryUtils
         return polygon(x1, y1, x2, y1, x2, y2, x1, y2);
     }
 
-    public static List<RenderContour> subtract(RenderContour first, RenderContour second)
+    public static RenderContour subtract(RenderContour first, RenderContour second)
     {
         Area area1 = first.createArea();
         Area area2 = second.createArea();
         area1.subtract(area2);
-        return convertAreaToContours(area1);
+        return convertAreaToContour(area1);
     }
 
     private static void convertPathSteps(Path2D path2D, List<PathStep> steps)

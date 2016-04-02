@@ -63,7 +63,7 @@ public class ChevronnyVariationRenderer implements VariationRenderer
                 LineRenderer.line(steps, midX, midY + step, x1, y + step, line, period, flip, 1.0);
                 steps.add(new LinePathStep(x1, y + step, x1, y));
             }
-            shapes.addAll(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, getClass().getSimpleName() + " element " + y)));
+            shapes.add(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, getClass().getSimpleName() + " element " + y)));
         }
 
         return shapes;

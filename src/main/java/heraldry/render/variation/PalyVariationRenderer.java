@@ -34,7 +34,7 @@ public class PalyVariationRenderer implements VariationRenderer
             LineRenderer.line(steps, x + step, y1, x + step, y2, line, period, false, 1.0);
             steps.add(new LinePathStep(x + step, y2, x, y2));
             LineRenderer.line(steps, x, y2, x, y1, line, period, false, 1.0);
-            list.addAll(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "paly " + x)));
+            list.add(contour.clip(new Path(steps).render(painter.getPaint(secondTincture), null, "paly " + x)));
         }
         return list;
     }

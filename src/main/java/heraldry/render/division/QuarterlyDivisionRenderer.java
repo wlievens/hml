@@ -9,7 +9,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
 import java.awt.geom.Area;
@@ -40,7 +39,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(x1, y1, cx, y1));
         LineRenderer.line(steps, cx, y1, cx, cy, line, period, false, 1.0);
         LineRenderer.line(steps, cx, cy, x1, cy, line, period, false, 1.0);
-        RenderContour topLeft = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+        RenderContour topLeft = contour.clip(new RenderContour(new Path(steps)));
         remainder.subtract(topLeft.createArea());
 
         steps = new ArrayList<>();
@@ -48,7 +47,7 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, cx, cy, cx, y1, line, period, false, 1.0);
         steps.add(new LinePathStep(cx, y1, x2, y1));
         steps.add(new LinePathStep(x2, y1, x2, cy));
-        RenderContour topRight = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+        RenderContour topRight = contour.clip(new RenderContour(new Path(steps)));
         remainder.subtract(topRight.createArea());
 
         steps = new ArrayList<>();
@@ -56,10 +55,10 @@ public class QuarterlyDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, cx, cy, x2, cy, line, period, false, 1.0);
         steps.add(new LinePathStep(x2, cy, x2, y2));
         steps.add(new LinePathStep(x2, y2, cx, y2));
-        RenderContour bottomRight = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
+        RenderContour bottomRight = contour.clip(new RenderContour(new Path(steps)));
         remainder.subtract(bottomRight.createArea());
 
-        RenderContour bottomLeft = CollectionUtils.single(GeometryUtils.convertAreaToContours(remainder));
+        RenderContour bottomLeft = GeometryUtils.convertAreaToContour(remainder);
 
         return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
     }

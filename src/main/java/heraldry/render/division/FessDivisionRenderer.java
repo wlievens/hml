@@ -9,7 +9,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 
 import java.util.ArrayList;
@@ -35,8 +34,8 @@ public class FessDivisionRenderer implements DivisionRenderer
         LineRenderer.line(steps, x2, cy, x1, cy, line, period, false, 1.0);
         steps.add(new LinePathStep(x1, cy, x1, y1));
 
-        RenderContour top = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        RenderContour bottom = CollectionUtils.single(GeometryUtils.subtract(contour, top));
+        RenderContour top = contour.clip(new RenderContour(new Path(steps)));
+        RenderContour bottom = GeometryUtils.subtract(contour, top);
 
         return Arrays.asList(top, bottom);
     }

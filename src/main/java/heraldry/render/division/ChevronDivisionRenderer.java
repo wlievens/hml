@@ -9,7 +9,6 @@ import heraldry.render.RenderContour;
 import heraldry.render.path.LinePathStep;
 import heraldry.render.path.Path;
 import heraldry.render.path.PathStep;
-import heraldry.util.CollectionUtils;
 import heraldry.util.GeometryUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -44,8 +43,8 @@ public class ChevronDivisionRenderer implements DivisionRenderer
             LineRenderer.line(steps, x2, y1, cx, cy, line, period, false, 1.0);
             LineRenderer.line(steps, cx, cy, x1, y1, line, period, false, 1.0);
 
-            RenderContour top = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-            RenderContour bottom = CollectionUtils.single(GeometryUtils.subtract(contour, top));
+            RenderContour top = contour.clip(new RenderContour(new Path(steps)));
+            RenderContour bottom = GeometryUtils.subtract(contour, top);
             return Arrays.asList(bottom, top);
         }
 
@@ -53,8 +52,8 @@ public class ChevronDivisionRenderer implements DivisionRenderer
         steps.add(new LinePathStep(cx + size, cy + size, cx - size, cy + size));
         LineRenderer.line(steps, cx - size, cy + size, cx, cy, line, period, false, 1.0);
 
-        RenderContour bottom = CollectionUtils.single(contour.clip(new RenderContour(new Path(steps))));
-        RenderContour top = CollectionUtils.single(GeometryUtils.subtract(contour, bottom));
+        RenderContour bottom = contour.clip(new RenderContour(new Path(steps)));
+        RenderContour top = GeometryUtils.subtract(contour, bottom);
         return Arrays.asList(top, bottom);
     }
 

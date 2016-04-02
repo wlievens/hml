@@ -27,12 +27,12 @@ public class GyronnyVariationRenderer implements VariationRenderer
         double x2 = bounds.getX2();
         double y2 = midY * 2 - y1;
         List<RenderShape> list = new ArrayList<>();
-        list.addAll(contour.clip(contour.render(painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
-        list.addAll(contour.clip(GeometryUtils.polygon(midX, midY, x1, y1, midX, y1).render(painter.getPaint(firstTincture), null, "gyron 1")));
-        list.addAll(contour.clip(GeometryUtils.polygon(midX, midY, x2, y1, x2, midY).render(painter.getPaint(firstTincture), null, "gyron 2")));
-        list.addAll(contour.clip(GeometryUtils.polygon(midX, midY, x2, y2, midX, y2).render(painter.getPaint(firstTincture), null, "gyron 3")));
-        list.addAll(contour.clip(GeometryUtils.polygon(midX, midY, x1, y2, x1, midY).render(painter.getPaint(firstTincture), null, "gyron 4 top part")));
-        list.addAll(contour.clip(GeometryUtils.rectangle(midX, y2, x2, bounds.getY2()).render(painter.getPaint(firstTincture), null, "gyron 4 bottom part")));
+        list.add(contour.clip(contour.render(painter.getPaint(secondTincture), null, getClass().getSimpleName() + " background")));
+        list.add(contour.clip(GeometryUtils.polygon(midX, midY, x1, y1, midX, y1).render(painter.getPaint(firstTincture), null, "gyron 1")));
+        list.add(contour.clip(GeometryUtils.polygon(midX, midY, x2, y1, x2, midY).render(painter.getPaint(firstTincture), null, "gyron 2")));
+        list.add(contour.clip(GeometryUtils.polygon(midX, midY, x2, y2, midX, y2).render(painter.getPaint(firstTincture), null, "gyron 3")));
+        list.add(contour.clip(GeometryUtils.polygon(midX, midY, x1, y2, x1, midY).render(painter.getPaint(firstTincture), null, "gyron 4 top part")));
+        list.add(contour.clip(GeometryUtils.rectangle(midX, y2, x2, bounds.getY2()).render(painter.getPaint(firstTincture), null, "gyron 4 bottom part")));
         return list;
     }
 }
