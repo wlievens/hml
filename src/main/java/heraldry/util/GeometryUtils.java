@@ -21,7 +21,7 @@ public class GeometryUtils
 {
     public static List<RenderContour> convertAreaToContours(Area area)
     {
-        return Collections.singletonList(new RenderContour(convertPathIteratorToSurface(area.getPathIterator(null))));
+        return Collections.singletonList(new RenderContour(convertPathIteratorToSurface(area.getPathIterator(null), true)));
     }
 
     public static Area convertBoxToArea(Box box)
@@ -29,18 +29,7 @@ public class GeometryUtils
         return new Area(new Rectangle2D.Double(box.getX1(), box.getY1(), box.getX2(), box.getY2()));
     }
 
-    public static void main(String[] args)
-    {
-        Area area = new Area();
-        area.add(new Area(new Rectangle2D.Double(0, 0, 100, 100)));
-        area.subtract(new Area(new Rectangle2D.Double(10, 10, 20, 10)));
-        area.subtract(new Area(new Rectangle2D.Double(10, 50, 20, 10)));
-        Surface surface = convertPathIteratorToSurface(area.getPathIterator(null));
-        System.out.println(surface);
-        System.out.println(convertPathIteratorToSurface(surface.createArea().getPathIterator(null)));
-    }
-
-    public static Surface convertPathIteratorToSurface(PathIterator it)
+    public static Surface convertPathIteratorToSurface(PathIterator it, boolean checkWinding)
     {
         float[] xys = new float[6];
         List<Path> positives = new ArrayList<>();
@@ -109,8 +98,7 @@ public class GeometryUtils
                             steps.add(new LinePathStep(previousX, previousY, firstX, firstY));
                         }
                         Path path = new Path(steps);
-
-                        double winding = steps.stream().mapToDouble(step -> (step.getEndX() - step.getStartX()) * (step.getEndY() + step.getStartY())).sum();
+                        double winding = checkWinding ? steps.stream().mapToDouble(step -> (step.getEndX() - step.getStartX()) * (step.getEndY() + step.getStartY())).sum() : 0;
                         ((winding >= 0) ? positives : negatives).add(path);
                         steps = new ArrayList<>();
                         closed = true;

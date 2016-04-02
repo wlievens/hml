@@ -85,7 +85,7 @@ public final class RenderContour
         {
             Area area = GeometryUtils.convertPathToArea(path);
             area.intersect(contourArea);
-            Surface surface = GeometryUtils.convertPathIteratorToSurface(area.getPathIterator(null));
+            Surface surface = GeometryUtils.convertPathIteratorToSurface(area.getPathIterator(null), true);
             if (!surface.getNegatives().isEmpty())
             {
                 throw new IllegalStateException();
@@ -126,7 +126,7 @@ public final class RenderContour
         Area area = createArea();
         area.intersect(negative);
         PathIterator iterator = area.getPathIterator(null);
-        return GeometryUtils.convertPathIteratorToSurface(iterator);
+        return GeometryUtils.convertPathIteratorToSurface(iterator, true);
     }
     
     public boolean isRectangle()

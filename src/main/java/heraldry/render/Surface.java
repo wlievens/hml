@@ -85,6 +85,6 @@ public class Surface
 
     public Surface normalize()
     {
-        return GeometryUtils.convertPathIteratorToSurface(createArea().getPathIterator(null));
+        return GeometryUtils.convertPathIteratorToSurface(createArea().getPathIterator(null), true);
     }
 }

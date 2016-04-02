@@ -143,6 +143,9 @@ public class MobileCharge extends Charge
         Surface surface = SvgUtils.collect(diagram, transform);
         if (!surface.getNegatives().isEmpty())
         {
+            System.out.println(surface.getPositives());
+            System.out.println(surface.getNegatives());
+            System.out.flush();
             throw new IllegalStateException();
         }
         for (Path c1 : surface.getPositives())

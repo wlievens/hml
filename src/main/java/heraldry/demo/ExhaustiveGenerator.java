@@ -163,6 +163,17 @@ public class ExhaustiveGenerator
                 coat.setModel(model);
                 coats.add(coat);
             }
+            if (true)
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        OR,
+                        new MobileCharge("fleur-de-lis", SABLE)
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
 
             if (true)
             {

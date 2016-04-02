@@ -8,7 +8,6 @@ import lombok.NonNull;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -16,7 +15,7 @@ public class SvgUtils
 {
     public static Surface collect(SVGDiagram diagram, AffineTransform transform)
     {
-        return GeometryUtils.convertPathIteratorToSurface(diagram.getRoot().getShape().getPathIterator(transform));
+        return GeometryUtils.convertPathIteratorToSurface(diagram.getRoot().getShape().getPathIterator(transform), false);
     }
 
     public static Path convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath)
@@ -27,13 +26,11 @@ public class SvgUtils
     public static Path convertSvgElementToPath(@NonNull com.kitfox.svg.Path svgPath, AffineTransform transform)
     {
         Shape path2d = svgPath.getShape();
-        PathIterator it = path2d.getPathIterator(transform);
-        Surface surface = GeometryUtils.convertPathIteratorToSurface(it);
+        Surface surface = GeometryUtils.convertPathIteratorToSurface(path2d.getPathIterator(transform), false);
         if (surface.isSingular())
         {
             return surface.getPositives().get(0);
         }
-        System.out.println(surface);
         throw new IllegalStateException();
     }
 
