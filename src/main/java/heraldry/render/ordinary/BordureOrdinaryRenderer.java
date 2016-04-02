@@ -45,9 +45,7 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         List<PathStep> list = path.getSteps().stream()
                 .map(step -> rescale(step, centerX, centerY, scale))
                 .collect(toList());
-        Surface bordureSurface = new Surface(Collections.singletonList(path), Collections.singletonList(new Path(list)));
-        System.out.println(bordureSurface);
-        return new RenderContour(bordureSurface);
+        return new RenderContour(new Surface(Collections.singletonList(path), Collections.singletonList(new Path(list))));
     }
 
     private PathStep rescale(PathStep step, double centerX, double centerY, double scale)

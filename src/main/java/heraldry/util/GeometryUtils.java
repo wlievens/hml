@@ -113,6 +113,8 @@ public class GeometryUtils
                         double winding = steps.stream().mapToDouble(step -> (step.getEndX() - step.getStartX()) * (step.getEndY() + step.getStartY())).sum();
                         ((winding >= 0) ? positives : negatives).add(path);
                         steps = new ArrayList<>();
+                        closed = true;
+                        first = true;
                     }
                     break;
                 }
@@ -121,12 +123,13 @@ public class GeometryUtils
                     throw new IllegalStateException();
                 }
             }
-            if (first)
+            if (!closed && first)
             {
                 firstX = previousX;
                 firstY = previousY;
                 first = false;
             }
+            closed = false;
             it.next();
         }
         if (steps.size() > 0)

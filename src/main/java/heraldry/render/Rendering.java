@@ -1,5 +1,6 @@
 package heraldry.render;
 
+import com.google.common.base.Joiner;
 import heraldry.render.paint.Color;
 import heraldry.render.paint.Paint;
 import heraldry.render.path.CubicPathStep;
@@ -27,6 +28,13 @@ public final class Rendering
 
     private final RenderContour contour;
     private final Collection<RenderShape> renderShapes;
+
+    public static String buildPath(Surface surface, double offsetX, double offsetY)
+    {
+        String positive = Joiner.on(" ").join(surface.getPositives().stream().map(path -> buildPath(path, offsetX, offsetY)).iterator());
+        String negative = Joiner.on(" ").join(surface.getNegatives().stream().map(path -> buildPath(path, offsetX, offsetY)).iterator());
+        return (positive + " " + negative).trim();
+    }
 
     public static String buildPath(Path path, double offsetX, double offsetY)
     {
@@ -169,15 +177,11 @@ public final class Rendering
     {
         Element svgGroup = document.createElement("g");
         renderShapes.forEach(renderShape -> {
-            Surface surface = renderShape.getSurface().simplify();
-            if (!surface.getNegatives().isEmpty())
-            {
-                throw new IllegalArgumentException();
-            }
+            Surface surface = renderShape.getSurface().normalize();
             surface.getPositives().forEach(path -> {
                 Element svgPath = document.createElement("path");
-                svgPath.setAttribute("d", buildPath(path, 0, 0));
-                svgPath.setAttribute("style", String.format("fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(renderShape.getFillPaint()), getSvgColor(renderShape.getBorderColor())));
+                svgPath.setAttribute("d", buildPath(surface, 0, 0));
+                svgPath.setAttribute("style", String.format("fill-rule: evenodd; fill: %s; stroke-width: 1px; stroke: %s;", getSvgColor(renderShape.getFillPaint()), getSvgColor(renderShape.getBorderColor())));
                 svgPath.setAttribute("clip-path", String.format("url(#%s)", SVG_ID_CONTOUR));
                 svgPath.setAttribute("comment", renderShape.getLabel());
                 svgGroup.appendChild(svgPath);

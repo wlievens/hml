@@ -83,12 +83,8 @@ public class Surface
         return negatives.isEmpty() && positives.size() == 1;
     }
 
-    public Surface simplify()
+    public Surface normalize()
     {
-        if (negatives.isEmpty())
-        {
-            return this;
-        }
         return GeometryUtils.convertPathIteratorToSurface(createArea().getPathIterator(null));
     }
 }

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <coatOfArms xmlns="http://github.com/wlievens/heraldry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://github.com/wlievens/heraldry ../src/main/resources/xsd/heraldry.xsd">
-    <shape>vertical-banner</shape>
+    <shape>heater-shield</shape>
     <background>
         <field tincture="sable"/>
     </background>
     <charges>
-        <ordinary type="bend" tincture="argent"/>
-        <ordinary type="bend-sinister" tincture="argent"/>
-        <ordinary type="cross" tincture="argent"/>
+        <ordinary type="bordure" tincture="vert"/>
     </charges>
 </coatOfArms>
