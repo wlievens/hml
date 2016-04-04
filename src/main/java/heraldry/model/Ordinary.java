@@ -73,9 +73,9 @@ public enum Ordinary
     RIBBON(new BendOrdinaryRenderer(false, 0.25)),
     RIBBON_SINISTER(new BendOrdinaryRenderer(true, 0.25)),
     ROUNDEL(new RoundelOrdinaryRenderer(false)),
-    SALTIRE(new SaltireOrdinaryRenderer(1.0)),
-    SALTIRE_FILLET(new SaltireOrdinaryRenderer(0.5)),
-    SALTOREL(null),
+    SALTIRE(new SaltireOrdinaryRenderer(1.0, 1.0)),
+    SALTIRE_FILLET(new SaltireOrdinaryRenderer(1.0, 0.5)),
+    SALTOREL(new SaltireOrdinaryRenderer(0.5, 0.5)),
     SHAKEFORK(null),
     TRESSURE(null);
 
