@@ -40,6 +40,11 @@ public class OrdinaryCharge extends Charge
         this(ordinary, Line.PLAIN, new FieldBackground(tincture), new ArrayList<>());
     }
 
+    public OrdinaryCharge(Ordinary ordinary, Background background, Charge... charges)
+    {
+        this(ordinary, Line.PLAIN, background, Arrays.asList(charges));
+    }
+
     public OrdinaryCharge(Ordinary ordinary, Line line, Tincture tincture, Charge... charges)
     {
         this(ordinary, line, new FieldBackground(tincture), Arrays.asList(charges));
