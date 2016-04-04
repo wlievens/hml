@@ -127,6 +127,7 @@ public final class Path
             }
             accumulator += stepLength;
         }
-        throw new IllegalArgumentException();
+        PathStep last = steps.get(steps.size() - 1);
+        return new Point(last.getEndX(), last.getEndY());
     }
 }
