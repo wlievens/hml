@@ -21,7 +21,8 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class BordureOrdinaryRenderer implements OrdinaryRenderer
 {
-    private final double scaleFactor;
+    private final double outerScaleFactor;
+    private final double innerScaleFactor;
 
     @Override
     public RenderContour render(RenderContour contour, Line line, Painter painter)
@@ -34,7 +35,8 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
         double centerY = center.getY();
         double size = Math.min(width, height);
         double period = painter.getLinePeriodFactor() * size;
-        double scale = 1.0 - scaleFactor * 2 * painter.getOrdinaryThickness() / width;
+        double outerScale = 1.0 - outerScaleFactor * 2 * painter.getOrdinaryThickness() / width;
+        double innerScale = outerScale - innerScaleFactor * 2 * painter.getOrdinaryThickness() / width;
 
         Surface surface = contour.getSurface();
         if (!surface.isSingular())
@@ -42,10 +44,13 @@ public class BordureOrdinaryRenderer implements OrdinaryRenderer
             throw new IllegalArgumentException();
         }
         Path path = surface.getPositives().get(0);
-        List<PathStep> list = path.getSteps().stream()
-                .map(step -> rescale(step, centerX, centerY, scale))
-                .collect(toList());
-        return new RenderContour(new Surface(Collections.singletonList(path), Collections.singletonList(new Path(list))));
+        Path outer = new Path((List<PathStep>)path.getSteps().stream()
+                .map(step -> rescale(step, centerX, centerY, outerScale))
+                .collect(toList()));
+        Path inner = new Path((List<PathStep>)path.getSteps().stream()
+                .map(step -> rescale(step, centerX, centerY, innerScale))
+                .collect(toList()));
+        return new RenderContour(new Surface(Collections.singletonList(outer), Collections.singletonList(inner)));
     }
 
     private PathStep rescale(PathStep step, double centerX, double centerY, double scale)
