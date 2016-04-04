@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static heraldry.model.Ordinary.*;
 import static heraldry.model.Tincture.*;
 
 public class ExhaustiveGenerator
@@ -56,7 +57,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         GULES,
-                        new OrdinaryCharge(Ordinary.PALL_REVERSED, ERMINE)
+                        new OrdinaryCharge(PALL_REVERSED, ERMINE)
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -76,7 +77,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         ARGENT,
-                        new OrdinaryCharge(Ordinary.CHEVRON, GULES), new OrdinaryCharge(Ordinary.BORDURE, SABLE)
+                        new OrdinaryCharge(CHEVRON, GULES), new OrdinaryCharge(BORDURE, SABLE)
                 );
                 //model.setCharges(Arrays.asList(new OrdinaryCharge(Ordinary.CHEVRON, Tincture.GULES), new OrdinaryCharge(Ordinary.BORDURE, Tincture.SABLE, new RepeatCharge(1, new OrdinaryCharge(Ordinary.ROUNDEL, Tincture.OR)))));
                 coat.setModel(model);
@@ -88,7 +89,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         OR,
-                        new RepeatCharge(3, new OrdinaryCharge(Ordinary.FUSIL, AZURE))
+                        new RepeatCharge(3, new OrdinaryCharge(FUSIL, AZURE))
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -99,7 +100,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         ARGENT,
-                        new OrdinaryCharge(Ordinary.SALTIRE, SABLE, new RepeatCharge(5, new MobileCharge("fleur-de-lis", ARGENT)))
+                        new OrdinaryCharge(SALTIRE, SABLE, new RepeatCharge(5, new MobileCharge("fleur-de-lis", ARGENT)))
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -110,7 +111,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         ARGENT,
-                        new OrdinaryCharge(Ordinary.SALTIRE, Line.ENGRAILED, SABLE, new InescutcheonCharge(new ChargedBackgroundModel(OR, new OrdinaryCharge(Ordinary.CROSS, GULES))))
+                        new OrdinaryCharge(SALTIRE, Line.ENGRAILED, SABLE, new InescutcheonCharge(new ChargedBackgroundModel(OR, new OrdinaryCharge(CROSS, GULES))))
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -121,7 +122,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         ARGENT,
-                        new OrdinaryCharge(Ordinary.CROSS, GULES, new RepeatCharge(5, new OrdinaryCharge(Ordinary.FRET, OR)))
+                        new OrdinaryCharge(CROSS, GULES, new RepeatCharge(5, new OrdinaryCharge(FRET, OR)))
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -133,8 +134,8 @@ public class ExhaustiveGenerator
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         new DivisionBackground(
                                 Division.PALE,
-                                new DivisionPart(1, ARGENT, new OrdinaryCharge(Ordinary.BORDURE, GULES)),
-                                new DivisionPart(2, GULES, new OrdinaryCharge(Ordinary.BORDURE, ARGENT))
+                                new DivisionPart(1, ARGENT, new OrdinaryCharge(BORDURE, GULES)),
+                                new DivisionPart(2, GULES, new OrdinaryCharge(BORDURE, ARGENT))
                         )
                 );
                 coat.setModel(model);
@@ -146,7 +147,7 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         new DivisionBackground(Division.PALE, GULES, ARGENT),
-                        new OrdinaryCharge(Ordinary.BORDURE, AZURE)
+                        new OrdinaryCharge(BORDURE, AZURE)
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -157,8 +158,8 @@ public class ExhaustiveGenerator
                 coat.setShape(shape);
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         OR,
-                        new RepeatCharge(2, new OrdinaryCharge(Ordinary.CHEVRON, VERT)),
-                        new OrdinaryCharge(Ordinary.BORDURE, ARGENT)
+                        new RepeatCharge(2, new OrdinaryCharge(CHEVRON, VERT)),
+                        new OrdinaryCharge(BORDURE, ARGENT)
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -170,6 +171,19 @@ public class ExhaustiveGenerator
                 ChargedBackgroundModel model = new ChargedBackgroundModel(
                         OR,
                         new MobileCharge("fleur-de-lis", SABLE)
+                );
+                coat.setModel(model);
+                coats.add(coat);
+            }
+            if (true)
+            {
+                CoatOfArms coat = new CoatOfArms();
+                coat.setShape(shape);
+                // TODO counterchanged here hangs!
+                ChargedBackgroundModel model = new ChargedBackgroundModel(
+                        ARGENT,
+                        new OrdinaryCharge(CROSS, GULES),
+                        new OrdinaryCharge(ORLE, SABLE /*¨new CounterchangedBackground(ARGENT, GULES) */)
                 );
                 coat.setModel(model);
                 coats.add(coat);
@@ -202,7 +216,7 @@ public class ExhaustiveGenerator
                         CoatOfArms coat = new CoatOfArms();
                         coat.setShape(shape);
                         ChargedBackgroundModel model = new ChargedBackgroundModel(
-                                new SemyBackground(new FieldBackground(ARGENT), new OrdinaryCharge(Ordinary.LOZENGE, AZURE))
+                                new SemyBackground(new FieldBackground(ARGENT), new OrdinaryCharge(LOZENGE, AZURE))
                         );
                         coat.setModel(model);
                         coats.add(coat);
@@ -212,8 +226,8 @@ public class ExhaustiveGenerator
                         CoatOfArms coat = new CoatOfArms();
                         coat.setShape(shape);
                         ChargedBackgroundModel model = new ChargedBackgroundModel(ARGENT,
-                                new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
-                                new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
                                 new OrdinaryCharge(ordinary, line, new FieldBackground(GULES), new ArrayList<Charge>())
                         );
                         coat.setModel(model);
@@ -238,8 +252,8 @@ public class ExhaustiveGenerator
                         coat.setShape(shape);
                         ChargedBackgroundModel model = new ChargedBackgroundModel(
                                 ARGENT,
-                                new OrdinaryCharge(Ordinary.CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
-                                new OrdinaryCharge(Ordinary.SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(CROSS, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
+                                new OrdinaryCharge(SALTIRE, Line.PLAIN, new FieldBackground(SABLE), new ArrayList<Charge>()),
                                 new MobileCharge("fleur-de-lis", GULES)
                         );
                         coat.setModel(model);
