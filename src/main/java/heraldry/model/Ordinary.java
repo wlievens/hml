@@ -77,7 +77,7 @@ public enum Ordinary
     SALTIRE_FILLET(new SaltireOrdinaryRenderer(1.0, 0.5)),
     SALTOREL(new SaltireOrdinaryRenderer(0.5, 0.5)),
     SHAKEFORK(null),
-    TRESSURE(null);
+    TRESSURE(new BordureOrdinaryRenderer(0.25, 0.125));
 
     @Getter
     private final OrdinaryRenderer renderer;
