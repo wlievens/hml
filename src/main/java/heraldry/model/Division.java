@@ -17,7 +17,7 @@ public enum Division
 {
     BEND(new BendDivisionRenderer(false)),
     BEND_SINISTER(new BendDivisionRenderer(true)),
-    CHAUSSÉ(null),
+    CHAUSSE(null),
     CHEVRON(new ChevronDivisionRenderer(false)),
     CHEVRON_INVERTED(new ChevronDivisionRenderer(true)),
     FESS(new FessDivisionRenderer()),

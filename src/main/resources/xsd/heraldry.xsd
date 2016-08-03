@@ -33,7 +33,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="bend"/>
             <xs:enumeration value="bend-sinister"/>
-            <xs:enumeration value="chaussé"/>
+            <xs:enumeration value="chausse"/>
             <xs:enumeration value="chevron"/>
             <xs:enumeration value="chevron-inverted"/>
             <xs:enumeration value="fess"/>
